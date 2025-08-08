@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2 d17.14
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard", "VaccinationCard\VaccinationCard.csproj", "{EE5F21EE-92A0-4BA3-8C66-DAE3728CE636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Domain", "VaccinationCard.Domain\VaccinationCard.Domain.csproj", "{55AC4741-B301-4F42-868C-457934D483E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Infrastructure", "VaccinationCard.Infrastructure\VaccinationCard.Infrastructure.csproj", "{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{EE5F21EE-92A0-4BA3-8C66-DAE3728CE636}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE5F21EE-92A0-4BA3-8C66-DAE3728CE636}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE5F21EE-92A0-4BA3-8C66-DAE3728CE636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AC4741-B301-4F42-868C-457934D483E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55AC4741-B301-4F42-868C-457934D483E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55AC4741-B301-4F42-868C-457934D483E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55AC4741-B301-4F42-868C-457934D483E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
