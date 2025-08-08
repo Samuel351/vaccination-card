@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VaccinationCard.Domain.Entities;
+
+namespace VaccinationCard.Infrastructure.Configurations
+{
+    internal class PersonEntityConfiguration : IEntityTypeConfiguration<Person>
+    {
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Person> builder)
+        {
+            builder.HasKey(x => x.EntityId);
+
+            builder.HasMany(x => x.VaccinationRecords)
+                .WithOne(x => x.Person)
+                .HasForeignKey(x => x.PersonId);
+        }
+    }
+}
