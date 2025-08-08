@@ -18,8 +18,8 @@ namespace VaccinationCard.Domain.Entities
 
         public required Person Person { get; set; }
 
-        public Guid VaccineDoseTypeId { get; set; }
+        public Guid DoseTypeId { get; set; }
 
-        public required DoseType VaccineDoseType { get; set; }
+        public required DoseType DoseType { get; set; }
     }
 }
