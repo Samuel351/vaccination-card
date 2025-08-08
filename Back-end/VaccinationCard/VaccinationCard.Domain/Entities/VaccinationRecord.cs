@@ -17,5 +17,9 @@ namespace VaccinationCard.Domain.Entities
         public Guid PersonId { get; set; }
 
         public required Person Person { get; set; }
+
+        public Guid VaccineDoseTypeId { get; set; }
+
+        public required DoseType VaccineDoseType { get; set; }
     }
 }
