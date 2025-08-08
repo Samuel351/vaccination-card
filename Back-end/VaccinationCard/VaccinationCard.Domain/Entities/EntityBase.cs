@@ -12,6 +12,5 @@ namespace VaccinationCard.Domain.Entities
 
         public string? Name { get; set; }
 
-        public bool IsDeleted { get; set; }
     }
 }
