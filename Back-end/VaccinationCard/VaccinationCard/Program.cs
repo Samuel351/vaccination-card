@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using VaccinationCard.Infrastructure;
-using VaccinationCard.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
