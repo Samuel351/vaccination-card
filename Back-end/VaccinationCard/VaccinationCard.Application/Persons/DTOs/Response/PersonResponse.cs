@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VaccinationCard.Application.Persons.DTOs
+namespace VaccinationCard.Application.Persons.DTOs.Response
 {
-    public sealed record CreateUserRequest(string Name);
+    public sealed record PersonResponse(Guid id, string Name);
 }
