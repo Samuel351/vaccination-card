@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard", "VaccinationCard\VaccinationCard.csproj", "{EE5F21EE-92A0-4BA3-8C66-DAE3728CE636}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Api", "VaccinationCard\VaccinationCard.Api.csproj", "{EE5F21EE-92A0-4BA3-8C66-DAE3728CE636}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Domain", "VaccinationCard.Domain\VaccinationCard.Domain.csproj", "{55AC4741-B301-4F42-868C-457934D483E9}"
 EndProject
