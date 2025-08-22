@@ -10,7 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(config => config.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Database connection string not configured")));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Database connection string not configured");
+builder.Services.AddDbContext<AppDbContext>(config => config.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 var app = builder.Build();
 

@@ -28,13 +28,5 @@ namespace VaccinationCard.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new VaccinationRecordEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VaccineEntityConfiguration());
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-            optionsBuilder.UseMySQL("server=localhost;uid=root;pwd=root;database=vaccine-db-dev");
-
-            base.OnConfiguring(optionsBuilder);
-        }
     }
 }
