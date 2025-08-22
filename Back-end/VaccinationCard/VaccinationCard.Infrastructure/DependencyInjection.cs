@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Infrastructure.Data;
 using VaccinationCard.Infrastructure.Repositories;
