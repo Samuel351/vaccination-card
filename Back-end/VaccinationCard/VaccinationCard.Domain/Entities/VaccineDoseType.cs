@@ -15,5 +15,13 @@ namespace VaccinationCard.Domain.Entities
         public Guid DoseTypeId { get; set; }
 
         public DoseType DoseType { get; set; }
+
+        public VaccineDoseType() { }
+
+        public VaccineDoseType(Vaccine vaccine, Guid doseTypeId)
+        {
+            Vaccine = vaccine;
+            DoseTypeId = doseTypeId;
+        }
     }
 }

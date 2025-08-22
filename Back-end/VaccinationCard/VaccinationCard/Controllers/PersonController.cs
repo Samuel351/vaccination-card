@@ -18,9 +18,9 @@ namespace VaccinationCard.Api.Controllers
         {
             var command = new CreatePersonCommand(request.Name);
 
-            await _mediator.Send(command, cancellationToken);
+            var result = await _mediator.Send(command, cancellationToken);
 
-            return Ok();
+            return StatusCode((int) result.StatusCode);
         }
     }
 }
