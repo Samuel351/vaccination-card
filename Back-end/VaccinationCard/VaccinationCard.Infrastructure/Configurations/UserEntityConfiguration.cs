@@ -14,11 +14,6 @@ namespace VaccinationCard.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.EntityId);
-
-            builder
-                .HasOne(x => x.Person)
-                .WithOne()
-                .HasForeignKey<User>(x => x.PersonId);
         }
     }
 }

@@ -8,6 +8,11 @@ namespace VaccinationCard.Domain.Entities
 {
     public class Person : EntityBase
     {
+        public string FullName { get; set; }
+        public string Email { get; set; }
+
+        public string CPF { get; set; }
+
         public List<VaccinationRecord> VaccinationRecords { get; set; } = [];
     }
 }

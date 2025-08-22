@@ -2,6 +2,7 @@
 {
     public class DoseType : EntityBase
     {
+        public string Name { get; set; }
         public int Order { get; set; }
 
         public List<VaccinationRecord> VaccinationRecords { get; set; } = [];

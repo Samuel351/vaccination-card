@@ -6,9 +6,5 @@
 
         public string Password { get; set; }
 
-        public Guid? PersonId { get; set; }
-
-        public Person? Person { get; set; }
-
     }
 }

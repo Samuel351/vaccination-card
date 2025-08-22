@@ -9,8 +9,5 @@ namespace VaccinationCard.Domain.Entities
     public class EntityBase
     {
         public Guid EntityId { get; set; }
-
-        public string? Name { get; set; }
-
     }
 }

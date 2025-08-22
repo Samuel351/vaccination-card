@@ -8,6 +8,7 @@ namespace VaccinationCard.Domain.Entities
 {
     public class Vaccine : EntityBase
     {
+        public string Name { get; set; }
         public List<VaccinationRecord> VaccineRecords { get; set; } = [];
 
         public List<VaccineDoseType> VaccineDoseTypes { get; set; } = [];
