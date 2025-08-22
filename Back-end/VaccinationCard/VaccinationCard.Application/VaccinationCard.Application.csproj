@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

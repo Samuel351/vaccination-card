@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Domain", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Infrastructure", "VaccinationCard.Infrastructure\VaccinationCard.Infrastructure.csproj", "{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationCard.Application", "VaccinationCard.Application\VaccinationCard.Application.csproj", "{F79E691D-3009-4164-BF72-7E343DCEAB03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA93D6DA-E1D0-42FE-8C0D-65C6408C105D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F79E691D-3009-4164-BF72-7E343DCEAB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79E691D-3009-4164-BF72-7E343DCEAB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79E691D-3009-4164-BF72-7E343DCEAB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79E691D-3009-4164-BF72-7E343DCEAB03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
