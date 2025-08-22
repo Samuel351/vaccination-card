@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VaccinationCard.Infrastructure;
 using VaccinationCard.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("Database connection string not configured");
-builder.Services.AddDbContext<AppDbContext>(config => config.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
