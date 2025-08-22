@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace VaccinationCard.Infrastructure.Configurations
 {
     internal class PersonEntityConfiguration : IEntityTypeConfiguration<Person>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Person> builder)
+        public void Configure(EntityTypeBuilder<Person> builder)
         {
             builder.HasKey(x => x.EntityId);
 
