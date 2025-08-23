@@ -23,6 +23,6 @@ namespace VaccinationCard.Api.Controllers
             return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
         }
 
-        // Registar
+        
     }
 }
