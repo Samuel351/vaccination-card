@@ -16,10 +16,8 @@ namespace VaccinationCard.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
-        public async Task<IActionResult> RegisterPerson([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> RegisterPerson([FromBody] CreatePersonCommand command, CancellationToken cancellationToken)
         {
-            var command = new CreatePersonCommand(request.Name);
-
             var result = await _mediator.Send(command, cancellationToken);
 
             return StatusCode((int) result.StatusCode);
