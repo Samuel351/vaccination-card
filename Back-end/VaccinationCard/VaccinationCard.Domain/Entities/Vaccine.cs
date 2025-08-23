@@ -15,5 +15,11 @@ namespace VaccinationCard.Domain.Entities
         public int DoseQuantity { get; set; }   
 
         public Vaccine() { }
+
+        public Vaccine(string name, int doseQuantity)
+        {
+            Name = name;
+            DoseQuantity = doseQuantity;
+        }
     }
 }
