@@ -40,6 +40,11 @@ namespace VaccinationCard.Infrastructure.Repositories
                 await _appDbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
     }
 }
 
