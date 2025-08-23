@@ -63,6 +63,7 @@ namespace VaccinationCard.Infrastructure.Migrations
                 name: "VaccinationRecords",
                 columns: table => new
                 {
+                    EntityId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     VaccineId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     PersonId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     DoseNumber = table.Column<int>(type: "int", nullable: false),
@@ -70,21 +71,29 @@ namespace VaccinationCard.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VaccinationRecords", x => new { x.VaccineId, x.PersonId, x.DoseNumber });
+                    table.PrimaryKey("PK_VaccinationRecords", x => new { x.EntityId, x.VaccineId, x.PersonId, x.DoseNumber });
                     table.ForeignKey(
-                        name: "FK_VaccinationRecords_Persons_VaccineId",
-                        column: x => x.VaccineId,
+                        name: "FK_VaccinationRecords_Persons_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "Persons",
-                        principalColumn: "EntityId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EntityId");
                     table.ForeignKey(
                         name: "FK_VaccinationRecords_Vaccines_VaccineId",
                         column: x => x.VaccineId,
                         principalTable: "Vaccines",
-                        principalColumn: "EntityId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EntityId");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VaccinationRecords_PersonId",
+                table: "VaccinationRecords",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VaccinationRecords_VaccineId",
+                table: "VaccinationRecords",
+                column: "VaccineId");
         }
 
         /// <inheritdoc />

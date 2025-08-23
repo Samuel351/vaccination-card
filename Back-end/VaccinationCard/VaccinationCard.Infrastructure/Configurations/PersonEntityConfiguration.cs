@@ -17,7 +17,8 @@ namespace VaccinationCard.Infrastructure.Configurations
 
             builder.HasMany(x => x.VaccinationRecords)
                 .WithOne(x => x.Person)
-                .HasForeignKey(x => x.PersonId);
+                .HasForeignKey(x => x.PersonId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

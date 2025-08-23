@@ -13,15 +13,19 @@ namespace VaccinationCard.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<VaccinationRecord> builder)
         {
-            builder.HasKey(x => new { x.VaccineId, x.PersonId, x.DoseNumber });
+            builder.HasKey(x => new {  x.EntityId, x.VaccineId, x.PersonId, x.DoseNumber });
+
+            builder.Property(x => x.EntityId).ValueGeneratedOnAdd();
 
             builder.HasOne(x => x.Vaccine)
                 .WithMany(x => x.VaccineRecords)
-                .HasForeignKey(x => x.VaccineId);
+                .HasForeignKey(x => x.VaccineId)
+                .OnDelete(DeleteBehavior.ClientSetNull) ;
 
             builder.HasOne(x => x.Person)
                 .WithMany(x => x.VaccinationRecords)
-                .HasForeignKey(x => x.VaccineId);
+                .HasForeignKey(x => x.PersonId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }
