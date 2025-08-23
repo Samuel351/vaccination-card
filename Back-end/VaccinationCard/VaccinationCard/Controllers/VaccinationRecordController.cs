@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VaccinationCard.Application.DTOs.Requests;
 using VaccinationCard.Application.VaccinationRecords.Commands;
-using VaccinationCard.Application.VaccinationRecords.DTOs.Requests;
 
 namespace VaccinationCard.Api.Controllers
 {
@@ -14,15 +14,12 @@ namespace VaccinationCard.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
-        public async Task<IActionResult> RegisterVaccinationRecord(CreateVaccinationRequest request)
+        public async Task<IActionResult> RegisterVaccinationRecord(CreateVaccinationRecordCommand command, CancellationToken cancellationToken)
         {
-            var command = new CreateVaccinationRecordCommand(request.PersonId, request.VaccineId, request.DoseNumber, request.VaccinationDate);
-
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
         }
-
-        
+       
     }
 }

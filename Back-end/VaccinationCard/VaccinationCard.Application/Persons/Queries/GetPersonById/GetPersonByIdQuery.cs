@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VaccinationCard.Application.Persons.DTOs.Response;
+using VaccinationCard.Application.DTOs.Responses;
 using VaccinationCard.SharedKernel;
 
 namespace VaccinationCard.Application.Persons.Queries.GetPersonById

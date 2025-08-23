@@ -1,6 +1,6 @@
 ﻿using MediatR;
+using VaccinationCard.Application.DTOs.Responses;
 using VaccinationCard.Application.Interfaces.Repositories;
-using VaccinationCard.Application.Persons.DTOs.Response;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.SharedKernel;

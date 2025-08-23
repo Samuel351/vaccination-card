@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VaccinationCard.Application.Interfaces.Repositories;
+using VaccinationCard.Domain.Interfaces.Repositories;
 using VaccinationCard.Infrastructure.Data;
 using VaccinationCard.Infrastructure.Repositories;
 
@@ -16,6 +17,7 @@ namespace VaccinationCard.Infrastructure
                     ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection"))));
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             return services;
         }

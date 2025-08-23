@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VaccinationCard.Application.Persons.DTOs.Response
+namespace VaccinationCard.Application.DTOs.Responses
 {
     public sealed record PersonResponse(Guid id, string Name);
 }
