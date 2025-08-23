@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
+using VaccinationCard.Application.Persons.Commands.DeletePerson;
 using VaccinationCard.Application.Persons.DTOs.Requests;
 using VaccinationCard.Application.Persons.Queries.GetPersonById;
 
@@ -23,8 +24,8 @@ namespace VaccinationCard.Api.Controllers
             return StatusCode((int) result.StatusCode);
         }
 
-        [HttpGet("/{PersonId}")]
-        public async Task<IActionResult> GetPersonById([FromRoute] Guid PersonId, CancellationToken cancellationToken)
+        [HttpGet("{personId}")]
+        public async Task<IActionResult> GetPersonById([FromRoute(Name = "personId")] Guid PersonId, CancellationToken cancellationToken)
         {
 
             var query = new GetPersonByIdQuery(PersonId);
@@ -33,5 +34,16 @@ namespace VaccinationCard.Api.Controllers
 
             return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
         }
+
+        [HttpDelete("{personId}")]
+        public async Task<IActionResult> DeletePersonById([FromRoute(Name = "personId")] Guid PersonId, CancellationToken cancellationToken)
+        {
+            var command = new DeletePersonCommand(PersonId);
+
+            var result = await _mediator.Send(command, cancellationToken);
+
+            return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
+        }
+        
     }
 }
