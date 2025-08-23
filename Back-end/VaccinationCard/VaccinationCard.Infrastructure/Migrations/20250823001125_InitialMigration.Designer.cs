@@ -12,7 +12,7 @@ using VaccinationCard.Infrastructure.Data;
 namespace VaccinationCard.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250822233025_InitialMigration")]
+    [Migration("20250823001125_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,24 +24,6 @@ namespace VaccinationCard.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.DoseType", b =>
-                {
-                    b.Property<Guid>("EntityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("EntityId");
-
-                    b.ToTable("DoseTypes");
-                });
 
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Person", b =>
                 {
@@ -82,18 +64,16 @@ namespace VaccinationCard.Infrastructure.Migrations
                     b.Property<Guid>("VaccineId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("DoseTypeId")
-                        .HasColumnType("char(36)");
-
                     b.Property<Guid>("PersonId")
                         .HasColumnType("char(36)");
+
+                    b.Property<int>("DoseNumber")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("VaccinationDate")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("VaccineId", "DoseTypeId", "PersonId");
-
-                    b.HasIndex("DoseTypeId");
+                    b.HasKey("VaccineId", "PersonId", "DoseNumber");
 
                     b.ToTable("VaccinationRecords");
                 });
@@ -104,6 +84,9 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<int>("DoseQuantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -113,29 +96,8 @@ namespace VaccinationCard.Infrastructure.Migrations
                     b.ToTable("Vaccines");
                 });
 
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.VaccineDoseType", b =>
-                {
-                    b.Property<Guid>("VaccineId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("DoseTypeId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("VaccineId", "DoseTypeId");
-
-                    b.HasIndex("DoseTypeId");
-
-                    b.ToTable("VaccineDoseTypes");
-                });
-
             modelBuilder.Entity("VaccinationCard.Domain.Entities.VaccinationRecord", b =>
                 {
-                    b.HasOne("VaccinationCard.Domain.Entities.DoseType", "DoseType")
-                        .WithMany("VaccinationRecords")
-                        .HasForeignKey("DoseTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VaccinationCard.Domain.Entities.Person", "Person")
                         .WithMany("VaccinationRecords")
                         .HasForeignKey("VaccineId")
@@ -148,37 +110,9 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DoseType");
-
                     b.Navigation("Person");
 
                     b.Navigation("Vaccine");
-                });
-
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.VaccineDoseType", b =>
-                {
-                    b.HasOne("VaccinationCard.Domain.Entities.DoseType", "DoseType")
-                        .WithMany("VaccineDoseTypes")
-                        .HasForeignKey("DoseTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VaccinationCard.Domain.Entities.Vaccine", "Vaccine")
-                        .WithMany("VaccineDoseTypes")
-                        .HasForeignKey("VaccineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DoseType");
-
-                    b.Navigation("Vaccine");
-                });
-
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.DoseType", b =>
-                {
-                    b.Navigation("VaccinationRecords");
-
-                    b.Navigation("VaccineDoseTypes");
                 });
 
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Person", b =>
@@ -188,8 +122,6 @@ namespace VaccinationCard.Infrastructure.Migrations
 
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccine", b =>
                 {
-                    b.Navigation("VaccineDoseTypes");
-
                     b.Navigation("VaccineRecords");
                 });
 #pragma warning restore 612, 618

@@ -18,10 +18,6 @@ namespace VaccinationCard.Infrastructure.Configurations
             builder.HasMany(x => x.VaccineRecords)
                 .WithOne(x => x.Vaccine)
                 .HasForeignKey(x => x.VaccineId);
-
-            builder.HasMany(x => x.VaccineDoseTypes)
-                .WithOne(x => x.Vaccine)
-                .HasForeignKey(x => x.VaccineId);
         }
     }
 }

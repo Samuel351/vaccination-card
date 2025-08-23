@@ -13,7 +13,7 @@ namespace VaccinationCard.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<VaccinationRecord> builder)
         {
-            builder.HasKey(x => new { x.VaccineId, x.DoseTypeId, x.PersonId });
+            builder.HasKey(x => new { x.VaccineId, x.PersonId, x.DoseNumber });
 
             builder.HasOne(x => x.Vaccine)
                 .WithMany(x => x.VaccineRecords)
@@ -22,10 +22,6 @@ namespace VaccinationCard.Infrastructure.Configurations
             builder.HasOne(x => x.Person)
                 .WithMany(x => x.VaccinationRecords)
                 .HasForeignKey(x => x.VaccineId);
-
-            builder.HasOne(x => x.DoseType)
-                .WithMany(x => x.VaccinationRecords)
-                .HasForeignKey(x => x.DoseTypeId);
         }
     }
 }

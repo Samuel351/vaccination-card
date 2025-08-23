@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VaccinationCard.Domain.Entities
+﻿namespace VaccinationCard.Domain.Entities
 {
     public class VaccinationRecord 
     {
@@ -18,8 +12,7 @@ namespace VaccinationCard.Domain.Entities
 
         public required Person Person { get; set; }
 
-        public Guid DoseTypeId { get; set; }
+        public int DoseNumber { get; set; } 
 
-        public required DoseType DoseType { get; set; }
     }
 }

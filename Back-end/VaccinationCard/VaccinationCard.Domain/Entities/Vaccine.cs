@@ -11,17 +11,9 @@ namespace VaccinationCard.Domain.Entities
         public string Name { get; set; }
         public List<VaccinationRecord> VaccineRecords { get; set; } = [];
 
-        public List<VaccineDoseType> VaccineDoseTypes { get; set; } = [];
+        // Quantidade de doses que a vacina pode ter.
+        public int DoseQuantity { get; set; }   
 
         public Vaccine() { }
-
-        public Vaccine(string name, List<Guid> doseTypeIds)
-        {
-            Name = name;
-            doseTypeIds.ForEach(doseTypeId =>
-            {
-                VaccineDoseTypes.Add(new VaccineDoseType(this, doseTypeId));
-            });
-        }
     }
 }
