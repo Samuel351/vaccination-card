@@ -1,6 +1,6 @@
 ﻿namespace VaccinationCard.Domain.Entities
 {
-    public class VaccinationRecord : EntityBase
+    public class Vaccination : EntityBase
     {
         public DateTime VaccinationDate { get; set; }
 
@@ -14,9 +14,9 @@
 
         public int DoseNumber { get; set; } 
 
-        public VaccinationRecord() { }
+        public Vaccination() { }
 
-        public VaccinationRecord(Guid vaccineId, Guid personId, int doseNumber, DateTime vaccinationDate)
+        public Vaccination(Guid vaccineId, Guid personId, int doseNumber, DateTime vaccinationDate)
         {
             VaccineId = vaccineId;
             PersonId = personId;

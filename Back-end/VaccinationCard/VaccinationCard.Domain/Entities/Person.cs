@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
         
-        public List<VaccinationRecord> VaccinationRecords { get; set; } = [];
+        public List<Vaccination> Vaccinations { get; set; } = [];
 
         public Person() { }
 

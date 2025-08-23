@@ -9,9 +9,9 @@ using VaccinationCard.Domain.Entities;
 
 namespace VaccinationCard.Infrastructure.Configurations
 {
-    public class VaccinationRecordEntityConfiguration : IEntityTypeConfiguration<VaccinationRecord>
+    public class VaccinationRecordEntityConfiguration : IEntityTypeConfiguration<Vaccination>
     {
-        public void Configure(EntityTypeBuilder<VaccinationRecord> builder)
+        public void Configure(EntityTypeBuilder<Vaccination> builder)
         {
             builder.HasKey(x => new {  x.EntityId, x.VaccineId, x.PersonId, x.DoseNumber });
 

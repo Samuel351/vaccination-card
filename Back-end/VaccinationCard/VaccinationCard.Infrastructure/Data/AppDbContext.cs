@@ -13,7 +13,7 @@ namespace VaccinationCard.Infrastructure.Data
 
         public DbSet<Vaccine> Vaccines { get; set; }
 
-        public DbSet<VaccinationRecord> VaccinationRecords { get; set; }
+        public DbSet<Vaccination> VaccinationRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

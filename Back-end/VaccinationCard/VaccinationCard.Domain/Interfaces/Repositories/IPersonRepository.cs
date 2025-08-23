@@ -5,6 +5,6 @@ namespace VaccinationCard.Domain.Interfaces.Repositories
 {
     public interface IPersonRepository : IBaseRepository<Person>
     {
-        Task<List<VaccinationRecord>> GetPersonVaccinationRecords(Guid PersonId);
+        Task<List<Vaccination>> GetPersonVaccinationRecords(Guid PersonId);
     }
 }

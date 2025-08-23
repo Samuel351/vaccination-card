@@ -10,7 +10,7 @@ namespace VaccinationCard.Infrastructure.Repositories
 
         private readonly AppDbContext _appDbContext = appDbContext;
 
-        public async Task<List<VaccinationRecord>> GetPersonVaccinationRecords(Guid PersonId)
+        public async Task<List<Vaccination>> GetPersonVaccinationRecords(Guid PersonId)
         {
             var person = await _appDbContext.Persons
                 .AsNoTracking()
