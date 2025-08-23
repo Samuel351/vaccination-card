@@ -1,7 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using VaccinationCard.Application.DTOs.Requests;
 using VaccinationCard.Application.VaccinationRecords.Commands;
 
 namespace VaccinationCard.Api.Controllers

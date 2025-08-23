@@ -1,8 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using VaccinationCard.Application.DTOs.Requests;
 using VaccinationCard.Application.Vaccines.Commands.CreateVaccine;
 using VaccinationCard.Application.Vaccines.Queries.GetAllVaccines;
 

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using VaccinationCard.Application.DTOs.Requests;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
 using VaccinationCard.Application.Persons.Commands.DeletePerson;
 using VaccinationCard.Application.Persons.Queries.GetPersonById;
