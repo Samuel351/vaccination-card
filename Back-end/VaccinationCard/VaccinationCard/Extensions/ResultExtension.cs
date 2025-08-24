@@ -1,5 +1,6 @@
 ﻿using Domain.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using VaccinationCard.Api.Responses;
 
 namespace VaccinationCard.Api.Extensions
 {
@@ -7,12 +8,28 @@ namespace VaccinationCard.Api.Extensions
     {
         public static IActionResult HandleResult(this ControllerBase controller, Result result)
         {
-            return controller.StatusCode((int)result.StatusCode, result.IsSuccess ? null : result.Error);
+            ApiResponse? apiResponse;
+            if (result.IsSuccess)
+            {
+                apiResponse = new ApiResponse(result.IsSuccess, "", result.StatusCode);
+            }
+            else
+            {
+                apiResponse = new ApiResponse(result.IsSuccess, result.Error?.Description ?? string.Empty, result.StatusCode);
+            }
+
+            return controller.StatusCode(apiResponse.StatusCode, apiResponse);
         }
 
         public static IActionResult HandleResult<T>(this ControllerBase controller, Result<T> result)
         {
-            return controller.StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
+            if(!result.IsSuccess)
+            {
+                ApiResponse apiResponse = new ApiResponse(result.IsFailure, result.Error?.Description ?? string.Empty, result.StatusCode);
+
+                return controller.StatusCode(apiResponse.StatusCode, apiResponse);
+            }
+            return controller.StatusCode((int)result.StatusCode, result.Value);
         }
     }
 }
