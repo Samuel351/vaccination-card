@@ -13,5 +13,10 @@ namespace VaccinationCard.Domain.Interfaces.Repositories
         Task<bool> CPFExists(string CPF);
 
         Task<bool> EmailExists(string email);
+
+        Task<Person?> GetPersonByCPF(string CPF);
+
+        Task<Person?> GetPersonByEmail(string email);
+
     }
 }

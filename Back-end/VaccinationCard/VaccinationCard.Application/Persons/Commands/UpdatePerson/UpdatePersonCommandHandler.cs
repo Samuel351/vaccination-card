@@ -1,31 +1,47 @@
 ﻿using Domain.Abstractions;
 using MediatR;
 using System.Net;
-using VaccinationCard.Application.Interfaces.Repositories;
-using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
+using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Persons.Commands.UpdatePerson
 {
-    internal class UpdatePersonCommandHandler(IBaseRepository<Person> personRepository) : IRequestHandler<UpdatePersonCommand, Result>
+    internal class UpdatePersonCommandHandler(IPersonRepository personRepository) : IRequestHandler<UpdatePersonCommand, Result>
     {
 
-        private readonly IBaseRepository<Person> _personRepository = personRepository;
+        private readonly IPersonRepository _personRepository = personRepository;
 
         public async Task<Result> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
-            // verificar se existe 
             var person = await _personRepository.GetByIdAsync(request.PersonId);
-
-            if(person == null)
+            if (person == null)
             {
                 return Result.Failure(PersonErrors.NotFound, HttpStatusCode.NotFound);
             }
 
-            person.Update(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.BirthDate);
+            var cpfOwner = await _personRepository.GetPersonByCPF(request.CPF);
+            if (cpfOwner != null && cpfOwner.EntityId != request.PersonId)
+            {
+                return Result.Failure(PersonErrors.CPFAlreadyExists);
+            }
+                
+
+            var emailOwner = await _personRepository.GetPersonByEmail(request.Email);
+            if (emailOwner != null && emailOwner.EntityId != request.PersonId)
+            {
+                return Result.Failure(PersonErrors.EmailAlreadyExists);
+            }
+
+            person.Update(
+                request.Name,
+                request.CPF,
+                request.Email,
+                request.PhoneNumber,
+                request.Gender,
+                request.BirthDate
+            );
 
             await _personRepository.UpdateAsync(person);
-
             return Result.Success();
         }
     }

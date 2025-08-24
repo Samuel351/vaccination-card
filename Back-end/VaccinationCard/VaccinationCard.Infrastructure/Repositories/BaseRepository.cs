@@ -17,7 +17,7 @@ namespace VaccinationCard.Infrastructure.Repositories
         private readonly DbSet<T> _dbSet = appDbContext.Set<T>();
 
         public async Task<T?> GetByIdAsync(Guid id) =>
-            await _dbSet.FirstOrDefaultAsync(e => e.EntityId == id);
+            await _dbSet.SingleOrDefaultAsync(e => e.EntityId == id);
 
         public async Task AddAsync(T entity)
         {

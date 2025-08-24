@@ -40,13 +40,23 @@ namespace VaccinationCard.Infrastructure.Repositories
             return new PaginatedResponse<Person>(items, totalItems, pageNumber, pageSize);
         }
 
+        public async Task<Person?> GetPersonByCPF(string CPF)
+        {
+            return await _appDbContext.Persons.SingleOrDefaultAsync(x => x.CPF == CPF);
+        }
+
+        public async Task<Person?> GetPersonByEmail(string email)
+        {
+            return await _appDbContext.Persons.SingleOrDefaultAsync(x => x.Email == email);
+        }
+
         public async Task<List<Vaccination>> GetPersonVaccinations(Guid PersonId)
         {
             var person = await _appDbContext.Persons
                 .AsNoTracking()
                 .Include(x => x.Vaccinations)
                 .ThenInclude(x => x.Vaccine)
-                .FirstOrDefaultAsync(x => x.EntityId == PersonId);
+                .SingleOrDefaultAsync(x => x.EntityId == PersonId);
 
             if (person == null) return [];
 
