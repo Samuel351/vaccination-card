@@ -18,6 +18,7 @@ namespace VaccinationCard.Infrastructure
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IVaccinationRepository, VaccinationRepository>();
 
             return services;
         }

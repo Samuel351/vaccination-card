@@ -1,4 +1,7 @@
-﻿namespace VaccinationCard.Domain.Entities
+﻿using System.Reflection;
+using System.Xml.Linq;
+
+namespace VaccinationCard.Domain.Entities
 {
     public class Vaccination : EntityBase
     {
@@ -16,13 +19,19 @@
 
         public Vaccination() { }
 
-        public Vaccination(Guid vaccineId, Guid personId, int doseNumber, DateTime vaccinationDate)
+        public Vaccination(Guid vaccineId, Guid personId, int doseNumber, DateTime applicationDate)
         {
             VaccineId = vaccineId;
             PersonId = personId;
             DoseNumber = doseNumber;
-            ApplicationDate = vaccinationDate;
+            ApplicationDate = applicationDate;
         }
+        public void Update(int doseNumber, DateTime applicationDate)
+        {
+            DoseNumber = doseNumber;
+            ApplicationDate = applicationDate;
+        }
+
 
     }
 }

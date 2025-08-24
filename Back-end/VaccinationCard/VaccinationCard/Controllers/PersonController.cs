@@ -21,7 +21,7 @@ namespace VaccinationCard.Api.Controllers
         {
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int) result.StatusCode);
+            return StatusCode((int) result.StatusCode, !result.IsSuccess ? result.Error : null);
         }
 
         [HttpPut]

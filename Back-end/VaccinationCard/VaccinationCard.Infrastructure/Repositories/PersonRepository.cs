@@ -30,7 +30,7 @@ namespace VaccinationCard.Infrastructure.Repositories
             return new PaginatedResponse<Person>(items, totalItems, pageNumber, pageSize);
         }
 
-        public async Task<List<Vaccination>> GetPersonVaccinationRecords(Guid PersonId)
+        public async Task<List<Vaccination>> GetPersonVaccinations(Guid PersonId)
         {
             var person = await _appDbContext.Persons
                 .AsNoTracking()

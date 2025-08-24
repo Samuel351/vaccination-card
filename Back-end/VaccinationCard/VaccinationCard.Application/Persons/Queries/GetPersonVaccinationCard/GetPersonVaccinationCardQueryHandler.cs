@@ -14,11 +14,11 @@ namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
 
         public async Task<Result<List<VaccinationCardResponse>>> Handle(GetPersonVaccinationCardQuery request, CancellationToken cancellationToken)
         {
-            var vaccinationRecords = await _personRepository.GetPersonVaccinationRecords(request.PersonId) ?? [];
+            var vaccinations = await _personRepository.GetPersonVaccinations(request.PersonId) ?? [];
 
-            if (vaccinationRecords.Count == 0) return Result<List<VaccinationCardResponse>>.Failure(VaccinationErrors.NotFound, HttpStatusCode.NoContent);
+            if (vaccinations.Count == 0) return Result<List<VaccinationCardResponse>>.Failure(VaccinationErrors.NotFound, HttpStatusCode.NoContent);
 
-            return Result<List<VaccinationCardResponse>>.Success([.. vaccinationRecords.Select(vaccinationRecord => new VaccinationCardResponse(vaccinationRecord.VaccineId, vaccinationRecord.Vaccine.Name, vaccinationRecord.ApplicationDate, vaccinationRecord.DoseNumber))]);
+            return Result<List<VaccinationCardResponse>>.Success([.. vaccinations.Select(vaccinationRecord => new VaccinationCardResponse(vaccinationRecord.EntityId, vaccinationRecord.VaccineId, vaccinationRecord.Vaccine.Name, vaccinationRecord.ApplicationDate, vaccinationRecord.DoseNumber))]);
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using VaccinationCard.Application.Persons.Commands.CreatePerson;
 
-namespace VaccinationCard.Application.Persons.Validators
+namespace VaccinationCard.Application.Persons.Commands.CreatePerson
 {
-    internal class CreatePersonValidator : AbstractValidator<CreatePersonCommand>
+    internal class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
     {
-        public CreatePersonValidator()
+        public CreatePersonCommandValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("O nome da pessoa é obrigatório")

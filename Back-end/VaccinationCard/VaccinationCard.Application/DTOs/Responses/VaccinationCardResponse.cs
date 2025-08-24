@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace VaccinationCard.Application.DTOs.Responses
 {
-    public sealed record VaccinationCardResponse(Guid VaccineId, string VaccineName, DateTime ApplicationDate, int DoseNumber);
+    public sealed record VaccinationCardResponse(Guid VaccinationId, Guid VaccineId, string VaccineName, DateTime ApplicationDate, int DoseNumber);
     
 }
