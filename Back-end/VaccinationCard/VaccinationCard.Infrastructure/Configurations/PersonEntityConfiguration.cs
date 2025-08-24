@@ -20,9 +20,9 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .HasForeignKey(x => x.PersonId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValue("getDate()");
+            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("CURDATE()");
 
-            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValue("getDate()");
+            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValueSql("CURDATE()");
         }
     }
 }

@@ -28,9 +28,9 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
 
-            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValue("getDate()");
+            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValue("CURDATE()");
 
-            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValue("getDate()");
+            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValue("CURDATE()");
         }
     }
 }
