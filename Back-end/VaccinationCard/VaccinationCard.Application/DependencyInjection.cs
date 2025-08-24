@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using VaccinationCard.Application.Behaviors;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
+using VaccinationCard.Domain.Services;
 
 namespace VaccinationCard.Application
 {
@@ -19,6 +20,7 @@ namespace VaccinationCard.Application
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreatePersonCommandHandler>());
             services.AddValidatorsFromAssembly(typeof(CreatePersonCommandHandler).Assembly, includeInternalTypes: true);
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddScoped<VaccinationService>();
 
             return services;
         }

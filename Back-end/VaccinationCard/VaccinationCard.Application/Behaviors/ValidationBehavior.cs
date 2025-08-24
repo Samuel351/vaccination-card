@@ -28,6 +28,9 @@ namespace VaccinationCard.Application.Behaviors
                             .Select(x => x.Description)
                             .ToList();
 
+            
+
+            // TODO: Improve, this still bad.
             if (failures.Count != 0)
             {
                 return (TResponse)(object)Result.Failure(new Error("Validation.Error", string.Join(",", failures)));

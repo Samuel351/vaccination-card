@@ -14,7 +14,7 @@ namespace VaccinationCard.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
-        public async Task<IActionResult> RegisterVaccination(CreateVaccinationRecordCommand command, CancellationToken cancellationToken)
+        public async Task<IActionResult> RegisterVaccination(CreateVaccinationCommand command, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(command, cancellationToken);
 
