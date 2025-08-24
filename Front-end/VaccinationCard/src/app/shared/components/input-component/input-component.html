@@ -1,0 +1,33 @@
+<div class="input-group">
+  <label *ngIf="label" class="input-label" [class.required]="required">
+    {{ label }}
+    <span *ngIf="required" class="required-asterisk">*</span>
+  </label>
+  
+  <div [class]="containerClasses">
+    <div *ngIf="icon" class="input-icon">
+      <i [class]="'icon-' + icon"></i>
+    </div>
+    
+    <input
+      [type]="type"
+      [value]="value"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [class]="inputClasses"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+    
+    <div *ngIf="hasErrors" class="error-icon">
+      <i class="icon-alert-circle"></i>
+    </div>
+  </div>
+  
+  <div *ngIf="hasErrors" class="error-messages">
+    <div *ngFor="let error of getErrors()" class="error-message">
+      {{ error }}
+    </div>
+  </div>
+</div>
