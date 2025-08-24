@@ -2,7 +2,7 @@
 
 namespace VaccinationCard.Domain.Errors
 {
-    public static class VaccinesErrors
+    public static class VaccineErrors
     {
         public static readonly Error NotFound = new(
             "Vaccines.NotFound",

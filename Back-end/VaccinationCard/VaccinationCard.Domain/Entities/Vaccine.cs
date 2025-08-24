@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VaccinationCard.Domain.Entities
+﻿namespace VaccinationCard.Domain.Entities
 {
     public class Vaccine : EntityBase
     {
@@ -14,7 +8,12 @@ namespace VaccinationCard.Domain.Entities
         // Quantidade de doses que a vacina pode ter.
         public int RequiredDoses { get; set; }   
 
-        public Vaccine() { }
+        public void Update(Guid vaccineId , string name, int requiredDoses)
+        {
+            EntityId = vaccineId;
+            Name = name;
+            RequiredDoses = requiredDoses;
+        }
 
         public Vaccine(string name, int requiredDoses)
         {

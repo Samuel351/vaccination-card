@@ -18,6 +18,8 @@ namespace VaccinationCard.Api.Controllers
 
             return StatusCode((int)result.StatusCode);
         }
+
+
        
     }
 }

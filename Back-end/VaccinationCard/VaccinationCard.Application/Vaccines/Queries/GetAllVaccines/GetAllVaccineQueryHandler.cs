@@ -17,7 +17,7 @@ namespace VaccinationCard.Application.Vaccines.Queries.GetAllVaccines
         {
             var vaccines = await _vaccineRepository.GetAllAsync();
 
-            if (vaccines.Count == 0) return Result<List<VaccineResponse>>.Failure(VaccinesErrors.NotFound, HttpStatusCode.NoContent);
+            if (vaccines.Count == 0) return Result<List<VaccineResponse>>.Failure(VaccineErrors.NotFound, HttpStatusCode.NoContent);
 
             var vaccinesResponse = vaccines.Select(vaccine => new VaccineResponse(vaccine.EntityId, vaccine.Name, vaccine.RequiredDoses)).ToList();
 
