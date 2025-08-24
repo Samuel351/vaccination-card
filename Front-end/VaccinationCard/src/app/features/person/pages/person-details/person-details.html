@@ -1,0 +1,14 @@
+<div class="card">
+  <h2>Detalhes da Pessoa</h2>
+  <ul>
+    <li><strong>Nome:</strong> {{person?.name}}</li>
+    <li><strong>CPF:</strong> {{person?.cpf}}</li>
+    <li><strong>Email:</strong> {{person?.email}}</li>
+    <li><strong>Telefone:</strong> {{person?.phoneNumber}}</li>
+    <li><strong>Gênero:</strong> {{person?.gender}}</li>
+  </ul>
+
+  <div class="buttons-container">
+    <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
+  </div>
+</div>

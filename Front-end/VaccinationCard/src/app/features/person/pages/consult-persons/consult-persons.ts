@@ -7,10 +7,11 @@ import { PersonResponse } from '../../../../shared/models/personResponse';
 import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 import { Modal } from '../../../../shared/components/modal/modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-consult-persons',
-  imports: [TableComponent, ButtonComponent, Modal],
+  imports: [TableComponent, ButtonComponent, Modal, RouterLink],
   templateUrl: './consult-persons.html',
   styleUrl: './consult-persons.scss'
 })

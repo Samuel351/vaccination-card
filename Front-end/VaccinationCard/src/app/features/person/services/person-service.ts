@@ -38,5 +38,9 @@ export class PersonService {
   getPersonVaccinationCard(personId: string) : Observable<VaccinationResponse>{
     return this.http.get<VaccinationResponse>(this.apiUrl+"/"+personId+"/vaccination-card");
   }
+
+  getPersonById(personId: string) : Observable<PersonResponse>{
+    return this.http.get<PersonResponse>(this.apiUrl+"/"+personId);
+  }
   
 }

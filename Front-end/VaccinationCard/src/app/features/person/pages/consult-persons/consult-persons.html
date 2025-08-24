@@ -21,7 +21,7 @@
                 <td>{{item.gender}}</td>
                 <td style="width: 20%;">
                     <div class="action-buttons">
-                        <app-button text="Ver detalhes"></app-button>
+                        <app-button text="Ver detalhes" [routerLink]="['/detalhes', item.personId]"></app-button>
                         <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
                     </div>
                 </td>

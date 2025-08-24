@@ -1,5 +1,5 @@
 export interface PersonResponse {
-  personId?: string
+  personId: string
   name: string
   cpf: string
   email: string
