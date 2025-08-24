@@ -9,7 +9,7 @@ using VaccinationCard.Domain.Entities;
 
 namespace VaccinationCard.Infrastructure.Configurations
 {
-    public class VaccinationRecordEntityConfiguration : IEntityTypeConfiguration<Vaccination>
+    public class VaccinationEntityConfiguration : IEntityTypeConfiguration<Vaccination>
     {
         public void Configure(EntityTypeBuilder<Vaccination> builder)
         {

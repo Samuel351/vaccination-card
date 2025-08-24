@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace VaccinationCard.Application.DTOs.Responses
 {
-    public sealed record VaccineResponse(Guid VaccineId, string VaccineName, int DoseQuantity);
+    public sealed record VaccineResponse(Guid VaccineId, string VaccineName, int RequiredQuantity);
 }
