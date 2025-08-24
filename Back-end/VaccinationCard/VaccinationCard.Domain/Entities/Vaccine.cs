@@ -2,15 +2,14 @@
 {
     public class Vaccine : EntityBase
     {
-        public string Name { get; set; }
-        public List<Vaccination> VaccineRecords { get; set; } = [];
+        public string Name { get; private set; }
+        public List<Vaccination> VaccineRecords { get; private set; } = [];
 
         // Quantidade de doses que a vacina pode ter.
         public int RequiredDoses { get; set; }   
 
-        public void Update(Guid vaccineId , string name, int requiredDoses)
+        public void Update(string name, int requiredDoses)
         {
-            EntityId = vaccineId;
             Name = name;
             RequiredDoses = requiredDoses;
         }

@@ -11,11 +11,11 @@ namespace VaccinationCard.Api.Extensions
             ApiResponse? apiResponse;
             if (result.IsSuccess)
             {
-                apiResponse = new ApiResponse(result.IsSuccess, "", result.StatusCode);
+                apiResponse = new ApiResponse(result.IsSuccess, "Sucesso ao realizar operação", result.StatusCode);
             }
             else
             {
-                apiResponse = new ApiResponse(result.IsSuccess, result.Error?.Description ?? string.Empty, result.StatusCode);
+                apiResponse = new ApiResponse(result.IsSuccess, result.Error?.Description ?? string.Empty, result.StatusCode, result.Error?.Details ?? []);
             }
 
             return controller.StatusCode(apiResponse.StatusCode, apiResponse);
@@ -25,7 +25,7 @@ namespace VaccinationCard.Api.Extensions
         {
             if(!result.IsSuccess)
             {
-                ApiResponse apiResponse = new ApiResponse(result.IsFailure, result.Error?.Description ?? string.Empty, result.StatusCode);
+                ApiResponse apiResponse = new ApiResponse(result.IsSuccess, result.Error?.Description ?? string.Empty, result.StatusCode, result.Error?.Details ?? []);
 
                 return controller.StatusCode(apiResponse.StatusCode, apiResponse);
             }

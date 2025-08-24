@@ -11,6 +11,16 @@ namespace VaccinationCard.Infrastructure.Repositories
 
         private readonly AppDbContext _appDbContext = appDbContext;
 
+        public async Task<bool> CPFExists(string CPF)
+        {
+            return await _appDbContext.Persons.AnyAsync(x => x.CPF == CPF);   
+        }
+
+        public async Task<bool> EmailExists(string email)
+        {
+            return await _appDbContext.Persons.AnyAsync(x => x.Email == email);
+        }
+
         public async Task<PaginatedResponse<Person>> GetAllPersonPaginated(int pageNumber, int pageSize, string? Query = null)
         {
             var query = _appDbContext.Persons.AsQueryable();

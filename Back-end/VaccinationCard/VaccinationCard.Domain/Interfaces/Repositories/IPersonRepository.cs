@@ -9,5 +9,9 @@ namespace VaccinationCard.Domain.Interfaces.Repositories
         Task<List<Vaccination>> GetPersonVaccinations(Guid PersonId);
 
         Task<PaginatedResponse<Person>> GetAllPersonPaginated(int PageNumber, int PageSize, string? Query = null);
+
+        Task<bool> CPFExists(string CPF);
+
+        Task<bool> EmailExists(string email);
     }
 }

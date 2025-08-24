@@ -16,8 +16,6 @@
         
         public List<Vaccination> Vaccinations { get; private set; } = [];
 
-        public Person() { }
-
 
         public Person(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
         {
@@ -29,9 +27,8 @@
             BirthDate = birthDate;
         }
 
-        public void Update(Guid personId, string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
+        public void Update(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
         {
-            EntityId = personId;
             Name = name;
             CPF = cpf;
             Email = email;

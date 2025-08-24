@@ -5,19 +5,17 @@ namespace VaccinationCard.Domain.Entities
 {
     public class Vaccination : EntityBase
     {
-        public DateTime ApplicationDate { get; set; }
+        public DateTime ApplicationDate { get; private set; }
 
-        public Guid VaccineId { get; set; }
+        public Guid VaccineId { get; private set; }
 
-        public Vaccine Vaccine { get; set; } 
+        public Vaccine Vaccine { get; private set; } 
 
-        public Guid PersonId { get; set; }
+        public Guid PersonId { get; private set; }
 
-        public Person Person { get; set; }
+        public Person Person { get; private set; }
 
-        public int DoseNumber { get; set; } 
-
-        public Vaccination() { }
+        public int DoseNumber { get; private set; } 
 
         public Vaccination(Guid vaccineId, Guid personId, int doseNumber, DateTime applicationDate)
         {
@@ -31,7 +29,5 @@ namespace VaccinationCard.Domain.Entities
             DoseNumber = doseNumber;
             ApplicationDate = applicationDate;
         }
-
-
     }
 }
