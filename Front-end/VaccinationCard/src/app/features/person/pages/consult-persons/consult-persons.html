@@ -1,11 +1,25 @@
 <app-table-component>
     <thead>
-        <th></th>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Idade</th>
+            <th>Genero</th>
+        </tr>
     </thead>
     <tbody>
-        
+        @for (item of paginatedResponse?.items; track $index) {
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.cpf}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>{{item.birthDate}}</td>
+                <td>{{item.gender}}</td>
+                
+            </tr>
+        }
     </tbody>
-    <tfoot>
-
-    </tfoot>
 </app-table-component>
