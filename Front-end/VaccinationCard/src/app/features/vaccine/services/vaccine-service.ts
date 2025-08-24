@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { VaccineResponse } from '../../../shared/models/vaccineResponse';
+import { VaccineResponse } from '../models/vaccineResponse';
 import { ApiResponse } from '../../../shared/models/apiResponse';
 import { CreateVaccineRequest } from '../models/createVaccineRequest';
 import { UpdateVaccineRequest } from '../models/updateVaccineRequest';

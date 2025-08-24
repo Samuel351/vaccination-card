@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../../shared/components/button-component/
 import { RouterLink } from '@angular/router';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { VaccineResponse } from '../../../../shared/models/vaccineResponse';
+import { VaccineResponse } from '../../models/vaccineResponse';
 import { VaccineService } from '../../services/vaccine-service';
 import { InputComponent } from '../../../../shared/components/input-component/input-component';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';

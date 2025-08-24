@@ -31,7 +31,7 @@
 </app-table-component>
 
 <div class="register-button">
-    <app-button text="Cadastrar pessoa"></app-button>
+    <app-button text="Cadastrar pessoa" (clicked)="onRegisterClick()"></app-button>
 </div>
 
 @if (showConfirmModal) {
@@ -40,6 +40,23 @@
         <div class="action-buttons">
             <app-button text="Confirmar" (clicked)="onConfirmeDelete()" variant="danger"></app-button>
             <app-button text="Cancelar" (clicked)="onCancelDelete()" ></app-button>
+        </div>
+    </app-modal>
+}
+
+@if (showRegisterModal) {
+    <app-modal title="Registrar vacina" size="large">
+        <form [formGroup]=form>
+            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="Nome inválido" formControlName="name" label="Nome"/>
+            <app-input [invalid]="this.form.controls.cpf.invalid" invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
+            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
+            <app-input [invalid]="this.form.controls.phoneNumber.invalid" invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
+            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="É necessário informar genero" formControlName="gender" label="Genero"/>
+            <app-input [invalid]="this.form.controls.age.invalid" invalidMessage="É necessário informar idade" formControlName="age" label="Idade"/>
+        </form>
+        <div class="action-buttons" style="justify-content: flex-end;">
+            <app-button text="Confirmar" (clicked)="onSaveRegister()" ></app-button>
+            <app-button text="Cancelar" (clicked)="onCancelRegister()" variant="danger"></app-button>
         </div>
     </app-modal>
 }

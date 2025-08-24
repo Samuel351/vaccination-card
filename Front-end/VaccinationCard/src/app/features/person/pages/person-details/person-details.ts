@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterState } from '@angular/router';
 import { PersonService } from '../../services/person-service';
-import { PersonResponse } from '../../../../shared/models/personResponse';
-import { VaccinationResponse } from '../../../../shared/models/vaccinationResponse';
+import { PersonResponse } from '../../models/personResponse';
+import { VaccinationResponse } from '../../models/vaccinationResponse';
 import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 
 @Component({

@@ -3,9 +3,11 @@ import { inject, Injectable, Query } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../../../shared/models/paginatedResponse';
-import { PersonResponse } from '../../../shared/models/personResponse';
+import { PersonResponse } from '../models/personResponse';
 import { ApiResponse } from '../../../shared/models/apiResponse';
-import { VaccinationResponse } from '../../../shared/models/vaccinationResponse';
+import { VaccinationResponse } from '../models/vaccinationResponse';
+import { CreatePersonRequest } from '../models/createPersonRequest';
+import { UpdatePersonRequest } from '../models/updatePersonRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +43,14 @@ export class PersonService {
 
   getPersonById(personId: string) : Observable<PersonResponse>{
     return this.http.get<PersonResponse>(this.apiUrl+"/"+personId);
+  }
+
+  updatePerson(updatePersonRequest: UpdatePersonRequest) : Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.apiUrl, updatePersonRequest);
+  }
+
+  createPerson(createPersonRequest: CreatePersonRequest) : Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(this.apiUrl, createPersonRequest);
   }
   
 }
