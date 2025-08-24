@@ -3,7 +3,7 @@ using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.SharedKernel;
 
-namespace VaccinationCard.Application.VaccinationRecords.Commands
+namespace VaccinationCard.Application.VaccinationRecords.Commands.CreateVaccination
 {
     public sealed class CreateVaccinationRecordCommandHandler(IBaseRepository<Vaccination> vaccinationRecordRepository) : IRequestHandler<CreateVaccinationRecordCommand, Result<bool>>
     {
