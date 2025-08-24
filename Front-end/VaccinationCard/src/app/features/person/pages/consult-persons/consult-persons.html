@@ -30,6 +30,10 @@
     </tbody>
 </app-table-component>
 
+<div class="register-button">
+    <app-button text="Cadastrar pessoa"></app-button>
+</div>
+
 @if (showConfirmModal) {
     <app-modal title="Excluir pessoa">
         <p>Tem certeza que deseja excluir <strong>{{selectedPerson?.name}}</strong>?</p>

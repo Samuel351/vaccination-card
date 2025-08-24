@@ -1,0 +1,50 @@
+<app-table-component>
+    <thead>
+        <tr>
+            <th>Nome da vacina</th>
+            <th>Quantidade de doses requeridas</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of vaccines; track $index) {
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.requiredDoses}}</td>
+                <td style="width: 20%;">
+                    <div class="action-buttons">
+                        <app-button text="Ver detalhes" [routerLink]="['/detalhes', item.vaccineId]"></app-button>
+                        <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</app-table-component>
+
+<div class="register-button">
+    <app-button text="Cadastrar vacina" (clicked)="onRegisterClick()"></app-button>
+</div>
+
+@if (showConfirmModal) {
+    <app-modal title="Excluir pessoa">
+        <p>Tem certeza que deseja excluir <strong>{{selectedVaccine?.name}}</strong>?</p>
+        <div class="action-buttons">
+            <app-button text="Confirmar" (clicked)="onConfirmeDelete()" variant="danger"></app-button>
+            <app-button text="Cancelar" (clicked)="onCancelDelete()" ></app-button>
+        </div>
+    </app-modal>
+}
+
+@if (showRegisterModal) {
+    <app-modal title="Registrar vacina" size="large">
+        <form [formGroup]=form>
+            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="Nome inválido" formControlName="name" label="Nome da vacina"/>
+            <app-input [invalid]="this.form.controls.requiredDoses.invalid" invalidMessage="É necessário ter 1 dose obrigatória" formControlName="requiredDoses" label="Quantidade requerida de doses"/>
+        </form>
+        <div class="action-buttons" style="justify-content: flex-end;">
+            <app-button text="Confirmar" (clicked)="onSaveRegister()" ></app-button>
+            <app-button text="Cancelar" (clicked)="onCancelRegister()" variant="danger"></app-button>
+        </div>
+    </app-modal>
+}

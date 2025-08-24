@@ -42,3 +42,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .clickable{
   cursor: pointer;
 }
+
+.action-buttons{
+    display: flex;
+    gap: 1rem
+}

@@ -1,45 +1,17 @@
 <div class="input-group">
-  @if (label) {
-    <label class="input-label" [class.required]="required">
-      {{ label }}
-      @if(required){
-        <span class="required-asterisk">*</span>
-      }
-    </label>
-  }
-
-  <div [class]="containerClasses">
-    @if (icon) {
-      <div class="input-icon">
-        <i [class]="'icon-' + icon"></i>
-      </div>
-    }
-    
-    <input
-      [type]="type"
-      [value]="value"
-      [placeholder]="placeholder"
-      [disabled]="disabled"
-      [class]="inputClasses"
-      (input)="onInput($event)"
-      (focus)="onFocus()"
-      (blur)="onBlur()"
-    />
-    
-    @if (hasErrors) {
-      <div class="error-icon">
-        <i class="icon-alert-circle"></i>
-      </div>
-    }
-
-  </div>
-  
-  @if (hasErrors) {
-    <div lass="error-messages">
-      <div *ngFor="let error of getErrors()" class="error-message">
-        {{ error }}
-      </div>
+  <label>{{ label }}</label>
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    [disabled]="disabled"
+    (input)="handleInput($event)"
+    (blur)="onTouched()"
+    [class.invalid]="invalid"
+  />
+  @if (invalid) {
+    <div class="error">
+      {{ invalidMessage }}
     </div>
   }
-
 </div>

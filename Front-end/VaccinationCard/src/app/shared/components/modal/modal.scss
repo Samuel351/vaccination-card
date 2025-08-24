@@ -15,9 +15,41 @@
   background-color: #fff;
   border-radius: 8px;
   width: 90%;
-  max-width: 500px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+
+  // Variações de tamanho
+  &.modal-small {
+    max-width: 300px;
+  }
+
+  &.modal-medium {
+    max-width: 500px;
+  }
+
+  &.modal-large {
+    max-width: 700px;
+  }
+
+  &.modal-extra-large {
+    max-width: 900px;
+  }
+
+  // Responsividade para telas menores
+  @media (max-width: 768px) {
+    &.modal-small {
+      max-width: 280px;
+    }
+
+    &.modal-medium {
+      max-width: 90%;
+    }
+
+    &.modal-large,
+    &.modal-extra-large {
+      max-width: 95%;
+    }
+  }
 }
 
 .modal-header {
