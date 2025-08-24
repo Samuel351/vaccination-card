@@ -13,6 +13,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("allowAll",
+        policy => policy.AllowAnyOrigin()// Replace with your frontend URL
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,5 +35,7 @@ app.UseHttpsRedirection();
 // app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors("allowAll");
 
 app.Run();

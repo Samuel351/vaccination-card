@@ -12,4 +12,5 @@ import { ModalComponent } from "../../../../shared/components/modal-component/mo
 })
 export class RegisterPerson {
 
+
 }
