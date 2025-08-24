@@ -7,6 +7,7 @@
             <th>Telefone</th>
             <th>Idade</th>
             <th>Genero</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +19,12 @@
                 <td>{{item.phoneNumber}}</td>
                 <td>{{item.birthDate}}</td>
                 <td>{{item.gender}}</td>
-                
+                <td style="width: 20%;">
+                    <div class="action-buttons">
+                        <app-button text="Ver detalhes"></app-button>
+                        <app-button text="Excluir" variant="danger"></app-button>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>

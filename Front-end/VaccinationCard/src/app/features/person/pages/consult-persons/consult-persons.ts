@@ -4,10 +4,11 @@ import { TableComponent } from '../../../../shared/components/table-component/ta
 import { PersonService } from '../../services/person-service';
 import { PaginatedResponse } from '../../../../shared/models/paginatedResponse';
 import { PersonResponse } from '../../../../shared/models/personResponse';
+import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 
 @Component({
   selector: 'app-consult-persons',
-  imports: [TableComponent],
+  imports: [TableComponent, ButtonComponent],
   templateUrl: './consult-persons.html',
   styleUrl: './consult-persons.scss'
 })

@@ -9,7 +9,7 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        table-layout: fixed; /* força alinhamento entre header e body */
+        text-align: left;
 
         thead, tbody {
             display: table;
@@ -20,7 +20,7 @@
         th, td {
             padding: 12px 16px;
             text-align: left;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #050607;
         }
 
         thead th {
