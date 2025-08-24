@@ -1,0 +1,29 @@
+<button 
+  [type]="type"
+  [class]="buttonClasses"
+  [disabled]="isDisabled"
+  [attr.aria-label]="ariaLabelText"
+  [attr.title]="title || text"
+  (click)="onClick($event)">
+  
+  <!-- Loading Spinner -->
+  <span *ngIf="loading" class="btn-spinner" aria-hidden="true"></span>
+  
+  <!-- Left Icon -->
+  <i *ngIf="icon && iconPosition === 'left' && !loading" 
+     [class]="'btn-icon btn-icon-left icon-' + icon" 
+     aria-hidden="true">
+  </i>
+  
+  <!-- Button Text -->
+  <span *ngIf="displayText" class="btn-text">{{ displayText }}</span>
+  
+  <!-- Right Icon -->
+  <i *ngIf="icon && iconPosition === 'right' && !loading" 
+     [class]="'btn-icon btn-icon-right icon-' + icon" 
+     aria-hidden="true">
+  </i>
+  
+  <!-- Content Projection para casos especiais -->
+  <ng-content></ng-content>
+</button>
