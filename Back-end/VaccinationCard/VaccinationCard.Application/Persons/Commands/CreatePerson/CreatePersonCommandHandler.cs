@@ -10,7 +10,7 @@ namespace VaccinationCard.Application.Persons.Commands.CreatePerson
         IBaseRepository<Person> _personRepository = personRepository;
         public async Task<Result<bool>> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
-            await _personRepository.AddAsync(new Person(request.Name));
+            await _personRepository.AddAsync(new Person(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.BirthDate));
 
             return Result<bool>.Success(true, ResultCode.Created);
         }
