@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
+namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
 {
-    internal class CreateVaccineCommandValidator : AbstractValidator<CreateVaccineCommand>
+    internal class UpdateVaccineCommandValidator : AbstractValidator<UpdateVaccineCommand>
     {
-        public CreateVaccineCommandValidator()
+        public UpdateVaccineCommandValidator()
         {
             RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Nome da vacina é obrigatório");
+            .NotEmpty()
+            .WithMessage("Nome da vacina é obrigatório");
 
             RuleFor(x => x.RequiredDoses)
                 .GreaterThanOrEqualTo(1)
