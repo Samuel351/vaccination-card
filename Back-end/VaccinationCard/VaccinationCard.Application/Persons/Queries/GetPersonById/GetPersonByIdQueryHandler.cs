@@ -17,7 +17,7 @@ namespace VaccinationCard.Application.Persons.Queries.GetPersonById
             var person = await _personRepository.GetByIdAsync(request.personId);
             if (person == null) return Result<PersonResponse>.Failure(PersonErrors.PersonNotFound(request.personId), ResultCode.NotFound);
 
-            return Result<PersonResponse>.Success(new PersonResponse(person.EntityId, person.Name));
+            return Result<PersonResponse>.Success(new PersonResponse(person.EntityId, person.Name, person.CPF, person.Email, person.PhoneNumber, person.Gender, person.BirthDate));
         }
     }
 }

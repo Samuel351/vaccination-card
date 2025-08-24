@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace VaccinationCard.Application.DTOs.Responses
 {
-    public sealed record PersonResponse(Guid id, string Name);
+    public sealed record PersonResponse(Guid id, string Name, string CPF, string Email, string PhoneNumber, string Gender, DateTime BirthDate);
 }
