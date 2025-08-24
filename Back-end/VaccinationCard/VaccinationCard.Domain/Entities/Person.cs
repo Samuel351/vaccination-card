@@ -16,6 +16,7 @@
         
         public List<Vaccination> Vaccinations { get; private set; } = [];
 
+        public Person() { }
 
         public Person(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
         {
