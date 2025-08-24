@@ -4,7 +4,8 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from '../../../shared/models/paginatedResponse';
 import { PersonResponse } from '../../../shared/models/personResponse';
-import { Q } from '@angular/cdk/keycodes';
+import { ApiResponse } from '../../../shared/models/apiResponse';
+import { VaccinationResponse } from '../../../shared/models/vaccinationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,15 @@ export class PersonService {
     }
 
     return this.http.get<PaginatedResponse<PersonResponse>>(this.apiUrl, { params: params});
+  }
+
+  deletePersonById(personId: string) : Observable<ApiResponse>
+  {
+    return this.http.delete<ApiResponse>(this.apiUrl+"/"+personId);
+  }
+
+  getPersonVaccinationCard(personId: string) : Observable<VaccinationResponse>{
+    return this.http.get<VaccinationResponse>(this.apiUrl+"/"+personId+"/vaccination-card");
   }
   
 }
