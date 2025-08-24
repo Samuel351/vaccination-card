@@ -38,7 +38,10 @@ namespace VaccinationCard.Domain.Services
                 }
             }
 
-            // TODO: DATA DOSE NÃO PODE SER NO FUTURO E NEM ANTERIOR A DATA DE OUTRAS DOSE JÁ EXISTENTES
+            if (vaccinations.Any(x => x.ApplicationDate > vaccination.ApplicationDate))
+            {
+                return Result.Failure(VaccinationErrors.DoseApplicationDate);
+            }
 
             return Result.Success();
         }
