@@ -1,4 +1,5 @@
 // input.component.ts
+import { CommonModule } from '@angular/common';
 import { Component, Input, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
@@ -6,6 +7,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator, Abst
   selector: 'app-input',
   templateUrl: './input-component.html',
   standalone: true,
+  imports: [CommonModule],
   styleUrls: ['./input-component.scss'],
   providers: [
     {

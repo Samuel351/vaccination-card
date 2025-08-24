@@ -1,4 +1,5 @@
 // button.component.ts
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'ghost' | 'outline';
@@ -8,6 +9,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 @Component({
   selector: 'app-button',
   templateUrl: './button-component.html',
+  imports: [CommonModule],
   styleUrls: ['./button-component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
