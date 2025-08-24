@@ -1,8 +1,12 @@
-﻿namespace VaccinationCard.Domain.Errors
+﻿using Domain.Abstractions;
+
+namespace VaccinationCard.Domain.Errors
 {
     public static class PersonErrors
     {
-        public static string PersonNotFound(Guid personId) =>
-            $"Person with '{personId}' not found.";
+        public static readonly Error NotFound = new(
+            "Person.NotFound",
+            "This person was not found");
+
     }
 }

@@ -1,14 +1,10 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Abstractions;
+using MediatR;
+using System.Net;
 using VaccinationCard.Application.DTOs.Responses;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
-using VaccinationCard.SharedKernel;
 
 namespace VaccinationCard.Application.Vaccines.Queries.GetAllVaccines
 {
@@ -21,11 +17,11 @@ namespace VaccinationCard.Application.Vaccines.Queries.GetAllVaccines
         {
             var vaccines = await _vaccineRepository.GetAllAsync();
 
-            if (vaccines.Count == 0) return Result<List<VaccineResponse>>.Failure(VaccinesErrors.NoVaccines(), ResultCode.NoContent);
+            if (vaccines.Count == 0) return Result<List<VaccineResponse>>.Failure(VaccinesErrors.NotFound, HttpStatusCode.NoContent);
 
             var vaccinesResponse = vaccines.Select(vaccine => new VaccineResponse(vaccine.EntityId, vaccine.Name, vaccine.RequiredDoses)).ToList();
 
-            return Result<List<VaccineResponse>>.Success(vaccinesResponse, ResultCode.Ok);
+            return Result<List<VaccineResponse>>.Success(vaccinesResponse);
         }
     }
 }

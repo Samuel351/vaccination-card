@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using Domain.Abstractions;
+using MediatR;
 using VaccinationCard.Application.DTOs.Responses;
-using VaccinationCard.SharedKernel;
 
 namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
 {
