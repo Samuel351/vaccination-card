@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using VaccinationCard.Api.Extensions;
 using VaccinationCard.Application.Vaccinations.Commands.CreateVaccination;
 using VaccinationCard.Application.Vaccinations.Commands.DeleteVaccination;
 using VaccinationCard.Application.Vaccinations.Commands.UpdateVaccination;
@@ -18,7 +19,7 @@ namespace VaccinationCard.Api.Controllers
         {
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int)result.StatusCode, !result.IsSuccess ? result.Error : null);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpPut]
@@ -26,7 +27,7 @@ namespace VaccinationCard.Api.Controllers
         {
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int)result.StatusCode);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpDelete("{vaccinationId}")]
@@ -36,7 +37,7 @@ namespace VaccinationCard.Api.Controllers
 
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int)result.StatusCode);
+            return ResultExtension.HandleResult(this, result);
         }
     }
 }

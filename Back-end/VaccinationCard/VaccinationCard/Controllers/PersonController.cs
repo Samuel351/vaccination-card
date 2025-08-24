@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using VaccinationCard.Api.Extensions;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
 using VaccinationCard.Application.Persons.Commands.DeletePerson;
 using VaccinationCard.Application.Persons.Commands.UpdatePerson;
@@ -21,7 +22,7 @@ namespace VaccinationCard.Api.Controllers
         {
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int) result.StatusCode, !result.IsSuccess ? result.Error : null);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpPut]
@@ -29,7 +30,7 @@ namespace VaccinationCard.Api.Controllers
         {
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int)result.StatusCode);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpGet]
@@ -39,7 +40,7 @@ namespace VaccinationCard.Api.Controllers
 
             var result = await _mediator.Send(query, cancellationToken);
 
-            return StatusCode((int) result.StatusCode, result.IsSuccess ? result.Value : result.Error);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpGet("{personId}")]
@@ -50,7 +51,7 @@ namespace VaccinationCard.Api.Controllers
 
             var result = await _mediator.Send(query, cancellationToken);
 
-            return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpDelete("{personId}")]
@@ -60,7 +61,7 @@ namespace VaccinationCard.Api.Controllers
 
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int)result.StatusCode);
+            return ResultExtension.HandleResult(this, result);
         }
 
         [HttpGet("{personId}/vaccination-card")]
@@ -70,7 +71,7 @@ namespace VaccinationCard.Api.Controllers
 
             var result = await _mediator.Send(query, cancellationToken);
 
-            return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
+            return ResultExtension.HandleResult(this, result);
         }
         
     }
