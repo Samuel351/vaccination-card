@@ -23,7 +23,7 @@ namespace VaccinationCard.Application.Vaccines.Queries.GetAllVaccines
 
             if (vaccines.Count == 0) return Result<List<VaccineResponse>>.Failure(VaccinesErrors.NoVaccines(), ResultCode.NoContent);
 
-            var vaccinesResponse = vaccines.Select(vaccine => new VaccineResponse(vaccine.EntityId, vaccine.Name, vaccine.DoseQuantity)).ToList();
+            var vaccinesResponse = vaccines.Select(vaccine => new VaccineResponse(vaccine.EntityId, vaccine.Name, vaccine.RequiredDoses)).ToList();
 
             return Result<List<VaccineResponse>>.Success(vaccinesResponse, ResultCode.Ok);
         }

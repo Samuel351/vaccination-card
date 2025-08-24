@@ -12,14 +12,14 @@ namespace VaccinationCard.Domain.Entities
         public List<Vaccination> VaccineRecords { get; set; } = [];
 
         // Quantidade de doses que a vacina pode ter.
-        public int DoseQuantity { get; set; }   
+        public int RequiredDoses { get; set; }   
 
         public Vaccine() { }
 
-        public Vaccine(string name, int doseQuantity)
+        public Vaccine(string name, int requiredDoses)
         {
             Name = name;
-            DoseQuantity = doseQuantity;
+            RequiredDoses = requiredDoses;
         }
     }
 }

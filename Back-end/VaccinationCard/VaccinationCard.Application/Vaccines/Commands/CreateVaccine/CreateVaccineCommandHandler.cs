@@ -12,7 +12,7 @@ namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
 
         public async Task<Result<bool>> Handle(CreateVaccineCommand request, CancellationToken cancellationToken)
         {
-            await _vaccineRepository.AddAsync(new Vaccine(request.Name, request.DoseQuantity));
+            await _vaccineRepository.AddAsync(new Vaccine(request.Name, request.RequiredDoses));
 
             return Result<bool>.Success(true, ResultCode.Created);
         }

@@ -8,6 +8,6 @@ using VaccinationCard.SharedKernel;
 
 namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
 {
-    public sealed record CreateVaccineCommand(string Name, int DoseQuantity) : IRequest<Result<bool>>;
+    public sealed record CreateVaccineCommand(string Name, int RequiredDoses) : IRequest<Result<bool>>;
    
 }

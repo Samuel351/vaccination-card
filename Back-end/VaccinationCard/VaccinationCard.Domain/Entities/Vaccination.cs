@@ -2,7 +2,7 @@
 {
     public class Vaccination : EntityBase
     {
-        public DateTime VaccinationDate { get; set; }
+        public DateTime ApplicationDate { get; set; }
 
         public Guid VaccineId { get; set; }
 
@@ -21,7 +21,7 @@
             VaccineId = vaccineId;
             PersonId = personId;
             DoseNumber = doseNumber;
-            VaccinationDate = vaccinationDate;
+            ApplicationDate = vaccinationDate;
         }
 
     }

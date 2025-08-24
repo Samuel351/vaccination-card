@@ -17,7 +17,7 @@ namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
 
             if (vaccinationRecords.Count == 0) return Result<List<VaccinationCardResponse>>.Failure(VaccinationRecordErrors.NoVaccinationRecord(), ResultCode.NoContent);
 
-            return Result<List<VaccinationCardResponse>>.Success([.. vaccinationRecords.Select(vaccinationRecord => new VaccinationCardResponse(vaccinationRecord.VaccineId, vaccinationRecord.Vaccine.Name, vaccinationRecord.VaccinationDate, vaccinationRecord.DoseNumber))]);
+            return Result<List<VaccinationCardResponse>>.Success([.. vaccinationRecords.Select(vaccinationRecord => new VaccinationCardResponse(vaccinationRecord.VaccineId, vaccinationRecord.Vaccine.Name, vaccinationRecord.ApplicationDate, vaccinationRecord.DoseNumber))]);
         }
     }
 }
