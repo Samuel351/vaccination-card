@@ -22,10 +22,20 @@
                 <td style="width: 20%;">
                     <div class="action-buttons">
                         <app-button text="Ver detalhes"></app-button>
-                        <app-button text="Excluir" variant="danger"></app-button>
+                        <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
                     </div>
                 </td>
             </tr>
         }
     </tbody>
 </app-table-component>
+
+@if (showConfirmModal) {
+    <app-modal title="Excluir pessoa">
+        <p>Tem certeza que deseja excluir <strong>{{selectedPerson?.name}}</strong>?</p>
+        <div class="action-buttons">
+            <app-button text="Confirmar" (clicked)="onConfirmeDelete()" variant="danger"></app-button>
+            <app-button text="Cancelar" (clicked)="onCancelDelete()" ></app-button>
+        </div>
+    </app-modal>
+}
