@@ -26,6 +26,11 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .WithMany(x => x.Vaccinations)
                 .HasForeignKey(x => x.PersonId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+
+            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValue("getDate()");
+
+            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValue("getDate()");
         }
     }
 }

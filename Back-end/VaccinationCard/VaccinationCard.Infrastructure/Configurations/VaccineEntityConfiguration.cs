@@ -18,6 +18,10 @@ namespace VaccinationCard.Infrastructure.Configurations
             builder.HasMany(x => x.VaccineRecords)
                 .WithOne(x => x.Vaccine)
                 .HasForeignKey(x => x.VaccineId);
+
+            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValue("getDate()");
+
+            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValue("getDate()");
         }
     }
 }
