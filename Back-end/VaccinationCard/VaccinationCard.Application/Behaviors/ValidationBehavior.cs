@@ -28,7 +28,6 @@ namespace VaccinationCard.Application.Behaviors
                             .Select(x => x.Description)
                             .ToList();
 
-            // TODO: Improve, this still bad.
             if (failures.Count != 0)
             {
                 var error = new Error("Validation.Error", "Erro na validação", failures!);

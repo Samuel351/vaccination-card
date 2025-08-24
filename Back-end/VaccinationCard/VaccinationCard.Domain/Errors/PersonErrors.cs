@@ -12,5 +12,12 @@ namespace VaccinationCard.Domain.Errors
             "Person.NoContent",
             "No person found");
 
+        public static readonly Error EmailAlreadyExists = new(
+            "Person.EmailAlreadyExists",
+            "Email já cadastrado");
+
+        public static readonly Error CPFAlreadyExists = new(
+            "Person.CPFAlreadyExists",
+            "CPF já cadastrado");
     }
 }

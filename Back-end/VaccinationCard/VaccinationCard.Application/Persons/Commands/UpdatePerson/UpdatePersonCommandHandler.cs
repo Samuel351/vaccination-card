@@ -22,7 +22,7 @@ namespace VaccinationCard.Application.Persons.Commands.UpdatePerson
                 return Result.Failure(PersonErrors.NotFound, HttpStatusCode.NotFound);
             }
 
-            person.Update(request.PersonId, request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.BirthDate);
+            person.Update(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.BirthDate);
 
             await _personRepository.UpdateAsync(person);
 

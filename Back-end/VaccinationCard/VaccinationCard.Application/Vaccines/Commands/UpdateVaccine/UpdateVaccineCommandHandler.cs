@@ -18,7 +18,7 @@ namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
 
             if (vaccine == null) return Result.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
 
-            vaccine.Update(request.VaccineId, request.Name, request.RequiredDoses);
+            vaccine.Update(request.Name, request.RequiredDoses);
 
             await _vaccineRepository.UpdateAsync(vaccine);
 

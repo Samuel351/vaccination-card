@@ -1,15 +1,27 @@
 ﻿using Domain.Abstractions;
 using MediatR;
-using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
+using VaccinationCard.Domain.Errors;
+using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Persons.Commands.CreatePerson
 {
-    internal class CreatePersonCommandHandler(IBaseRepository<Person> personRepository) : IRequestHandler<CreatePersonCommand, Result>
+    internal class CreatePersonCommandHandler(IPersonRepository personRepository) : IRequestHandler<CreatePersonCommand, Result>
     {
-        private readonly IBaseRepository<Person> _personRepository = personRepository;
+        private readonly IPersonRepository _personRepository = personRepository;
         public async Task<Result> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
+
+            if(await _personRepository.CPFExists(request.CPF))
+            {
+                return Result.Failure(PersonErrors.CPFAlreadyExists);
+            }
+
+            if(await _personRepository.EmailExists(request.Email))
+            {
+                return Result.Failure(PersonErrors.EmailAlreadyExists);
+            }
+
             await _personRepository.AddAsync(new Person(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.BirthDate));
 
             return Result.Success();
