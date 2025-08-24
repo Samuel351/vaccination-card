@@ -2,29 +2,37 @@
 {
     public class Person : EntityBase
     {
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
-        public string CPF { get; set; }
+        public string CPF { get; private set; }
 
-        public string Email { get; set; }
+        public string Email { get; private set; }
 
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; private set; }
 
-        public string Gender { get; set; }
+        public string Gender { get; private set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; private set; }
         
-        public List<Vaccination> Vaccinations { get; set; } = [];
+        public List<Vaccination> Vaccinations { get; private set; } = [];
 
         public Person() { }
 
-        public Person(string name)
+
+        public Person(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
         {
             Name = name;
+            CPF = cpf;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            Gender = gender;
+            BirthDate = birthDate;
         }
 
-        public Person(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate) : this(name)
+        public void Update(Guid personId, string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
         {
+            EntityId = personId;
+            Name = name;
             CPF = cpf;
             Email = email;
             PhoneNumber = phoneNumber;

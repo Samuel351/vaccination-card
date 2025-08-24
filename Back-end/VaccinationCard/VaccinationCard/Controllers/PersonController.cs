@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
 using VaccinationCard.Application.Persons.Commands.DeletePerson;
+using VaccinationCard.Application.Persons.Commands.UpdatePerson;
+using VaccinationCard.Application.Persons.Queries.GetAllPersonPaginated;
 using VaccinationCard.Application.Persons.Queries.GetPersonById;
 using VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard;
 
@@ -20,6 +22,24 @@ namespace VaccinationCard.Api.Controllers
             var result = await _mediator.Send(command, cancellationToken);
 
             return StatusCode((int) result.StatusCode);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdatePerson([FromBody] UpdatePersonCommand command, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+
+            return StatusCode((int)result.StatusCode);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPersonsPaginated(CancellationToken cancellationToken, [FromQuery] int PageNumber = 1, [FromQuery] int PageSize = 10, string? Query = null)
+        {
+            var query = new GetAllPersonPaginatedQuery(PageNumber, PageSize, Query);
+
+            var result = await _mediator.Send(query, cancellationToken);
+
+            return StatusCode((int) result.StatusCode, result.IsSuccess ? result.Value : result.Error);
         }
 
         [HttpGet("{personId}")]
