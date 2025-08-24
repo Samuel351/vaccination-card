@@ -6,6 +6,7 @@ import { PaginatedResponse } from '../../../../shared/models/paginatedResponse';
 import { PersonResponse } from '../../../../shared/models/personResponse';
 import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 import { Modal } from '../../../../shared/components/modal/modal';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-consult-persons',
@@ -16,6 +17,7 @@ import { Modal } from '../../../../shared/components/modal/modal';
 export class ConsultPersons implements OnInit{
 
   private personService = inject(PersonService);
+  private snackBar = inject(MatSnackBar);
 
   protected paginatedResponse?: PaginatedResponse<PersonResponse>;
 
@@ -39,7 +41,6 @@ export class ConsultPersons implements OnInit{
         this.pageSize = res.pageSize;
       },
       error: error => {
-
       }
     })
   }
@@ -56,6 +57,7 @@ export class ConsultPersons implements OnInit{
         this.selectedPerson = undefined;
         this.showConfirmModal = false;
         this.getAllPersonsPaginated();
+        this.snackBar.open(res.message, 'Fechar', {duration: 10});
       },
       error: error => {
 
