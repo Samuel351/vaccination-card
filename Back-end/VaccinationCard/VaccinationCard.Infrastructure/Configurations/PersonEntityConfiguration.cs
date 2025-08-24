@@ -19,14 +19,6 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .WithOne(x => x.Person)
                 .HasForeignKey(x => x.PersonId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Property(x => x.CreatedAt)
-                .ValueGeneratedOnAdd()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            builder.Property(x => x.UpdatedAt)
-                .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
         }
     }
 }
