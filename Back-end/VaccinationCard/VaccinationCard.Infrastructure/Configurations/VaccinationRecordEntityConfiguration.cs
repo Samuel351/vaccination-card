@@ -23,7 +23,7 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .OnDelete(DeleteBehavior.ClientSetNull) ;
 
             builder.HasOne(x => x.Person)
-                .WithMany(x => x.VaccinationRecords)
+                .WithMany(x => x.Vaccinations)
                 .HasForeignKey(x => x.PersonId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         }

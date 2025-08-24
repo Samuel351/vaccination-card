@@ -14,13 +14,13 @@ namespace VaccinationCard.Infrastructure.Repositories
         {
             var person = await _appDbContext.Persons
                 .AsNoTracking()
-                .Include(x => x.VaccinationRecords)
+                .Include(x => x.Vaccinations)
                 .ThenInclude(x => x.Vaccine)
                 .FirstOrDefaultAsync(x => x.EntityId == PersonId);
 
             if (person == null) return [];
 
-            return person.VaccinationRecords;
+            return person.Vaccinations;
         }
     }
 }
