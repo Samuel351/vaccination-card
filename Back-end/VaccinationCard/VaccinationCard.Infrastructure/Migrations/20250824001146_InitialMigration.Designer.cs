@@ -12,7 +12,7 @@ using VaccinationCard.Infrastructure.Data;
 namespace VaccinationCard.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250823010556_InitialMigration")]
+    [Migration("20250824001146_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -31,9 +31,34 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("EntityId");
 
@@ -46,6 +71,9 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -54,12 +82,15 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.HasKey("EntityId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.VaccinationRecord", b =>
+            modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccination", b =>
                 {
                     b.Property<Guid>("EntityId")
                         .ValueGeneratedOnAdd()
@@ -74,7 +105,13 @@ namespace VaccinationCard.Infrastructure.Migrations
                     b.Property<int>("DoseNumber")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("VaccinationDate")
+                    b.Property<DateTime>("ApplicationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("EntityId", "VaccineId", "PersonId", "DoseNumber");
@@ -92,22 +129,28 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("DoseQuantity")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("RequiredDoses")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("EntityId");
 
                     b.ToTable("Vaccines");
                 });
 
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.VaccinationRecord", b =>
+            modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccination", b =>
                 {
                     b.HasOne("VaccinationCard.Domain.Entities.Person", "Person")
-                        .WithMany("VaccinationRecords")
+                        .WithMany("Vaccinations")
                         .HasForeignKey("PersonId")
                         .IsRequired();
 
@@ -123,7 +166,7 @@ namespace VaccinationCard.Infrastructure.Migrations
 
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Person", b =>
                 {
-                    b.Navigation("VaccinationRecords");
+                    b.Navigation("Vaccinations");
                 });
 
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccine", b =>

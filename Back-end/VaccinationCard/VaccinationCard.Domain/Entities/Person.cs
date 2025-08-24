@@ -22,5 +22,14 @@
         {
             Name = name;
         }
+
+        public Person(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate) : this(name)
+        {
+            CPF = cpf;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            Gender = gender;
+            BirthDate = birthDate;
+        }
     }
 }
