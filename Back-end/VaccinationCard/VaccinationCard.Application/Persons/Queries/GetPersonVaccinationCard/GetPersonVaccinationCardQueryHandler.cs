@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using Domain.Abstractions;
+using MediatR;
+using System.Net;
 using VaccinationCard.Application.DTOs.Responses;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
-using VaccinationCard.SharedKernel;
 
 namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
 {
@@ -15,7 +16,7 @@ namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
         {
             var vaccinationRecords = await _personRepository.GetPersonVaccinationRecords(request.PersonId) ?? [];
 
-            if (vaccinationRecords.Count == 0) return Result<List<VaccinationCardResponse>>.Failure(VaccinationRecordErrors.NoVaccinationRecord(), ResultCode.NoContent);
+            if (vaccinationRecords.Count == 0) return Result<List<VaccinationCardResponse>>.Failure(VaccinationErrors.NotFound, HttpStatusCode.NoContent);
 
             return Result<List<VaccinationCardResponse>>.Success([.. vaccinationRecords.Select(vaccinationRecord => new VaccinationCardResponse(vaccinationRecord.VaccineId, vaccinationRecord.Vaccine.Name, vaccinationRecord.ApplicationDate, vaccinationRecord.DoseNumber))]);
         }

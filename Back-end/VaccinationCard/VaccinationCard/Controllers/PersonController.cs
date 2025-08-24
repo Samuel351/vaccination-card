@@ -40,7 +40,7 @@ namespace VaccinationCard.Api.Controllers
 
             var result = await _mediator.Send(command, cancellationToken);
 
-            return StatusCode((int)result.StatusCode, result.IsSuccess ? result.Value : result.Error);
+            return StatusCode((int)result.StatusCode);
         }
 
         [HttpGet("{personId}/vaccination-card")]

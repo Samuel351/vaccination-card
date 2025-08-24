@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
-    <ProjectReference Include="..\VaccinationCard.SharedKernel\VaccinationCard.SharedKernel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
