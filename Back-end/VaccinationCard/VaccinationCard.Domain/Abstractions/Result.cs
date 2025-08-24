@@ -26,12 +26,8 @@ public class Result<T> : Result
         Value = value;
     }
 
-    private Result(Error error) : base(false, error) { }
-
     public T? Value { get; }
 
     public static Result<T> Success(T value) => new(value);
-
-    public static new Result<T> Failure(Error error) => new(error);
 }
 
