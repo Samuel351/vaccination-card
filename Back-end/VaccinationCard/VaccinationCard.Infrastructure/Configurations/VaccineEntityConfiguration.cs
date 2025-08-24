@@ -19,9 +19,13 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .WithOne(x => x.Vaccine)
                 .HasForeignKey(x => x.VaccineId);
 
-            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValue("CURDATE()");
+            builder.Property(x => x.CreatedAt)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValue("CURDATE()");
+            builder.Property(x => x.UpdatedAt)
+                .ValueGeneratedOnAddOrUpdate()
+                .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
         }
     }
 }

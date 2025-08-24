@@ -20,9 +20,13 @@ namespace VaccinationCard.Infrastructure.Configurations
                 .HasForeignKey(x => x.PersonId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(x => x.CreatedAt).ValueGeneratedOnAdd().HasDefaultValueSql("CURDATE()");
+            builder.Property(x => x.CreatedAt)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-            builder.Property(x => x.UpdatedAt).ValueGeneratedOnUpdate().HasDefaultValueSql("CURDATE()");
+            builder.Property(x => x.UpdatedAt)
+                .ValueGeneratedOnAddOrUpdate()
+                .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
         }
     }
 }
