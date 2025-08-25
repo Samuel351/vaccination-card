@@ -6,9 +6,6 @@ namespace VaccinationCard.Infrastructure.Data
 {
     public class AppDbContext(DbContextOptions options) : DbContext(options)
     {
-
-        public DbSet<User> Users { get; set; }
-
         public DbSet<Person> Persons { get; set; }
 
         public DbSet<Vaccine> Vaccines { get; set; }
@@ -18,7 +15,6 @@ namespace VaccinationCard.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PersonEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VaccinationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VaccineEntityConfiguration());
         }

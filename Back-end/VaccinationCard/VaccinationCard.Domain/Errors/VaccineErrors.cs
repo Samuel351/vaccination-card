@@ -6,6 +6,10 @@ namespace VaccinationCard.Domain.Errors
     {
         public static readonly Error NotFound = new(
             "Vaccines.NotFound",
-            "No vaccines found");
+            "Vacina não encontrada");
+
+        public static readonly Error VaccineIsBeingUsed = new(
+            "Vaccines.BeingUsed",
+            "Essa vacina está sendo utilizada");
     }
 }

@@ -18,7 +18,12 @@ namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
 
             if (vaccinations.Count == 0) return Result<List<VaccinationCardResponse>>.Failure(VaccinationErrors.NotFound, HttpStatusCode.NoContent);
 
-            return Result<List<VaccinationCardResponse>>.Success([.. vaccinations.Select(vaccinationRecord => new VaccinationCardResponse(vaccinationRecord.EntityId, vaccinationRecord.VaccineId, vaccinationRecord.Vaccine.Name, vaccinationRecord.ApplicationDate, vaccinationRecord.DoseNumber))]);
+            var vaccinationsResponse = vaccinations
+                .GroupBy(x => new { x.VaccineId, x.Vaccine.Name })
+                .Select(x => new VaccinationCardResponse(x.Key.VaccineId, x.Key.Name, [.. x.Select(x => new VaccineDoseResponse(x.EntityId,x.ApplicationDate, x.DoseNumber))]))
+                .ToList();
+
+            return Result<List<VaccinationCardResponse>>.Success(vaccinationsResponse);
         }
     }
 }

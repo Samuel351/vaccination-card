@@ -14,5 +14,10 @@ namespace VaccinationCard.Infrastructure.Repositories
         {
             return await _appDbContext.Vaccination.Where(x => x.VaccineId == vaccineId && x.PersonId == personId).ToListAsync();
         }
+
+        public async Task<bool> IsVaccineBeingUsed(Guid vaccineId)
+        {
+            return await _appDbContext.Vaccination.AnyAsync(x => x.VaccineId == vaccineId);
+        }
     }
 }

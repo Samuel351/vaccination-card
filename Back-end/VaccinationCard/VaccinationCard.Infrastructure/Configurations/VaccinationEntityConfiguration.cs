@@ -19,13 +19,11 @@ namespace VaccinationCard.Infrastructure.Configurations
 
             builder.HasOne(x => x.Vaccine)
                 .WithMany(x => x.VaccineRecords)
-                .HasForeignKey(x => x.VaccineId)
-                .OnDelete(DeleteBehavior.ClientSetNull) ;
+                .HasForeignKey(x => x.VaccineId);
 
             builder.HasOne(x => x.Person)
                 .WithMany(x => x.Vaccinations)
-                .HasForeignKey(x => x.PersonId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .HasForeignKey(x => x.PersonId);
         }
     }
 }

@@ -6,5 +6,12 @@ namespace VaccinationCard.Domain.Interfaces.Repositories
     public interface IVaccinationRepository : IBaseRepository<Vaccination>
     {
         Task<List<Vaccination>> GetVaccinations(Guid vaccineId, Guid personId);
+
+        /// <summary>
+        /// Verifies If a vaccine is being in use
+        /// </summary>
+        /// <param name="vaccineId"></param>
+        /// <returns></returns>
+        Task<bool> IsVaccineBeingUsed(Guid vaccineId);
     }
 }

@@ -12,6 +12,7 @@ namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
         public CreateVaccineCommandValidator()
         {
             RuleFor(x => x.Name)
+                .MaximumLength(50).WithMessage("Nome muito longo")
                 .NotEmpty().WithMessage("Nome da vacina é obrigatório");
 
             RuleFor(x => x.RequiredDoses)

@@ -6,11 +6,11 @@ namespace VaccinationCard.Domain.Errors
     {
         public static readonly Error NotFound = new(
             "Person.NotFound",
-            "This person was not found");
+            "Pessoa não encontrada");
 
         public static readonly Error NoContent = new(
             "Person.NoContent",
-            "No person found");
+            "Sem pessoas encontradas");
 
         public static readonly Error EmailAlreadyExists = new(
             "Person.EmailAlreadyExists",

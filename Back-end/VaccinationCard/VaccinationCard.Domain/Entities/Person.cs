@@ -12,30 +12,30 @@
 
         public string Gender { get; private set; }
 
-        public DateTime BirthDate { get; private set; }
+        public int Age { get; private set; }
         
         public List<Vaccination> Vaccinations { get; private set; } = [];
 
         public Person() { }
 
-        public Person(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
+        public Person(string name, string cpf, string email, string phoneNumber, string gender, int age)
         {
             Name = name;
             CPF = cpf;
             Email = email;
             PhoneNumber = phoneNumber;
             Gender = gender;
-            BirthDate = birthDate;
+            Age = age;
         }
 
-        public void Update(string name, string cpf, string email, string phoneNumber, string gender, DateTime birthDate)
+        public void Update(string name, string cpf, string email, string phoneNumber, string gender, int age)
         {
             Name = name;
             CPF = cpf;
             Email = email;
             PhoneNumber = phoneNumber;
             Gender = gender;
-            BirthDate = birthDate;
+            Age = age;
         }
     }
 }

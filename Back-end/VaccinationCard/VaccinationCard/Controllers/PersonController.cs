@@ -5,6 +5,7 @@ using VaccinationCard.Application.Persons.Commands.CreatePerson;
 using VaccinationCard.Application.Persons.Commands.DeletePerson;
 using VaccinationCard.Application.Persons.Commands.UpdatePerson;
 using VaccinationCard.Application.Persons.Queries.GetAllPersonPaginated;
+using VaccinationCard.Application.Persons.Queries.GetAllPersons;
 using VaccinationCard.Application.Persons.Queries.GetPersonById;
 using VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard;
 
@@ -34,9 +35,9 @@ namespace VaccinationCard.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPersonsPaginated(CancellationToken cancellationToken, [FromQuery] int PageNumber = 1, [FromQuery] int PageSize = 10, string? Query = null)
+        public async Task<IActionResult> GetAllPersonsPaginated(CancellationToken cancellationToken)
         {
-            var query = new GetAllPersonPaginatedQuery(PageNumber, PageSize, Query);
+            var query = new GetAllPersonsQuery();
 
             var result = await _mediator.Send(query, cancellationToken);
 

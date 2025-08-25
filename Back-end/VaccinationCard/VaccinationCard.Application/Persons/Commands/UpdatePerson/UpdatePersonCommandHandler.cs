@@ -38,7 +38,7 @@ namespace VaccinationCard.Application.Persons.Commands.UpdatePerson
                 request.Email,
                 request.PhoneNumber,
                 request.Gender,
-                request.BirthDate
+                request.Age
             );
 
             await _personRepository.UpdateAsync(person);

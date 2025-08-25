@@ -22,7 +22,7 @@ namespace VaccinationCard.Application.Persons.Commands.CreatePerson
                 return Result.Failure(PersonErrors.EmailAlreadyExists);
             }
 
-            await _personRepository.AddAsync(new Person(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.BirthDate));
+            await _personRepository.AddAsync(new Person(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.Age));
 
             return Result.Success();
         }

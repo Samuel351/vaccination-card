@@ -29,31 +29,13 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Gender = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Persons", x => x.EntityId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    EntityId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.EntityId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -75,7 +57,7 @@ namespace VaccinationCard.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "VaccinationRecords",
+                name: "Vaccination",
                 columns: table => new
                 {
                     EntityId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -88,28 +70,30 @@ namespace VaccinationCard.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VaccinationRecords", x => new { x.EntityId, x.VaccineId, x.PersonId, x.DoseNumber });
+                    table.PrimaryKey("PK_Vaccination", x => new { x.EntityId, x.VaccineId, x.PersonId, x.DoseNumber });
                     table.ForeignKey(
-                        name: "FK_VaccinationRecords_Persons_PersonId",
+                        name: "FK_Vaccination_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
-                        principalColumn: "EntityId");
+                        principalColumn: "EntityId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VaccinationRecords_Vaccines_VaccineId",
+                        name: "FK_Vaccination_Vaccines_VaccineId",
                         column: x => x.VaccineId,
                         principalTable: "Vaccines",
-                        principalColumn: "EntityId");
+                        principalColumn: "EntityId",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VaccinationRecords_PersonId",
-                table: "VaccinationRecords",
+                name: "IX_Vaccination_PersonId",
+                table: "Vaccination",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VaccinationRecords_VaccineId",
-                table: "VaccinationRecords",
+                name: "IX_Vaccination_VaccineId",
+                table: "Vaccination",
                 column: "VaccineId");
         }
 
@@ -117,10 +101,7 @@ namespace VaccinationCard.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "VaccinationRecords");
+                name: "Vaccination");
 
             migrationBuilder.DropTable(
                 name: "Persons");

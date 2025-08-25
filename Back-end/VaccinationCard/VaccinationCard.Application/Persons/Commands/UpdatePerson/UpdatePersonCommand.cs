@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace VaccinationCard.Application.Persons.Commands.UpdatePerson
 {
-    public sealed record UpdatePersonCommand(Guid PersonId, string Name, string CPF, string Email, string PhoneNumber, string Gender, DateTime BirthDate) : IRequest<Result>;
+    public sealed record UpdatePersonCommand(Guid PersonId, string Name, string CPF, string Email, string PhoneNumber, string Gender, int Age) : IRequest<Result>;
 }

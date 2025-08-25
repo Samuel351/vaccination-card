@@ -12,7 +12,7 @@ using VaccinationCard.Infrastructure.Data;
 namespace VaccinationCard.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250824001146_InitialMigration")]
+    [Migration("20250824232751_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -31,8 +31,8 @@ namespace VaccinationCard.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
 
                     b.Property<string>("CPF")
                         .IsRequired()
@@ -65,31 +65,6 @@ namespace VaccinationCard.Infrastructure.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("VaccinationCard.Domain.Entities.User", b =>
-                {
-                    b.Property<Guid>("EntityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("EntityId");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccination", b =>
                 {
                     b.Property<Guid>("EntityId")
@@ -120,7 +95,7 @@ namespace VaccinationCard.Infrastructure.Migrations
 
                     b.HasIndex("VaccineId");
 
-                    b.ToTable("VaccinationRecords");
+                    b.ToTable("Vaccination");
                 });
 
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccine", b =>
@@ -152,11 +127,13 @@ namespace VaccinationCard.Infrastructure.Migrations
                     b.HasOne("VaccinationCard.Domain.Entities.Person", "Person")
                         .WithMany("Vaccinations")
                         .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("VaccinationCard.Domain.Entities.Vaccine", "Vaccine")
                         .WithMany("VaccineRecords")
                         .HasForeignKey("VaccineId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Person");

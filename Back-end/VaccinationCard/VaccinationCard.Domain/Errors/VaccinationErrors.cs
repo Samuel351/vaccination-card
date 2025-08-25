@@ -5,11 +5,11 @@ namespace VaccinationCard.Domain.Errors
     {
         public static readonly Error NotFound = new(
             "Vaccination.NotFound",
-            "No vaccinations were found");
+            "Sem registro de vacinação encontrado");
 
         public static readonly Error InvalidDose = new(
             "Vaccination.InvalidDose",
-            "Invalid dose");
+            "Dose inválida");
 
         public static readonly Error DoseAlreadyApplied = 
             new("Vaccination.DoseAlreadyApplied", 
