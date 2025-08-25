@@ -1,18 +1,19 @@
+using VaccinationCard.Api.Middlewares;
 using VaccinationCard.Application;
 using VaccinationCard.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Dependecy injection
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 
+// Configuring application CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("allowAll",
@@ -30,12 +31,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-// app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseCors("allowAll");
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();
