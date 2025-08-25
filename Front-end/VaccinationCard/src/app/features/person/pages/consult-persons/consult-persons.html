@@ -17,7 +17,7 @@
                 <td>{{item.cpf}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.phoneNumber}}</td>
-                <td>{{item.birthDate}}</td>
+                <td>{{item.age}}</td>
                 <td>{{item.gender}}</td>
                 <td style="width: 20%;">
                     <div class="action-buttons">
@@ -51,7 +51,7 @@
             <app-input [invalid]="this.form.controls.cpf.invalid" invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
             <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
             <app-input [invalid]="this.form.controls.phoneNumber.invalid" invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
-            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="É necessário informar genero" formControlName="gender" label="Genero"/>
+            <app-dropdown label="Genero" [options]="GENDER_OPTIONS" (valueChange)="onSelectGender($event)"></app-dropdown>
             <app-input [invalid]="this.form.controls.age.invalid" invalidMessage="É necessário informar idade" formControlName="age" label="Idade"/>
         </form>
         <div class="action-buttons" style="justify-content: flex-end;">

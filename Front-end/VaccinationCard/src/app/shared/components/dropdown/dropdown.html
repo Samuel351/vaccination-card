@@ -1,0 +1,35 @@
+    <div class="dropdown" [class.disabled]="disabled">
+      <!-- Label -->
+      <label *ngIf="label" class="dropdown-label">{{ label }}</label>
+      
+      <!-- Trigger Button -->
+      <button 
+        type="button"
+        class="dropdown-trigger"
+        [class.open]="isOpen"
+        (click)="toggle()"
+        [disabled]="disabled"
+        #trigger
+      >
+        <span class="dropdown-value">
+          {{ selectedOption?.name }}
+        </span>
+        <span class="dropdown-arrow" [class.rotated]="isOpen">▼</span>
+      </button>
+
+      <!-- Dropdown Menu -->
+      <ul *ngIf="isOpen" class="dropdown-menu" #menu>
+        <li 
+          *ngFor="let option of options"
+          class="dropdown-item"
+          [class.selected]="option.value === value"
+          [class.disabled]="option.disabled"
+          (click)="selectOption(option)"
+        >
+          {{ option.name }}
+        </li>
+        <li *ngIf="options.length === 0" class="dropdown-empty">
+          Nenhuma opção disponível
+        </li>
+      </ul>
+    </div>

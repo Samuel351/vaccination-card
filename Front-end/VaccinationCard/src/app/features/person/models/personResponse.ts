@@ -5,5 +5,5 @@ export interface PersonResponse {
   email: string
   phoneNumber: string
   gender: string
-  birthDate: string
+  age: number
 }

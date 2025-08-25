@@ -10,10 +10,11 @@ import { InputComponent } from '../../../../shared/components/input-component/in
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreatePersonRequest } from '../../models/createPersonRequest';
 import { ApiResponse } from '../../../../shared/models/apiResponse';
+import { Dropdown, Option } from "../../../../shared/components/dropdown/dropdown";
 
 @Component({
   selector: 'app-consult-persons',
-  imports: [TableComponent, ButtonComponent, Modal, RouterLink, InputComponent, ReactiveFormsModule],
+  imports: [TableComponent, ButtonComponent, Modal, RouterLink, InputComponent, ReactiveFormsModule, Dropdown],
   templateUrl: './consult-persons.html',
   styleUrl: './consult-persons.scss'
 })
@@ -49,6 +50,7 @@ export class ConsultPersons implements OnInit{
         this.personResponse = res;
       },
       error: error => {
+        this.personResponse = [];
         var apiResponse = error.error as ApiResponse
         this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
       }
@@ -121,4 +123,17 @@ export class ConsultPersons implements OnInit{
       }
     })
   }
+
+  onSelectGender(gender: string){
+    this.form.controls.gender.setValue(gender);
+  }
+
+  GENDER_OPTIONS: Option[] = [
+  { name: 'Feminino', value: 'Mulher', disabled: false },
+  { name: 'Masculino', value: 'Homem', disabled: false },
+  { name: 'Não-binário', value: 'Não binário', disabled: false },
+  { name: 'Transgênero', value: 'Transgenero', disabled: false },
+  { name: 'Outro', value: 'Outro', disabled: false },
+  { name: 'Prefiro não informar', value: 'Não informado', disabled: false }
+];
 }

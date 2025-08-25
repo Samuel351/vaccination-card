@@ -28,7 +28,7 @@
 }
 
 <div class="buttons-container">
-  <app-button text="Adicionar nova vacinação"></app-button>
+  <app-button text="Adicionar nova vacinação" (clicked)="onNewVaccinationRegister()"></app-button>
   <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
 </div>
 
@@ -63,7 +63,14 @@
 }
 
 @if (showNewVaccinationModal) {
-  <app-modal title="Adicionar nova vacinação">
-
+  <app-modal title="Adicionar nova vacinação" size="large">
+    <div class="modal-fields">
+      <app-dropdown (valueChange)="onSelectVaccine($event)" [options]="vaccinesOption" label="Vacinas"></app-dropdown>
+      <app-datepicker style="margin-top: 1rem;" [(ngModel)]="applicationDate" label="Hora da vacinação"></app-datepicker>
+      <div class="action-buttons" style="margin-top: 1rem;">
+        <app-button text="Continuar" (clicked)="onSaveNewVaccinationRegister()"></app-button>
+        <app-button text="Cancelar" variant="danger" (clicked)="onCloseNewVaccinationRegister()"></app-button>
+      </div>
+    </div>
   </app-modal>
 }

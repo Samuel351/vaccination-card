@@ -11,10 +11,13 @@ import { Datepicker } from "../../../../shared/components/datepicker/datepicker"
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { CreateVaccinationRequest } from '../../models/createVaccinationRequest';
 import { VaccinationService } from '../../services/vaccination-service';
+import { VaccineService } from '../../../vaccine/services/vaccine-service';
+import { VaccineResponse } from '../../../vaccine/models/vaccineResponse';
+import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdown';
 
 @Component({
   selector: 'app-person-details',
-  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule],
+  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss'
 })
@@ -23,6 +26,7 @@ export class PersonDetails implements OnInit {
   private personService = inject(PersonService);
   private snackBar = inject(MatSnackBar);
   private vaccinationService = inject(VaccinationService);
+  private vaccineService = inject(VaccineService);
 
   protected selectedVaccination?: VaccinationResponse;
   protected lastDose: number = 0;
@@ -36,9 +40,11 @@ export class PersonDetails implements OnInit {
   protected showNewVaccinationModal: boolean = false;
 
   protected applicationDate?: string = "";
+  protected vaccinesOption: Option[] = [];
 
   protected personId?: string;
   protected selectedDose?: VaccineDose;
+  protected vaccineId?: string;
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -46,6 +52,14 @@ export class PersonDetails implements OnInit {
       this.getPersonDetails(this.personId!);
       this.getPersonVaccinationCard(this.personId!);
     });
+  }
+
+  private getVaccines(){
+    this.vaccineService.getAllVaccines().subscribe({
+      next: res => {
+        this.vaccinesOption = res.map(x => { return {name: x.name, value: x.vaccineId, disabled: this.vaccinationCard?.find(y => y.vaccineId == x.vaccineId) != null}});
+      }
+    })
   }
 
   private getPersonDetails(personId: string){
@@ -64,6 +78,7 @@ export class PersonDetails implements OnInit {
     this.personService.getPersonVaccinationCard(personId).subscribe({
       next: res => {
         this.vaccinationCard = res;
+        this.getVaccines();
       },
       error: error => {
         var apiResponse = error.error as ApiResponse
@@ -99,7 +114,7 @@ export class PersonDetails implements OnInit {
     this.saveVaccination(createVaccinationRequest);
   }
 
-  saveVaccination(createVaccinationRequest: CreateVaccinationRequest){
+  private saveVaccination(createVaccinationRequest: CreateVaccinationRequest){
     this.vaccinationService.createVaccination(createVaccinationRequest).subscribe({
       next: res => {
         this.applicationDate = undefined;
@@ -107,6 +122,7 @@ export class PersonDetails implements OnInit {
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
         this.showRegisterDateVaccinationModal = false;
         this.showRegisterVaccinationModal = false;
+        this.showNewVaccinationModal = false;
       },
       error: error => {
         var apiResponse = error.error as ApiResponse
@@ -115,7 +131,7 @@ export class PersonDetails implements OnInit {
     })
   }
 
-  deleteVaccination(vaccinationId: string){
+  private deleteVaccination(vaccinationId: string){
     this.vaccinationService.deleteVaccination(vaccinationId).subscribe({
       next: res => {
         this.getPersonVaccinationCard(this.personId!);
@@ -148,5 +164,31 @@ export class PersonDetails implements OnInit {
   onCancelDeleteVaccination(){
     this.showConfirmDeleteVaccination = false;
     this.vaccinationCard = undefined;
+  
   }
+
+  onNewVaccinationRegister(){
+    this.showNewVaccinationModal = true;
+  }
+
+  onCloseNewVaccinationRegister(){
+    this.applicationDate = undefined;
+    this.showNewVaccinationModal = false;
+  }
+
+  onSaveNewVaccinationRegister(){
+    var createVaccinationRequest: CreateVaccinationRequest = {
+      doseNumber: 1,
+      personId: this.personId!,
+      vaccineId: this.vaccineId!,
+      applicationDate: this.applicationDate
+    }
+
+    this.saveVaccination(createVaccinationRequest);
+  }
+
+  onSelectVaccine(vaccineId: string){
+    this.vaccineId = vaccineId;
+  }
+
 }

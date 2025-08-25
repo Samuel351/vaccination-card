@@ -1,0 +1,135 @@
+.dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.dropdown-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.dropdown-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.dropdown-trigger:hover {
+    border-color: #9ca3af;
+}
+
+.dropdown-trigger.open {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dropdown-trigger:disabled {
+    cursor: not-allowed;
+    background: #f9fafb;
+}
+
+.dropdown-value {
+    color: #374151;
+    flex: 1;
+}
+
+.dropdown-trigger:not(:disabled) .dropdown-value:empty::before {
+    content: attr(data-placeholder);
+    color: #9ca3af;
+}
+
+.dropdown-arrow {
+    color: #6b7280;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+    margin-left: 8px;
+}
+
+.dropdown-arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin: 4px 0 0 0;
+    padding: 0;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: #f8fafc;
+}
+
+.dropdown-item.selected {
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 500;
+}
+
+.dropdown-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: transparent !important;
+}
+
+.dropdown-empty {
+    padding: 12px;
+    text-align: center;
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* Scrollbar customizada */
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
