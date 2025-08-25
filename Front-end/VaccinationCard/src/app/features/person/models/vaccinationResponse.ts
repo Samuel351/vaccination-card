@@ -1,7 +1,11 @@
-export interface VaccinationResponse {
-  vaccinationId: string;     // Guid → string
-  vaccineId: string;         // Guid → string
+interface VaccinationResponse {
+  vaccineId: string;
   vaccineName: string;
-  applicationDate: Date;
+  vaccineDoses: VaccineDose[];
+}
+
+interface VaccineDose {
+  vaccinationId: string;
+  applicationDate: string;
   doseNumber: number;
 }

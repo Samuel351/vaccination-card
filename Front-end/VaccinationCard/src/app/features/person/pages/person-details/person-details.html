@@ -8,7 +8,41 @@
     <li><strong>Gênero:</strong> {{person?.gender}}</li>
   </ul>
 
-  <div class="buttons-container">
-    <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
-  </div>
 </div>
+@for (vaccination of vaccinationCard; track $index) {
+  <div class="card">
+    <h2>Vacina: {{vaccination.vaccineName}}</h2>
+    @for (dose of vaccination.vaccineDoses; track $index) {
+      <ul>
+        <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm:ss'}}</li>
+        <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
+      </ul>
+    }
+      <app-button text="Registar nova vacinação" (clicked)="onClickRegisterVaccination(vaccination)"></app-button>
+  </div>
+}
+
+<div class="buttons-container">
+  <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
+</div>
+
+@if (showRegisterVaccinationModal) {
+  <app-modal title="Registar vacinação" size="medium">
+    <p>Registrar dose {{lastDose+1}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
+    <div class="action-buttons">
+      <app-button text="Continuar"></app-button>
+      <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
+    </div>
+  </app-modal>
+}
+
+@if(showRegisterDateVaccinationModal){
+    <app-modal [title]="'Registar horário da' + (lastDose+1) + 'º da vacina: ' + selectedVaccination?.vaccineName" size="medium">
+    <p>Registrar dose {{lastDose+1}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
+    <div class="action-buttons">
+      <app-button text="Salvar"></app-button>
+      <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
+    </div>
+  </app-modal>
+}
+

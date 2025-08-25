@@ -1,13 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatTable } from '@angular/material/table';
 import { TableComponent } from '../../../../shared/components/table-component/table-component';
 import { PersonService } from '../../services/person-service';
-import { PaginatedResponse } from '../../../../shared/models/paginatedResponse';
 import { PersonResponse } from '../../models/personResponse';
 import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 import { Modal } from '../../../../shared/components/modal/modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { InputComponent } from '../../../../shared/components/input-component/input-component';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreatePersonRequest } from '../../models/createPersonRequest';
@@ -24,11 +22,7 @@ export class ConsultPersons implements OnInit{
   private personService = inject(PersonService);
   private snackBar = inject(MatSnackBar);
 
-  protected paginatedResponse?: PaginatedResponse<PersonResponse>;
-
-  protected pageNumber: number = 1;
-  protected pageSize: number = 10;
-  protected query?: string = "";
+  protected personResponse?: PersonResponse[];
 
   protected showConfirmModal: boolean = false;
   protected showRegisterModal: boolean = false;
@@ -50,11 +44,9 @@ export class ConsultPersons implements OnInit{
   }
 
   private getAllPersonsPaginated(){
-    this.personService.getAllPersonsPaginated(this.pageNumber, this.pageSize, this.query).subscribe({
+    this.personService.getAllPersonsPaginated().subscribe({
       next: res => {
-        this.paginatedResponse = res;
-        this.pageNumber = res.pageNumber;
-        this.pageSize = res.pageSize;
+        this.personResponse = res;
       },
       error: error => {
         var apiResponse = error.error as ApiResponse

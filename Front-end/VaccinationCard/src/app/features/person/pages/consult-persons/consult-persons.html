@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (item of paginatedResponse?.items; track $index) {
+        @for (item of personResponse; track $index) {
             <tr>
                 <td>{{item.name}}</td>
                 <td>{{item.cpf}}</td>

@@ -44,7 +44,8 @@ export class ConsultVaccines implements OnInit {
         this.vaccines = res;
       },
       error: error => {
-        console.log(error);
+        var apiResponse = error.error as ApiResponse
+        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
       }
     })
   }
@@ -65,7 +66,8 @@ export class ConsultVaccines implements OnInit {
         this.snackBar.open(res.message, 'Fechar', {duration: 10});
       },
       error: error => {
-        console.log(error);
+        var apiResponse = error.error as ApiResponse
+        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
       }
     })
   }
