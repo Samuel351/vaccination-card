@@ -1,13 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VaccinationCard.Application.Behaviors;
-using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
 using VaccinationCard.Domain.Services;
 
