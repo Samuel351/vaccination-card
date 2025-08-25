@@ -30,17 +30,17 @@
   <app-modal title="Registar vacinação" size="medium">
     <p>Registrar dose {{lastDose+1}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
     <div class="action-buttons">
-      <app-button text="Continuar"></app-button>
+      <app-button text="Continuar" (clicked)="onContinueRegisterVaccination()"></app-button>
       <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
     </div>
   </app-modal>
 }
 
 @if(showRegisterDateVaccinationModal){
-    <app-modal [title]="'Registar horário da' + (lastDose+1) + 'º da vacina: ' + selectedVaccination?.vaccineName" size="medium">
-    <p>Registrar dose {{lastDose+1}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
-    <div class="action-buttons">
-      <app-button text="Salvar"></app-button>
+    <app-modal [title]="'Registar horário da ' + (lastDose+1) + 'º aplicação da vacina: ' + selectedVaccination?.vaccineName" size="medium">
+    <app-datepicker [(ngModel)]="applicationDate" label="Hora da vacinação"></app-datepicker>
+    <div class="action-buttons" style="margin-top: 1rem;">
+      <app-button text="Salvar" (clicked)="onSaveRegisterVaccination()"></app-button>
       <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
     </div>
   </app-modal>

@@ -7,10 +7,13 @@ import { DatePipe } from '@angular/common';
 import { ApiResponse } from '../../../../shared/models/apiResponse';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Modal } from '../../../../shared/components/modal/modal';
+import { Datepicker } from "../../../../shared/components/datepicker/datepicker";
+import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { CreateVaccinationRequest } from '../../models/createVaccinationRequest';
 
 @Component({
   selector: 'app-person-details',
-  imports: [ButtonComponent, RouterLink, DatePipe, Modal],
+  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss'
 })
@@ -27,6 +30,8 @@ export class PersonDetails implements OnInit {
 
   protected showRegisterVaccinationModal: boolean = false;
   protected showRegisterDateVaccinationModal: boolean = false;
+
+  protected applicationDate?: string = "";
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -67,7 +72,26 @@ export class PersonDetails implements OnInit {
     this.showRegisterVaccinationModal = true;
   }
 
+  onContinueRegisterVaccination(){
+    this.showRegisterDateVaccinationModal = true;
+  }
+
   onCloseRegisterVaccination(){
     this.showRegisterVaccinationModal = false;
+  }
+
+  onSaveRegisterVaccination(){
+    var createVaccinationRequest: CreateVaccinationRequest = {
+      doseNumber: this.lastDose+1,
+      personId: this.person?.personId!,
+      vaccineId: this.selectedVaccination?.vaccineId!,
+      applicationDate: this.applicationDate
+    }
+
+    console.log(createVaccinationRequest);
+  }
+
+  SaveVaccination(createVaccinationRequest: CreateVaccinationRequest){
+    
   }
 }
