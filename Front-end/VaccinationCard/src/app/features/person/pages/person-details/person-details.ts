@@ -10,6 +10,7 @@ import { Modal } from '../../../../shared/components/modal/modal';
 import { Datepicker } from "../../../../shared/components/datepicker/datepicker";
 import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { CreateVaccinationRequest } from '../../models/createVaccinationRequest';
+import { VaccinationService } from '../../services/vaccination-service';
 
 @Component({
   selector: 'app-person-details',
@@ -21,6 +22,7 @@ export class PersonDetails implements OnInit {
   private router = inject(ActivatedRoute);
   private personService = inject(PersonService);
   private snackBar = inject(MatSnackBar);
+  private vaccinationService = inject(VaccinationService);
 
   protected selectedVaccination?: VaccinationResponse;
   protected lastDose: number = 0;
@@ -33,11 +35,13 @@ export class PersonDetails implements OnInit {
 
   protected applicationDate?: string = "";
 
+  protected personId?: string;
+
   ngOnInit(): void {
     this.router.params.subscribe(params => {
-      const id = params['id'];
-      this.getPersonDetails(id);
-      this.getPersonVaccinationCard(id);
+      this.personId = params['id'];
+      this.getPersonDetails(this.personId!);
+      this.getPersonVaccinationCard(this.personId!);
     });
   }
 
@@ -88,10 +92,35 @@ export class PersonDetails implements OnInit {
       applicationDate: this.applicationDate
     }
 
-    console.log(createVaccinationRequest);
+    this.saveVaccination(createVaccinationRequest);
   }
 
-  SaveVaccination(createVaccinationRequest: CreateVaccinationRequest){
-    
+  saveVaccination(createVaccinationRequest: CreateVaccinationRequest){
+    this.vaccinationService.createVaccination(createVaccinationRequest).subscribe({
+      next: res => {
+        this.applicationDate = undefined;
+        this.getPersonVaccinationCard(createVaccinationRequest.personId);
+        this.snackBar.open(res.message, 'Fechar', {duration: 2000});
+      },
+      error: error => {
+        var apiResponse = error.error as ApiResponse
+        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 5000});
+      }
+    })
+  }
+
+  deleteVaccination(vaccinationId: string){
+    this.vaccinationService.deleteVaccination(vaccinationId).subscribe({
+      next: res => {
+        this.getPersonVaccinationCard(this.personId!);
+        this.snackBar.open(res.message, 'Fechar', {duration: 2000});
+        this.showRegisterDateVaccinationModal = false;
+        this.showRegisterVaccinationModal = false;
+      },
+      error: error => {
+        var apiResponse = error.error as ApiResponse
+        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
+      }
+    })
   }
 }
