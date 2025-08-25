@@ -8,7 +8,7 @@ O objetivo do sistema é permitir que pessoas tenham seus cartões de vacinaçã
 
 **Principais funcionalidades:**
 
-* Cadastrar vacina (nome, quantidade de doses requeridas,identificador único).
+* Cadastrar vacina (nome, quantidade de doses requeridas, identificador único).
 * Cadastrar pessoa (nome, CPF, email, genero, telefone, idade e identificador único).
 * Remover pessoa (remove também seu cartão e registros associados – *cascade* lógico conforme decisão de implementação).
 * Registrar vacinação para uma pessoa (vacina + dose + data de aplicação; validação da dose).
@@ -24,7 +24,7 @@ O objetivo do sistema é permitir que pessoas tenham seus cartões de vacinaçã
 ```
 Frontend (Angular)
         ↓ HTTP/JSON
-API (.NET Minimal/Web API)
+API (Web API)
 ├─ Application (CQRS + MediatR + FluentValidation)
 ├─ Domain (Entidades + Regras de Negócio)
 └─ Infrastructure (EF Core + MySQL + Repository Pattern)
@@ -61,7 +61,6 @@ API (.NET Minimal/Web API)
 
 ```
 / (repo root)
-├─ docs/
 ├─ backend/
 │  ├─ src/
 │  │  ├─ Api/                  # Controllers/Endpoints, DI, Middlewares
@@ -77,21 +76,20 @@ API (.NET Minimal/Web API)
    │  │  │  ├─ vaccines/
    │  │  │  ├─ person/
    │  │  │  └─ vaccinations/
-   │  │  └─ pages/
-   └─ tests/
+            └─ pages/
 ```
 
 ---
 
 ## Validações e Pipeline
 
-* **FluentValidation** por *command/query* (ex.: `CreatePersonCommandValidator`, `RegisterVaccinationCommandValidator`).
+* **FluentValidation** por *command/query* (ex.: `CreatePersonCommandValidator`, `CreateVaccinationCommandValidator`).
 * **MediatR Pipeline Behavior** executando validações antes do *handler*; se inválido, retorna `Result.Failure(...)` imediatamente.
 * **Result Pattern** padroniza respostas internas e facilita mapeamento para HTTP.
 
 Exemplos de regras:
 
-* `Person` ➜ `Name` não vazio, `DocumentNumber` com formato válido e único.
+* `Person` ➜ `Name` não vazio, `CPF` com formato válido e único.
 * `Vaccine` ➜ `Name` não vazio/único.
 * `Vaccination` ➜ `DoseNumber` >= 1, `AppliedAt` ≤ `DateTime.UtcNow`, combinação única `(PersonId,VaccineId,DoseNumber)`.
 
@@ -111,7 +109,7 @@ Sugestão de *Conventional Commits*:
 ## Roadmap
 
 * [ ] Soft delete e trilhas de auditoria (CreatedBy/UpdatedBy, DeletedAt).
-* [ ] Políticas de autorização por perfil (Admin/Operador/Leitura).
+* [ ] Autenticação e autorização por perfil (Admin/Operador/Leitura)
 * [ ] Paginação, ordenação e filtros avançados no GET.
 * [ ] Rate limiting e *caching*.
 * [ ] Observabilidade (Serilog, OpenTelemetry).
