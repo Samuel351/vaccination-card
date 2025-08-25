@@ -12,17 +12,23 @@
 @for (vaccination of vaccinationCard; track $index) {
   <div class="card">
     <h2>Vacina: {{vaccination.vaccineName}}</h2>
-    @for (dose of vaccination.vaccineDoses; track $index) {
-      <ul>
-        <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm:ss'}}</li>
-        <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
-      </ul>
+    @for (dose of vaccination.vaccineDoses; track $index; let last = $last) {
+      <div class="dose-container">
+        <ul>
+          <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm:ss'}}</li>
+          <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
+        </ul>
+
+        <app-button [disabled]="!$last" size="small" variant="danger" text="Excluir vacinação" (clicked)="onClickDeleteVaccination(dose, vaccination)"></app-button>
+        
+      </div>      
     }
       <app-button text="Registar nova vacinação" (clicked)="onClickRegisterVaccination(vaccination)"></app-button>
   </div>
 }
 
 <div class="buttons-container">
+  <app-button text="Adicionar nova vacinação"></app-button>
   <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
 </div>
 
@@ -46,3 +52,18 @@
   </app-modal>
 }
 
+@if (showConfirmDeleteVaccination) {
+  <app-modal title="Confirmar deleção de registro da vacinação" size="medium">
+    <p>Deseja deletar dose {{selectedDose?.doseNumber}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
+    <div class="action-buttons">
+      <app-button text="Continuar" (clicked)="onConfirmDeleteVaccination()"></app-button>
+      <app-button text="Cancelar" variant="danger" (clicked)="onCloseDeleteVaccination()"></app-button>
+    </div>
+  </app-modal>
+}
+
+@if (showNewVaccinationModal) {
+  <app-modal title="Adicionar nova vacinação">
+
+  </app-modal>
+}

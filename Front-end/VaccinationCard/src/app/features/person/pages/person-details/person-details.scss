@@ -29,3 +29,10 @@ li {
     gap: 1rem;
     justify-content: center;
 }
+
+.dose-container{
+  display: flex;
+  align-items: baseline;
+  flex-direction: row;
+  justify-content: space-between;
+}

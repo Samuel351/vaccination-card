@@ -32,10 +32,13 @@ export class PersonDetails implements OnInit {
 
   protected showRegisterVaccinationModal: boolean = false;
   protected showRegisterDateVaccinationModal: boolean = false;
+  protected showConfirmDeleteVaccination: boolean = false;
+  protected showNewVaccinationModal: boolean = false;
 
   protected applicationDate?: string = "";
 
   protected personId?: string;
+  protected selectedDose?: VaccineDose;
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -82,6 +85,7 @@ export class PersonDetails implements OnInit {
 
   onCloseRegisterVaccination(){
     this.showRegisterVaccinationModal = false;
+    this.showRegisterDateVaccinationModal = false;
   }
 
   onSaveRegisterVaccination(){
@@ -101,6 +105,8 @@ export class PersonDetails implements OnInit {
         this.applicationDate = undefined;
         this.getPersonVaccinationCard(createVaccinationRequest.personId);
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
+        this.showRegisterDateVaccinationModal = false;
+        this.showRegisterVaccinationModal = false;
       },
       error: error => {
         var apiResponse = error.error as ApiResponse
@@ -114,13 +120,33 @@ export class PersonDetails implements OnInit {
       next: res => {
         this.getPersonVaccinationCard(this.personId!);
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
-        this.showRegisterDateVaccinationModal = false;
-        this.showRegisterVaccinationModal = false;
+        this.showConfirmDeleteVaccination = false;
       },
       error: error => {
         var apiResponse = error.error as ApiResponse
         this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
       }
     })
+  }
+
+  onClickDeleteVaccination(vaccineDose: VaccineDose, vaccination: VaccinationResponse){
+    this.selectedDose = vaccineDose;
+    this.showConfirmDeleteVaccination = true;
+    this.selectedVaccination = vaccination;
+  }
+
+  onCloseDeleteVaccination(){
+    this.selectedDose = undefined;
+    this.showConfirmDeleteVaccination = false;
+    this.selectedVaccination = undefined;
+  }
+
+  onConfirmDeleteVaccination(){
+    this.deleteVaccination(this.selectedDose?.vaccinationId!);
+  }
+
+  onCancelDeleteVaccination(){
+    this.showConfirmDeleteVaccination = false;
+    this.vaccinationCard = undefined;
   }
 }
