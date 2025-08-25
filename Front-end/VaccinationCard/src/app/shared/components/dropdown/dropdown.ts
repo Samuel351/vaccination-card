@@ -50,6 +50,7 @@ export class Dropdown implements OnDestroy {
   }
 
   selectOption(option: Option) {
+    if(option.disabled) return;
     this.value = option.value;
     this.selectedOption = option;
     this.valueChange.emit(option.value);
