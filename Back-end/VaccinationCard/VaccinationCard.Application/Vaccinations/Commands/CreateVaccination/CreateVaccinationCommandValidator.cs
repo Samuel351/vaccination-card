@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using VaccinationCard.Domain.Errors;
 
 namespace VaccinationCard.Application.Vaccinations.Commands.CreateVaccination
 {
@@ -8,7 +9,7 @@ namespace VaccinationCard.Application.Vaccinations.Commands.CreateVaccination
         {
             RuleFor(x => x.DoseNumber)
             .GreaterThanOrEqualTo(1)
-            .WithMessage("Dose da vacina deve ser maior ou igual a 1");
+            .WithMessage(VaccinationErrors.InvalidDoseNumber);
         }
     }
 }
