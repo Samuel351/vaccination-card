@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using VaccinationCard.Infrastructure.Data;
+using VaccinationCard.Infrastructure.Options;
 using VaccinationCard.Infrastructure.Repositories;
 
 namespace VaccinationCard.Infrastructure
@@ -20,6 +21,7 @@ namespace VaccinationCard.Infrastructure
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IVaccinationRepository, VaccinationRepository>();
             services.AddScoped<IVaccineRepository, VaccineRepository>();
+
 
             return services;
         }

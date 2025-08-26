@@ -1,6 +1,7 @@
 using VaccinationCard.Api.Middlewares;
 using VaccinationCard.Application;
 using VaccinationCard.Infrastructure;
+using VaccinationCard.Infrastructure.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddCors(options =>
                         .AllowAnyHeader()
                         .AllowAnyMethod());
 });
+
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection(TokenSettings.TokenConfiguration));
 
 var app = builder.Build();
 
