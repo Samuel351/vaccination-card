@@ -4,7 +4,7 @@ import { PersonDetails } from './features/person/pages/person-details/person-det
 import { ConsultVaccines } from './features/vaccine/pages/consult-vaccines/consult-vaccines';
 
 export const routes: Routes = [
-    {path:'', pathMatch:'full', redirectTo: 'consult-consultar'},
+    {path:'', pathMatch:'full', redirectTo: 'consultar-pessoas'},
     {path: 'consultar-pessoas', component: ConsultPersons},
     {path: 'consultar-vacinas', component: ConsultVaccines},
     { path: 'detalhes/:id', component: PersonDetails },

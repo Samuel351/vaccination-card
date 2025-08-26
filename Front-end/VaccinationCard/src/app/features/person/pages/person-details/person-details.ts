@@ -1,23 +1,24 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterState } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PersonService } from '../../services/person-service';
 import { PersonResponse } from '../../models/personResponse';
 import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 import { DatePipe } from '@angular/common';
-import { ApiResponse } from '../../../../shared/models/apiResponse';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { Datepicker } from "../../../../shared/components/datepicker/datepicker";
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CreateVaccinationRequest } from '../../models/createVaccinationRequest';
 import { VaccinationService } from '../../services/vaccination-service';
 import { VaccineService } from '../../../vaccine/services/vaccine-service';
-import { VaccineResponse } from '../../../vaccine/models/vaccineResponse';
 import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdown';
+import { Loader } from '../../../../shared/components/loader/loader';
+import { Timepicker } from '../../../../shared/components/timepicker/timepicker';
+import { handleApiError } from '../../../../shared/utils/apiHandleError';
 
 @Component({
   selector: 'app-person-details',
-  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown],
+  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown, Loader, Timepicker],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss'
 })
@@ -30,6 +31,7 @@ export class PersonDetails implements OnInit {
 
   protected selectedVaccination?: VaccinationResponse;
   protected lastDose: number = 0;
+  protected isLoading: boolean = false;
 
   protected person?: PersonResponse;
   protected vaccinationCard?: VaccinationResponse[] = [];
@@ -39,12 +41,13 @@ export class PersonDetails implements OnInit {
   protected showConfirmDeleteVaccination: boolean = false;
   protected showNewVaccinationModal: boolean = false;
 
-  protected applicationDate?: string = "";
+  protected applicationDate?: string = undefined;
+  protected applicationHour?: string = undefined;
   protected vaccinesOption: Option[] = [];
 
   protected personId?: string;
   protected selectedDose?: VaccineDose;
-  protected vaccineId?: string;
+  protected vaccineId?: string = undefined;
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -58,7 +61,8 @@ export class PersonDetails implements OnInit {
     this.vaccineService.getAllVaccines().subscribe({
       next: res => {
         this.vaccinesOption = res.map(x => { return {name: x.name, value: x.vaccineId, disabled: this.vaccinationCard?.find(y => y.vaccineId == x.vaccineId) != null}});
-      }
+      },
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -67,10 +71,7 @@ export class PersonDetails implements OnInit {
       next: res =>{
         this.person = res;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -80,10 +81,7 @@ export class PersonDetails implements OnInit {
         this.vaccinationCard = res;
         this.getVaccines();
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -101,6 +99,13 @@ export class PersonDetails implements OnInit {
   onCloseRegisterVaccination(){
     this.showRegisterVaccinationModal = false;
     this.showRegisterDateVaccinationModal = false;
+    this.resetValues();
+  }
+
+  private resetValues(){
+    this.vaccineId = undefined;
+    this.applicationDate = undefined;
+    this.applicationHour = undefined;
   }
 
   onSaveRegisterVaccination(){
@@ -108,7 +113,7 @@ export class PersonDetails implements OnInit {
       doseNumber: this.lastDose+1,
       personId: this.person?.personId!,
       vaccineId: this.selectedVaccination?.vaccineId!,
-      applicationDate: this.applicationDate
+      applicationDate: this.applicationDate+"T"+this.applicationHour
     }
 
     this.saveVaccination(createVaccinationRequest);
@@ -124,10 +129,7 @@ export class PersonDetails implements OnInit {
         this.showRegisterVaccinationModal = false;
         this.showNewVaccinationModal = false;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 5000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -138,10 +140,7 @@ export class PersonDetails implements OnInit {
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
         this.showConfirmDeleteVaccination = false;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -164,7 +163,6 @@ export class PersonDetails implements OnInit {
   onCancelDeleteVaccination(){
     this.showConfirmDeleteVaccination = false;
     this.vaccinationCard = undefined;
-  
   }
 
   onNewVaccinationRegister(){
@@ -174,6 +172,7 @@ export class PersonDetails implements OnInit {
   onCloseNewVaccinationRegister(){
     this.applicationDate = undefined;
     this.showNewVaccinationModal = false;
+    this.resetValues();
   }
 
   onSaveNewVaccinationRegister(){
@@ -181,7 +180,7 @@ export class PersonDetails implements OnInit {
       doseNumber: 1,
       personId: this.personId!,
       vaccineId: this.vaccineId!,
-      applicationDate: this.applicationDate
+      applicationDate: this.applicationDate+"T"+this.applicationHour
     }
 
     this.saveVaccination(createVaccinationRequest);
