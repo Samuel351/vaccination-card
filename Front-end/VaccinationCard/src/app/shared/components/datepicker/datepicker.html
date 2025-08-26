@@ -12,19 +12,10 @@
       class="date-input"
       [class.error]="hasError"
     />
-    <input
-      type="time"
-      [value]="timeValue"
-      [disabled]="isTimeDisabled"
-      [max]="maxTime"
-      [placeholder]="timePlaceholder || 'Selecione a hora'"
-      (input)="onTimeInput($event)"
-      (blur)="onBlur()"
-      class="time-input"
-      [class.error]="hasError"
-    />
   </div>
-  <div *ngIf="hasError && currentErrorMessage" class="error-message">
-    {{ currentErrorMessage }}
-  </div>
+  @if(hasError && currentErrorMessage){
+    <div class="error-message">
+      {{ currentErrorMessage }}
+    </div>
+  }
 </div>

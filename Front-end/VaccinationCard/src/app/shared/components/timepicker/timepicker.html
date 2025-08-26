@@ -1,0 +1,17 @@
+<div class="time-picker-wrapper">
+    @if (label) {
+        <label class="field-label">{{ label }}</label>
+    }
+  <input
+    type="time"
+    [value]="value"
+    [disabled]="disabled"
+    (change)="onTimeChange($event)"
+    (blur)="markTouched()"
+    [class.invalid]="invalid"
+    class="time-input"
+  />
+  @if (invalid && errorMessage) {
+    <div class="error-msg">{{ errorMessage }}</div>
+  }
+</div>

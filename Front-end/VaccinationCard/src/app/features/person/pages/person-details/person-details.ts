@@ -15,10 +15,12 @@ import { VaccineService } from '../../../vaccine/services/vaccine-service';
 import { VaccineResponse } from '../../../vaccine/models/vaccineResponse';
 import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdown';
 import { Loader } from '../../../../shared/components/loader/loader';
+import { Timepicker } from '../../../../shared/components/timepicker/timepicker';
+import { U } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-person-details',
-  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown, Loader],
+  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown, Loader, Timepicker],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss'
 })
@@ -42,6 +44,7 @@ export class PersonDetails implements OnInit {
   protected showNewVaccinationModal: boolean = false;
 
   protected applicationDate?: string = undefined;
+  protected applicationHour?: string = undefined;
   protected vaccinesOption: Option[] = [];
 
   protected personId?: string;
@@ -103,6 +106,13 @@ export class PersonDetails implements OnInit {
   onCloseRegisterVaccination(){
     this.showRegisterVaccinationModal = false;
     this.showRegisterDateVaccinationModal = false;
+    this.resetValues();
+  }
+
+  private resetValues(){
+    this.vaccineId = undefined;
+    this.applicationDate = undefined;
+    this.applicationHour = undefined;
   }
 
   onSaveRegisterVaccination(){
@@ -110,7 +120,7 @@ export class PersonDetails implements OnInit {
       doseNumber: this.lastDose+1,
       personId: this.person?.personId!,
       vaccineId: this.selectedVaccination?.vaccineId!,
-      applicationDate: this.applicationDate
+      applicationDate: this.applicationDate+"T"+this.applicationHour
     }
 
     this.saveVaccination(createVaccinationRequest);
@@ -166,7 +176,6 @@ export class PersonDetails implements OnInit {
   onCancelDeleteVaccination(){
     this.showConfirmDeleteVaccination = false;
     this.vaccinationCard = undefined;
-  
   }
 
   onNewVaccinationRegister(){
@@ -176,6 +185,7 @@ export class PersonDetails implements OnInit {
   onCloseNewVaccinationRegister(){
     this.applicationDate = undefined;
     this.showNewVaccinationModal = false;
+    this.resetValues();
   }
 
   onSaveNewVaccinationRegister(){
@@ -183,7 +193,7 @@ export class PersonDetails implements OnInit {
       doseNumber: 1,
       personId: this.personId!,
       vaccineId: this.vaccineId!,
-      applicationDate: this.applicationDate
+      applicationDate: this.applicationDate+"T"+this.applicationHour
     }
 
     this.saveVaccination(createVaccinationRequest);

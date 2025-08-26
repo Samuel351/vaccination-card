@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input, Optional, AfterViewInit, Injector, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, Input, AfterViewInit, Injector, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { MatDatepicker, MatDatepickerModule, MatDatepickerToggle, MatDateRangeInput } from '@angular/material/datepicker';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-datepicker',
@@ -23,7 +22,6 @@ export class Datepicker implements ControlValueAccessor, AfterViewInit {
   @Input() timePlaceholder?: string;
   @Input() errorMessage?: string;
   @Input() blockFutureDates: boolean = false;
-  @Input() blockFutureTimes: boolean = false;
 
   dateValue: string = '';
   timeValue: string = '';
@@ -77,9 +75,6 @@ export class Datepicker implements ControlValueAccessor, AfterViewInit {
       if (this.blockFutureDates && this.isFutureDate()) {
         return 'Não é possível selecionar datas futuras';
       }
-      if (this.blockFutureTimes && this.isFutureTime()) {
-        return 'Não é possível selecionar horários futuros';
-      }
     }
     
     return this.errorMessage || '';
@@ -94,14 +89,6 @@ export class Datepicker implements ControlValueAccessor, AfterViewInit {
     return '';
   }
 
-  // Getter para o valor máximo do horário
-  get maxTime(): string {
-    if (this.blockFutureTimes && this.isToday()) {
-      const now = new Date();
-      return now.toTimeString().slice(0, 5);
-    }
-    return '';
-  }
 
   private isToday(): boolean {
     if (!this.dateValue) return false;
@@ -122,17 +109,8 @@ export class Datepicker implements ControlValueAccessor, AfterViewInit {
     return selectedDate > today;
   }
 
-  private isFutureTime(): boolean {
-    if (!this.blockFutureTimes || !this.dateValue || !this.timeValue) return false;
-    
-    const selectedDateTime = new Date(`${this.dateValue}T${this.timeValue}`);
-    const now = new Date();
-    
-    return selectedDateTime > now;
-  }
-
   private isFutureDateTime(): boolean {
-    return this.isFutureDate() || this.isFutureTime();
+    return this.isFutureDate();
   }
 
   onDateInput(event: Event): void {
@@ -152,47 +130,16 @@ export class Datepicker implements ControlValueAccessor, AfterViewInit {
       if (!this.dateValue) {
         this.timeValue = '';
       }
-      // Se está bloqueando horários futuros e não é mais hoje, limpa o horário
-      else if (this.blockFutureTimes && !this.isToday()) {
-        this.timeValue = '';
-      }
     }
     
-    this.updateValue();
-  }
-
-  onTimeInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.timeValue = target.value;
-    
-    // Se está bloqueando horários futuros e selecionou um horário futuro, limpa o campo
-    if (this.blockFutureTimes && this.isFutureTime()) {
-      this.timeValue = '';
-      target.value = '';
-    }
-    
-    this.updateValue();
+    this.seletectedDate.emit(this.dateValue);
+    this.onChange(this.dateValue);
   }
 
   onBlur(): void {
     this.touched = true;
     this.onTouched();
   }
-
-  private updateValue(): void {
-    let combinedValue = '';
-    
-    if (this.dateValue) {
-      combinedValue = this.dateValue;
-      if (this.timeValue) {
-        combinedValue += `T${this.timeValue}`;
-        this.seletectedDate.emit(combinedValue);
-      }
-    }
-    
-    this.onChange(combinedValue);
-  }
-
   writeValue(value: string): void {
     if (value) {
       const date = new Date(value);

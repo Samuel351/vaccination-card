@@ -20,7 +20,7 @@
     @for (dose of vaccination.vaccineDoses; track $index; let last = $last) {
       <div class="dose-container">
         <ul>
-          <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm:ss'}}</li>
+          <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm'}}</li>
           <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
         </ul>
 
@@ -49,9 +49,12 @@
 
 @if(showRegisterDateVaccinationModal){
     <app-modal [title]="'Registar horário da ' + (lastDose+1) + 'º aplicação da vacina: ' + selectedVaccination?.vaccineName" size="medium">
-    <app-datepicker [blockFutureDates]="true" [blockFutureTimes]="true" (seletectedDate)="applicationDate = $event" label="Hora da vacinação"></app-datepicker>
+    <div class="time-picker-container">
+      <app-datepicker [blockFutureDates]="true" (seletectedDate)="applicationDate = $event" label="Data da vacinação"></app-datepicker>
+      <app-timepicker label="Hora da vacinação" [disabled]="!applicationDate" (seletectedHour)="applicationHour = $event" ></app-timepicker>
+    </div>
     <div class="modal-action-buttons" style="margin-top: 1rem;">
-      <app-button text="Salvar" [disabled]="applicationDate != undefined" (clicked)="onSaveRegisterVaccination()"></app-button>
+      <app-button text="Salvar" [disabled]="!applicationDate || !applicationHour" (clicked)="onSaveRegisterVaccination()"></app-button>
       <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
     </div>
   </app-modal>
@@ -71,9 +74,12 @@
   <app-modal title="Adicionar nova vacinação" size="large">
     <div class="modal-fields">
       <app-dropdown (valueChange)="onSelectVaccine($event)" [options]="vaccinesOption" label="Vacinas"></app-dropdown>
-      <app-datepicker [blockFutureDates]="true" [blockFutureTimes]="true" style="margin-top: 1rem;" (seletectedDate)="applicationDate = $event" label="Hora da vacinação"></app-datepicker>
+      <div class="time-picker-container">
+        <app-datepicker [blockFutureDates]="true" (seletectedDate)="applicationDate = $event" label="Data da vacinação"></app-datepicker>
+        <app-timepicker label="Hora da vacinação" [disabled]="!applicationDate" (seletectedHour)="applicationHour = $event" ></app-timepicker>
+      </div>
       <div class="modal-action-buttons" style="margin-top: 1rem;">
-        <app-button text="Continuar" [disabled]="applicationDate == undefined || vaccineId == undefined" (clicked)="onSaveNewVaccinationRegister()"></app-button>
+        <app-button text="Continuar" [disabled]="!applicationDate || !applicationHour || !vaccineId" (clicked)="onSaveNewVaccinationRegister()"></app-button>
         <app-button text="Cancelar" variant="danger" (clicked)="onCloseNewVaccinationRegister()"></app-button>
       </div>
     </div>
