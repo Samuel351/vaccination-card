@@ -17,31 +17,36 @@
       }
     </div>
   </div>
-
+  <div class="vaccination-header">
+    <h1>Histórico de vacinação</h1>
+    <div class="buttons-container">
+      <app-button text="Adicionar nova vacinação" (clicked)="onNewVaccinationRegister()"></app-button>
+      <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
+    </div>
+  </div>
 
   <div class="vaccinations-cards">
     @for (vaccination of vaccinationCard; track $index) {
     <div class="card">
-      <h2>Vacina: {{vaccination.vaccineName}}</h2>
-      @for (dose of vaccination.vaccineDoses; track $index; let last = $last) {
-        <div class="dose-container">
-          <ul>
-            <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm'}}</li>
-            <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
-          </ul>
+      <div class="vaccination-card">
+        <div>
+          <h2>Vacina: {{vaccination.vaccineName}}</h2>
+          @for (dose of vaccination.vaccineDoses; track $index; let last = $last) {
+            <div class="dose-container">
+              <ul>
+                <li><strong>Data de aplicação:</strong> {{dose.applicationDate | date: 'dd/MM/yyyy, HH:mm'}}</li>
+                <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
+              </ul>
 
-          <app-button [disabled]="!$last" size="small" variant="danger" text="Excluir vacinação" (clicked)="onClickDeleteVaccination(dose, vaccination)"></app-button>
-          
-        </div>      
-      }
+              <app-button [disabled]="!$last" size="small" variant="danger" text="Excluir vacinação" (clicked)="onClickDeleteVaccination(dose, vaccination)"></app-button>
+              
+            </div>      
+          }
+        </div>
         <app-button text="Registar nova vacinação" (clicked)="onClickRegisterVaccination(vaccination)"></app-button>
+      </div>
     </div>
   }
-  </div>
-
-  <div class="buttons-container">
-    <app-button text="Adicionar nova vacinação" (clicked)="onNewVaccinationRegister()"></app-button>
-    <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
   </div>
 </div>
 
