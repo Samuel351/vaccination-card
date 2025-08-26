@@ -12,11 +12,14 @@ namespace VaccinationCard.Infrastructure.Data
 
         public DbSet<Vaccination> Vaccination { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PersonEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VaccinationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VaccineEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
         }
     }
 }
