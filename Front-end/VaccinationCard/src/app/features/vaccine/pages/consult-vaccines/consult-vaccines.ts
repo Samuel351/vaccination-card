@@ -97,6 +97,8 @@ export class ConsultVaccines implements OnInit {
 
   private resetForm(){
     this.form.reset();
+    // Quando o usuário voltar para o modal o valor ficará igual a 1, já que o form feita resetado acima
+    this.form.controls.requiredDoses.setValue(1);
   }
 
   private createVaccine(createVaccineRequest: CreateVaccineRequest){
