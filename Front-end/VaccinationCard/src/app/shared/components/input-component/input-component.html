@@ -6,12 +6,14 @@
     [value]="value"
     [disabled]="disabled"
     (input)="handleInput($event)"
-    (blur)="onTouched()"
+    (blur)="handleBlur()"
     [class.invalid]="invalid"
+    [mask]="maskType"
+    [dropSpecialCharacters]="true"
   />
   @if (invalid) {
     <div class="error">
-      {{ invalidMessage }}
+      {{ errorMessage }}
     </div>
   }
 </div>

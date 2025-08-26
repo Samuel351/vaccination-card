@@ -11,10 +11,13 @@ import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { CreatePersonRequest } from '../../models/createPersonRequest';
 import { ApiResponse } from '../../../../shared/models/apiResponse';
 import { Dropdown, Option } from "../../../../shared/components/dropdown/dropdown";
+import { Loader } from '../../../../shared/components/loader/loader';
+import { finalize } from 'rxjs';
+import { NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-consult-persons',
-  imports: [TableComponent, ButtonComponent, Modal, RouterLink, InputComponent, ReactiveFormsModule, Dropdown],
+  imports: [TableComponent, ButtonComponent, Modal, RouterLink, InputComponent, ReactiveFormsModule, Dropdown, Loader, NgxMaskPipe],
   templateUrl: './consult-persons.html',
   styleUrl: './consult-persons.scss'
 })
@@ -24,6 +27,7 @@ export class ConsultPersons implements OnInit{
   private snackBar = inject(MatSnackBar);
 
   protected personResponse?: PersonResponse[];
+  protected isLoading: boolean = false;
 
   protected showConfirmModal: boolean = false;
   protected showRegisterModal: boolean = false;
@@ -33,11 +37,11 @@ export class ConsultPersons implements OnInit{
 
   protected form = this.formBuilder.group({
     name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    cpf: new FormControl<string>('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
+    cpf: new FormControl<string>('', [Validators.required]),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl<string>('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
-    age: new FormControl<number>(0, [Validators.required])
+    age: new FormControl<number>(0, [Validators.required, Validators.min(0), Validators.max(120)])
   });
 
   ngOnInit(): void {
@@ -45,7 +49,8 @@ export class ConsultPersons implements OnInit{
   }
 
   private getAllPersonsPaginated(){
-    this.personService.getAllPersonsPaginated().subscribe({
+    this.isLoading = true;
+    this.personService.getAllPersonsPaginated().pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res => {
         this.personResponse = res;
       },
@@ -94,11 +99,7 @@ export class ConsultPersons implements OnInit{
 
   onSaveRegister(){
     var request = this.form.value as CreatePersonRequest;
-
-    console.log(request);
-
     this.createPerson(request);
-    this.resetForm();
   }
 
   private resetForm(){
@@ -111,6 +112,7 @@ export class ConsultPersons implements OnInit{
         this.snackBar.open(res.message, 'Fechar', {duration: 1000});
         this.showRegisterModal = false;
         this.getAllPersonsPaginated();
+        this.resetForm();
       },
       error: (error) => {
         var apiResponse = error.error as ApiResponse;
@@ -137,3 +139,6 @@ export class ConsultPersons implements OnInit{
   { name: 'Prefiro não informar', value: 'Não informado', disabled: false }
 ];
 }
+
+
+

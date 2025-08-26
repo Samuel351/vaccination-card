@@ -13,7 +13,7 @@ import { ApiResponse } from '../../../../shared/models/apiResponse';
 
 @Component({
   selector: 'app-consult-vaccines',
-  imports: [TableComponent, ButtonComponent, RouterLink, Modal, InputComponent, ReactiveFormsModule],
+  imports: [TableComponent, ButtonComponent, Modal, InputComponent, ReactiveFormsModule],
   standalone: true,
   templateUrl: './consult-vaccines.html',
   styleUrl: './consult-vaccines.scss'
@@ -31,7 +31,7 @@ export class ConsultVaccines implements OnInit {
 
   protected form = this.formBuilder.group({
     name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    requiredDoses: new FormControl<number>(1, [Validators.required])
+    requiredDoses: new FormControl<number>(1, [Validators.required, Validators.min(1)])
   });
 
   ngOnInit(): void {

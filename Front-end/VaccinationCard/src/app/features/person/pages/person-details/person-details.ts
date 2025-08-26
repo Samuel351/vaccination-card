@@ -14,10 +14,11 @@ import { VaccinationService } from '../../services/vaccination-service';
 import { VaccineService } from '../../../vaccine/services/vaccine-service';
 import { VaccineResponse } from '../../../vaccine/models/vaccineResponse';
 import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdown';
+import { Loader } from '../../../../shared/components/loader/loader';
 
 @Component({
   selector: 'app-person-details',
-  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown],
+  imports: [ButtonComponent, RouterLink, DatePipe, Modal, Datepicker, FormsModule, Dropdown, Loader],
   templateUrl: './person-details.html',
   styleUrl: './person-details.scss'
 })
@@ -30,6 +31,7 @@ export class PersonDetails implements OnInit {
 
   protected selectedVaccination?: VaccinationResponse;
   protected lastDose: number = 0;
+  protected isLoading: boolean = false;
 
   protected person?: PersonResponse;
   protected vaccinationCard?: VaccinationResponse[] = [];
@@ -39,12 +41,12 @@ export class PersonDetails implements OnInit {
   protected showConfirmDeleteVaccination: boolean = false;
   protected showNewVaccinationModal: boolean = false;
 
-  protected applicationDate?: string = "";
+  protected applicationDate?: string = undefined;
   protected vaccinesOption: Option[] = [];
 
   protected personId?: string;
   protected selectedDose?: VaccineDose;
-  protected vaccineId?: string;
+  protected vaccineId?: string = undefined;
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {

@@ -1,13 +1,18 @@
 <div class="card">
-  <h2>Detalhes da Pessoa</h2>
-  <ul>
-    <li><strong>Nome:</strong> {{person?.name}}</li>
-    <li><strong>CPF:</strong> {{person?.cpf}}</li>
-    <li><strong>Email:</strong> {{person?.email}}</li>
-    <li><strong>Telefone:</strong> {{person?.phoneNumber}}</li>
-    <li><strong>Gênero:</strong> {{person?.gender}}</li>
-  </ul>
-
+  @if (isLoading) {
+    <app-loader></app-loader>
+  }
+  @else {
+    <h2>Detalhes da Pessoa</h2>
+    <ul>
+      <li><strong>Nome:</strong> {{person?.name}}</li>
+      <li><strong>CPF:</strong> {{person?.cpf}}</li>
+      <li><strong>Email:</strong> {{person?.email}}</li>
+      <li><strong>Telefone:</strong> {{person?.phoneNumber}}</li>
+      <li><strong>Gênero:</strong> {{person?.gender}}</li>
+      <li><strong>Idade:</strong> {{person?.age}}</li>
+    </ul>
+  }
 </div>
 @for (vaccination of vaccinationCard; track $index) {
   <div class="card">
@@ -35,7 +40,7 @@
 @if (showRegisterVaccinationModal) {
   <app-modal title="Registar vacinação" size="medium">
     <p>Registrar dose {{lastDose+1}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
-    <div class="action-buttons">
+    <div class="modal-action-buttons">
       <app-button text="Continuar" (clicked)="onContinueRegisterVaccination()"></app-button>
       <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
     </div>
@@ -44,9 +49,9 @@
 
 @if(showRegisterDateVaccinationModal){
     <app-modal [title]="'Registar horário da ' + (lastDose+1) + 'º aplicação da vacina: ' + selectedVaccination?.vaccineName" size="medium">
-    <app-datepicker [(ngModel)]="applicationDate" label="Hora da vacinação"></app-datepicker>
-    <div class="action-buttons" style="margin-top: 1rem;">
-      <app-button text="Salvar" (clicked)="onSaveRegisterVaccination()"></app-button>
+    <app-datepicker [blockFutureDates]="true" [blockFutureTimes]="true" (seletectedDate)="applicationDate = $event" label="Hora da vacinação"></app-datepicker>
+    <div class="modal-action-buttons" style="margin-top: 1rem;">
+      <app-button text="Salvar" [disabled]="applicationDate != undefined" (clicked)="onSaveRegisterVaccination()"></app-button>
       <app-button text="Cancelar" variant="danger" (clicked)="onCloseRegisterVaccination()"></app-button>
     </div>
   </app-modal>
@@ -55,7 +60,7 @@
 @if (showConfirmDeleteVaccination) {
   <app-modal title="Confirmar deleção de registro da vacinação" size="medium">
     <p>Deseja deletar dose {{selectedDose?.doseNumber}}º da vacina: {{selectedVaccination?.vaccineName}}</p>
-    <div class="action-buttons">
+    <div class="modal-action-buttons">
       <app-button text="Continuar" (clicked)="onConfirmDeleteVaccination()"></app-button>
       <app-button text="Cancelar" variant="danger" (clicked)="onCloseDeleteVaccination()"></app-button>
     </div>
@@ -66,9 +71,9 @@
   <app-modal title="Adicionar nova vacinação" size="large">
     <div class="modal-fields">
       <app-dropdown (valueChange)="onSelectVaccine($event)" [options]="vaccinesOption" label="Vacinas"></app-dropdown>
-      <app-datepicker style="margin-top: 1rem;" [(ngModel)]="applicationDate" label="Hora da vacinação"></app-datepicker>
-      <div class="action-buttons" style="margin-top: 1rem;">
-        <app-button text="Continuar" (clicked)="onSaveNewVaccinationRegister()"></app-button>
+      <app-datepicker [blockFutureDates]="true" [blockFutureTimes]="true" style="margin-top: 1rem;" (seletectedDate)="applicationDate = $event" label="Hora da vacinação"></app-datepicker>
+      <div class="modal-action-buttons" style="margin-top: 1rem;">
+        <app-button text="Continuar" [disabled]="applicationDate == undefined || vaccineId == undefined" (clicked)="onSaveNewVaccinationRegister()"></app-button>
         <app-button text="Cancelar" variant="danger" (clicked)="onCloseNewVaccinationRegister()"></app-button>
       </div>
     </div>
