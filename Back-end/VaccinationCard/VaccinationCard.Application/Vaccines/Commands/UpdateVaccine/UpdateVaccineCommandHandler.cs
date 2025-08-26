@@ -4,19 +4,29 @@ using System.Net;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
+using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
 {
-    internal class UpdateVaccineCommandHandler(IBaseRepository<Vaccine> vaccineRepository) : IRequestHandler<UpdateVaccineCommand, Result>
+    internal class UpdateVaccineCommandHandler(IVaccineRepository vaccineRepository) : IRequestHandler<UpdateVaccineCommand, Result>
     {
 
-        private readonly IBaseRepository<Vaccine> _vaccineRepository = vaccineRepository;
+        private readonly IVaccineRepository _vaccineRepository = vaccineRepository;
 
         public async Task<Result> Handle(UpdateVaccineCommand request, CancellationToken cancellationToken)
         {
             var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId);
 
             if (vaccine == null) return Result.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
+
+            // Se o nome da vacina mudar, ele verifica já tem um nome desse.
+            if(request.Name != vaccine.Name)
+            {
+                if (await _vaccineRepository.NameExists(request.Name))
+                {
+                    return Result.Failure(VaccineErrors.VaccineAlreadyRegistered);
+                }
+            }
 
             vaccine.Update(request.Name, request.RequiredDoses);
 

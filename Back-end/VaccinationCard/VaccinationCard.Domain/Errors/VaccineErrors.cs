@@ -23,5 +23,9 @@ namespace VaccinationCard.Domain.Errors
         public static readonly Error InvalidRequiredDoses = new(
             "Vaccines.InvalidRequiredDoses",
             "A vacina precisa pelo menos ter uma dose");
+
+        public static readonly Error VaccineAlreadyRegistered = new(
+            "Vaccines.VaccineAlreadyRegistered",
+            "Uma vacina com esse nome já está registrada");
     }
 }
