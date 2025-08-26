@@ -10,6 +10,7 @@ import { InputComponent } from '../../../../shared/components/input-component/in
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateVaccineRequest } from '../../models/createVaccineRequest';
 import { ApiResponse } from '../../../../shared/models/apiResponse';
+import { handleApiError } from '../../../../shared/utils/apiHandleError';
 
 @Component({
   selector: 'app-consult-vaccines',
@@ -43,10 +44,7 @@ export class ConsultVaccines implements OnInit {
       next: res => {
         this.vaccines = res;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -65,10 +63,7 @@ export class ConsultVaccines implements OnInit {
         this.getAllVaccines();
         this.snackBar.open(res.message, 'Fechar', {duration: 10});
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -108,15 +103,7 @@ export class ConsultVaccines implements OnInit {
         this.showRegisterModal = false;
         this.getAllVaccines();
       },
-      error: (error) => {
-        var apiResponse = error.error as ApiResponse;
-
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-
-        setTimeout(() => {
-          this.snackBar.open(apiResponse.details.join(','), 'Fechar', {duration: 2000});
-        }, 1000);
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 }

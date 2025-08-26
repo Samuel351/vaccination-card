@@ -17,6 +17,7 @@ import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdow
 import { Loader } from '../../../../shared/components/loader/loader';
 import { Timepicker } from '../../../../shared/components/timepicker/timepicker';
 import { U } from '@angular/cdk/keycodes';
+import { handleApiError } from '../../../../shared/utils/apiHandleError';
 
 @Component({
   selector: 'app-person-details',
@@ -63,7 +64,8 @@ export class PersonDetails implements OnInit {
     this.vaccineService.getAllVaccines().subscribe({
       next: res => {
         this.vaccinesOption = res.map(x => { return {name: x.name, value: x.vaccineId, disabled: this.vaccinationCard?.find(y => y.vaccineId == x.vaccineId) != null}});
-      }
+      },
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -72,10 +74,7 @@ export class PersonDetails implements OnInit {
       next: res =>{
         this.person = res;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -85,10 +84,7 @@ export class PersonDetails implements OnInit {
         this.vaccinationCard = res;
         this.getVaccines();
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -136,10 +132,7 @@ export class PersonDetails implements OnInit {
         this.showRegisterVaccinationModal = false;
         this.showNewVaccinationModal = false;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 5000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -150,10 +143,7 @@ export class PersonDetails implements OnInit {
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
         this.showConfirmDeleteVaccination = false;
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 

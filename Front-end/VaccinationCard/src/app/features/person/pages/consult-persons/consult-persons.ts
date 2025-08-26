@@ -14,6 +14,7 @@ import { Dropdown, Option } from "../../../../shared/components/dropdown/dropdow
 import { Loader } from '../../../../shared/components/loader/loader';
 import { finalize } from 'rxjs';
 import { NgxMaskPipe } from 'ngx-mask';
+import { handleApiError } from '../../../../shared/utils/apiHandleError';
 
 @Component({
   selector: 'app-consult-persons',
@@ -56,8 +57,7 @@ export class ConsultPersons implements OnInit{
       },
       error: error => {
         this.personResponse = [];
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
+        handleApiError(this.snackBar, error)
       }
     })
   }
@@ -80,10 +80,7 @@ export class ConsultPersons implements OnInit{
         this.getAllPersonsPaginated();
         this.snackBar.open(res.message, 'Fechar', {duration: 10});
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -114,15 +111,7 @@ export class ConsultPersons implements OnInit{
         this.getAllPersonsPaginated();
         this.resetForm();
       },
-      error: (error) => {
-        var apiResponse = error.error as ApiResponse;
-
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-
-        setTimeout(() => {
-          this.snackBar.open(apiResponse.details.join(','), 'Fechar', {duration: 2000});
-        }, 1000);
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
