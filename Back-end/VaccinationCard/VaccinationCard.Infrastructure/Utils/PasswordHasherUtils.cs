@@ -14,7 +14,7 @@ namespace VaccinationCard.Infrastructure.Utils
 
         public static bool Verify(User user, string password)
         {
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, _passwordHasher.HashPassword(user, password));
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
             return result == PasswordVerificationResult.Success;
         }
     }
