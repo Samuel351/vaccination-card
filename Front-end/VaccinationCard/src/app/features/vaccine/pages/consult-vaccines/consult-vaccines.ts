@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TableComponent } from '../../../../shared/components/table-component/table-component';
 import { ButtonComponent } from '../../../../shared/components/button-component/button-component';
-import { RouterLink } from '@angular/router';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VaccineResponse } from '../../models/vaccineResponse';
@@ -9,7 +8,6 @@ import { VaccineService } from '../../services/vaccine-service';
 import { InputComponent } from '../../../../shared/components/input-component/input-component';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateVaccineRequest } from '../../models/createVaccineRequest';
-import { ApiResponse } from '../../../../shared/models/apiResponse';
 import { handleApiError } from '../../../../shared/utils/apiHandleError';
 
 @Component({
