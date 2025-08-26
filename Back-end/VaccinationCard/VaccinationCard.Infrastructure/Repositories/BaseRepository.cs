@@ -21,12 +21,14 @@ namespace VaccinationCard.Infrastructure.Repositories
 
         public async Task AddAsync(T entity)
         {
+            entity.CreatedAt = DateTime.UtcNow;
             await _dbSet.AddAsync(entity);
             await _appDbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
+            entity.UpdatedAt = DateTime.UtcNow;
             _dbSet.Update(entity);
             await _appDbContext.SaveChangesAsync();
         }
