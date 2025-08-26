@@ -2,23 +2,23 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VaccinationCard.Api.Extensions;
-using VaccinationCard.Application.Users.Commands.CreateUser;
+using VaccinationCard.Application.Authentication.Commands.Login;
 
 namespace VaccinationCard.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class UserController(IMediator mediator) : ControllerBase
+    public class AuthenticationController(IMediator mediator) : ControllerBase
     {
 
         private readonly IMediator _mediator = mediator;
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command, CancellationToken cancellationToken)
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginCommand command)
         {
-            var result = await _mediator.Send(command, cancellationToken);
-
+            var result = await _mediator.Send(command);
             return ResultExtension.HandleResult(this, result);
         }
     }

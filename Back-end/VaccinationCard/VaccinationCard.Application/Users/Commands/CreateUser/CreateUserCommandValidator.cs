@@ -12,6 +12,7 @@ namespace VaccinationCard.Application.Users.Commands.CreateUser
                 .EmailAddress().WithMessage(UserErrors.EmailShouldNotBeEmpty);
 
             RuleFor(x => x.Password)
+                .MinimumLength(8).WithMessage(UserErrors.PassowordInvalidLenght)
                 .NotEmpty().WithMessage(UserErrors.PasswordShouldNotBeEmpty);
         }
     }
