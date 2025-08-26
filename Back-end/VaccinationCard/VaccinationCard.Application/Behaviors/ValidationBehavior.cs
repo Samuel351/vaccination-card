@@ -6,6 +6,7 @@ namespace VaccinationCard.Application.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
+        where TResponse : Result<object>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators = validators;
 
@@ -31,7 +32,7 @@ namespace VaccinationCard.Application.Behaviors
             if (failures.Count != 0)
             {
                 var error = new Error("Validation.Error", "Erro na validação", failures!);
-                return (TResponse)(object)Result.Failure(error);
+                return (TResponse)Result.Failure(error);
             }
                     
             
