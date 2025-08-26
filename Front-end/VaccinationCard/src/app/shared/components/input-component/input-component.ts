@@ -92,7 +92,6 @@ export class InputComponent implements ControlValueAccessor, AfterViewInit {
 
   handleInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    console.log(input.value)
     let inputValue = input.value;
     this.value = inputValue;
     this.onChange(this.value);

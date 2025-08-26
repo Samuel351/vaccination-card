@@ -2,12 +2,16 @@
   <div class="navbar__logo">Carteira de vacinação</div>
 
 
-  <div class="navbar__option clickable" routerLink="/consultar-vacinas">
+  <div class="navbar__option clickable" routerLink="/vacinas">
     Vacinas
   </div>
 
-  <div class="navbar__option clickable" routerLink="/consultar-pessoas">
+  <div class="navbar__option clickable" routerLink="/pessoas">
     Pessoas
+  </div>
+
+  <div class="navbar__option clickable" (click)="onClose()">
+    Sair
   </div>
 
 </nav>

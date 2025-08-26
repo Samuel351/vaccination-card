@@ -15,6 +15,7 @@ namespace VaccinationCard.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateUser(CreateUserCommand command, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(command, cancellationToken);

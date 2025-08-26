@@ -1,0 +1,29 @@
+<div class="login-container">
+  <div class="login-card">
+    <!-- Header com Logo e Título -->
+    <div class="login-header">
+      <div class="logo-container">
+        <h1>Carteira de vacinação</h1>
+        <h2>Cadastro de conta</h2>
+      </div>
+      <p class="subtitle">Sua saúde em primeiro lugar</p>
+    </div>
+
+    <form class="login-form" [formGroup]="form">
+      <div class="fields">
+        <app-input formControlName="email" label="Email" placeholder="Email para cadastrar"></app-input>
+        <app-input type="password" formControlName="password" label="Senha" placeholder="Senha para cadastrar"></app-input>
+      </div>
+    </form>
+
+    <div class="login-footer">
+      <app-button size="medium" text="Cadastrar" [disabled]="this.form.invalid" (clicked)="onSubmit()"/>
+      <app-button size="medium" bu variant="outline" text="Cancelar" (clicked)="onCancel()"/>
+    </div>
+  </div>
+
+</div>
+
+@if(isLoading){
+  <app-loader></app-loader>
+}
