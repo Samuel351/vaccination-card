@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
-  imports: [NgStyle, CommonModule],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './loader.html',
   styleUrl: './loader.scss'
