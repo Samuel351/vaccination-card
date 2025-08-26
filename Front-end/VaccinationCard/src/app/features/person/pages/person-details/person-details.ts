@@ -1,22 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink, RouterState } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PersonService } from '../../services/person-service';
 import { PersonResponse } from '../../models/personResponse';
 import { ButtonComponent } from "../../../../shared/components/button-component/button-component";
 import { DatePipe } from '@angular/common';
-import { ApiResponse } from '../../../../shared/models/apiResponse';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { Datepicker } from "../../../../shared/components/datepicker/datepicker";
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CreateVaccinationRequest } from '../../models/createVaccinationRequest';
 import { VaccinationService } from '../../services/vaccination-service';
 import { VaccineService } from '../../../vaccine/services/vaccine-service';
-import { VaccineResponse } from '../../../vaccine/models/vaccineResponse';
 import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdown';
 import { Loader } from '../../../../shared/components/loader/loader';
 import { Timepicker } from '../../../../shared/components/timepicker/timepicker';
-import { U } from '@angular/cdk/keycodes';
 import { handleApiError } from '../../../../shared/utils/apiHandleError';
 
 @Component({
