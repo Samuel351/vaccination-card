@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VaccinationCard.Application\VaccinationCard.Application.csproj" />
     <ProjectReference Include="..\VaccinationCard.Domain\VaccinationCard.Domain.csproj" />
   </ItemGroup>
 

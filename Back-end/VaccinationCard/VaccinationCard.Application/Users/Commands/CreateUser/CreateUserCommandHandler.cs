@@ -7,7 +7,7 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Users.Commands.CreateUser
 {
-    internal class CreateUserCommandHandler(IUserRepository userRepository, IEncryptionService encryptionService) : IRequestHandler<CreateUserCommand, Result>
+    public class CreateUserCommandHandler(IUserRepository userRepository, IEncryptionService encryptionService) : IRequestHandler<CreateUserCommand, Result>
     {
 
         private readonly IUserRepository _userRepository = userRepository;
