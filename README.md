@@ -91,7 +91,7 @@ Exemplos de regras:
 
 * `Person` ➜ `Name` não vazio, `CPF` com formato válido e único.
 * `Vaccine` ➜ `Name` não vazio/único.
-* `Vaccination` ➜ `DoseNumber` >= 1, `AppliedAt` ≤ `DateTime.UtcNow`, combinação única `(PersonId,VaccineId,DoseNumber)`.
+* `Vaccination` ➜ `DoseNumber` >= 1, `Application` ≤ `DateTime.UtcNow`, combinação única `(PersonId,VaccineId,DoseNumber)`.
 
 ---
 
@@ -108,13 +108,11 @@ Sugestão de *Conventional Commits*:
 
 ## Roadmap
 
-* [ ] Soft delete e trilhas de auditoria (CreatedBy/UpdatedBy, DeletedAt).
-* [ ] Autenticação e autorização por perfil (Admin/Operador/Leitura)
-* [ ] Paginação, ordenação e filtros avançados no GET.
-* [ ] Rate limiting e *caching*.
-* [ ] Observabilidade (Serilog, OpenTelemetry).
-* [ ] Docker Compose (API + MySQL + Adminer + Frontend).
-* [ ] Documentação OpenAPI/Swagger completa + Postman Collection.
+* [x] trilhas de auditoria (CreatedBy/UpdatedBy).
+* [x] Autenticação básica (Login)
+* [ ] Edição de vacina, pessoa e vacinação no front-end.
+* [ ] Docker Compose (API + MySQL + Frontend).
+* [ ] Documentação repositório e código.
 
 ---
 

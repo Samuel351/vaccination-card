@@ -3,3 +3,9 @@
     justify-content: center;
     margin-top: 3rem;
 }
+
+form{
+    display: grid;
+    grid-template-columns: auto;
+    gap: .5rem;
+}

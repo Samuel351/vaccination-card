@@ -1,0 +1,67 @@
+// Variáveis de cores
+$primary-blue: #2563eb;
+$light-blue: #3b82f6;
+$dark-blue: #1d4ed8;
+$accent-blue: #60a5fa;
+$white: #ffffff;
+$light-gray: #f8fafc;
+$gray: #64748b;
+$dark-gray: #334155;
+$error-red: #ef4444;
+$success-green: #22c55e;
+
+
+// Container principal
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $primary-blue 0%, $light-blue 50%, $accent-blue 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Cartão de login
+.login-card {
+  background: $white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Header com logo
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  .logo-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+  }
+}
+
+// Formulário
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+
+// Footer do login
+.login-footer {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+

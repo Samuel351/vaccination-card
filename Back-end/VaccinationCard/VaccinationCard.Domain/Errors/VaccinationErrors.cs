@@ -23,6 +23,14 @@ namespace VaccinationCard.Domain.Errors
             new("Vaccination.DoseApplicationDate",
                 "A data de aplicação da vacina e menor que as doses anteriores");
 
+        public static readonly Error DoseApplicationDateInFuture =
+            new("Vaccination.DoseApplicationDate",
+                "Data de vacinação não pode ser no futuro");
+
+        public static readonly Error InvalidDoseNumber =
+            new("Vaccination.InvalidDoseNumber",
+                "Dose da vacina deve ser maior ou igual a 1");
+
         public static Error DoseNotAppliedYet(int doseNumber) =>
             new("Vaccination.InvalidDose", $"Dose {doseNumber} ainda não foi aplicada");
     }

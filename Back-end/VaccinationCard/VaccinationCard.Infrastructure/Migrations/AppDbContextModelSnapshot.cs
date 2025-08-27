@@ -62,6 +62,31 @@ namespace VaccinationCard.Infrastructure.Migrations
                     b.ToTable("Persons");
                 });
 
+            modelBuilder.Entity("VaccinationCard.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("EntityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("EntityId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("VaccinationCard.Domain.Entities.Vaccination", b =>
                 {
                     b.Property<Guid>("EntityId")

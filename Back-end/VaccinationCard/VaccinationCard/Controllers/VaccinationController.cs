@@ -1,15 +1,16 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VaccinationCard.Api.Extensions;
 using VaccinationCard.Application.Vaccinations.Commands.CreateVaccination;
 using VaccinationCard.Application.Vaccinations.Commands.DeleteVaccination;
 using VaccinationCard.Application.Vaccinations.Commands.UpdateVaccination;
-using VaccinationCard.Application.Vaccines.Commands.DeleteVaccine;
 
 namespace VaccinationCard.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VaccinationController(IMediator mediator) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;

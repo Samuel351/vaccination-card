@@ -1,6 +1,7 @@
 ﻿using Domain.Abstractions;
 using FluentValidation;
 using MediatR;
+using System.Net;
 
 namespace VaccinationCard.Application.Behaviors
 {
@@ -31,11 +32,31 @@ namespace VaccinationCard.Application.Behaviors
             if (failures.Count != 0)
             {
                 var error = new Error("Validation.Error", "Erro na validação", failures!);
-                return (TResponse)(object)Result.Failure(error);
+
+                return HandleErrorValidationResult(error);
             }
                     
             
             return await next(cancellationToken);
+        }
+
+        // Adicionado tratamento no ValidationBehavior para retornar falhas de validação
+        // no formato exato esperado pelo handler, evitando erros. Agora, o HandleErrorValidationResult identifica dinamicamente
+        // se o tipo de retorno é Result ou Result<T> e invoca o método Failure apropriado.
+        private TResponse HandleErrorValidationResult(Error error)
+        {
+            if (typeof(TResponse).IsGenericType && typeof(TResponse).GetGenericTypeDefinition() == typeof(Result<>))
+            {
+                var genericType = typeof(TResponse).GetGenericArguments()[0];
+                var failureMethod = typeof(Result<>)
+                    .MakeGenericType(genericType)
+                    .GetMethod(nameof(Result<object>.Failure), [typeof(Error), typeof(HttpStatusCode)])!;
+
+                var failureInstance = failureMethod.Invoke(null, new object[] { error, HttpStatusCode.BadRequest })!;
+                return (TResponse)failureInstance;
+            }
+
+            return (TResponse)(object)Result.Failure(error, HttpStatusCode.BadRequest);
         }
     }
 }

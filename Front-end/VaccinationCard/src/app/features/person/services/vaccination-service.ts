@@ -16,6 +16,10 @@ export class VaccinationService {
     return this.http.post<ApiResponse>(this.apiUrl, createVaccination);
   }
 
+  editVaccination(updateVaccinationRequest: VaccineDose){
+    return this.http.put<ApiResponse>(this.apiUrl, updateVaccinationRequest);
+  }
+
   deleteVaccination(vaccinationId: string) : Observable<ApiResponse>{
     return this.http.delete<ApiResponse>(this.apiUrl+"/"+vaccinationId);
   }

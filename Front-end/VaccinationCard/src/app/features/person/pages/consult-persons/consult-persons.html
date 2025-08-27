@@ -1,62 +1,89 @@
-<app-table-component>
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Idade</th>
-            <th>Genero</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (item of personResponse; track $index) {
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.cpf}}</td>
-                <td>{{item.email}}</td>
-                <td>{{item.phoneNumber}}</td>
-                <td>{{item.age}}</td>
-                <td>{{item.gender}}</td>
-                <td style="width: 20%;">
-                    <div class="action-buttons">
-                        <app-button text="Ver detalhes" [routerLink]="['/detalhes', item.personId]"></app-button>
-                        <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</app-table-component>
-
-<div class="register-button">
-    <app-button text="Cadastrar pessoa" (clicked)="onRegisterClick()"></app-button>
-</div>
-
-@if (showConfirmModal) {
-    <app-modal title="Excluir pessoa">
-        <p>Tem certeza que deseja excluir <strong>{{selectedPerson?.name}}</strong>?</p>
-        <div class="action-buttons">
-            <app-button text="Confirmar" (clicked)="onConfirmeDelete()" variant="danger"></app-button>
-            <app-button text="Cancelar" (clicked)="onCancelDelete()" ></app-button>
-        </div>
-    </app-modal>
+@if (isLoading) {
+    <app-loader></app-loader>
 }
+@else {
+    <app-table-component>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Idade</th>
+                <th>Genero</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of personResponse; track $index) {
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.cpf | mask: '000.000.000-00'}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phoneNumber | mask: '(00) 00000-0000'}}</td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.gender}}</td>
+                    <td style="width: 20%;">
+                        <div class="action-buttons">
+                            <app-button text="Ver detalhes" [routerLink]="['/pessoas/detalhes', item.personId]"></app-button>
+                            <app-button text="Editar usuário" variant="warning" (clicked)="onClickEditPerson(item)"></app-button>
+                            <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </app-table-component>
 
-@if (showRegisterModal) {
-    <app-modal title="Registrar vacina" size="large">
-        <form [formGroup]=form>
-            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="Nome inválido" formControlName="name" label="Nome"/>
-            <app-input [invalid]="this.form.controls.cpf.invalid" invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
-            <app-input [invalid]="this.form.controls.name.invalid" invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
-            <app-input [invalid]="this.form.controls.phoneNumber.invalid" invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
-            <app-dropdown label="Genero" [options]="GENDER_OPTIONS" (valueChange)="onSelectGender($event)"></app-dropdown>
-            <app-input [invalid]="this.form.controls.age.invalid" invalidMessage="É necessário informar idade" formControlName="age" label="Idade"/>
-        </form>
-        <div class="action-buttons" style="justify-content: flex-end;">
-            <app-button text="Confirmar" (clicked)="onSaveRegister()" ></app-button>
-            <app-button text="Cancelar" (clicked)="onCancelRegister()" variant="danger"></app-button>
-        </div>
-    </app-modal>
+    <div class="register-button">
+        <app-button text="Cadastrar pessoa" (clicked)="onRegisterClick()"></app-button>
+    </div>
+
+    @if (showConfirmModal) {
+        <app-modal title="Excluir pessoa">
+            <p>Tem certeza que deseja excluir <strong>{{selectedPerson?.name}}</strong>?</p>
+            <div class="action-buttons">
+                <app-button text="Confirmar" (clicked)="onConfirmeDelete()" variant="danger"></app-button>
+                <app-button text="Cancelar" (clicked)="onCancelDelete()" ></app-button>
+            </div>
+        </app-modal>
+    }
+
+    @if (showRegisterModal) {
+        <app-modal title="Registrar vacina" size="large">
+            <form [formGroup]=form>
+                <div class="fields">
+                    <app-input invalidMessage="Nome inválido" formControlName="name" label="Nome"/>
+                    <app-dropdown label="Genero" [options]="GENDER_OPTIONS"></app-dropdown>
+                    <app-input invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
+                    <app-input invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
+                    <app-input invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
+                    <app-input invalidMessage="É necessário informar idade" formControlName="age" label="Idade"/>
+                </div>
+            </form>
+            <div class="modal-action-buttons">
+                <app-button text="Confirmar" [disabled]="this.form.invalid" (clicked)="onSaveRegister()" ></app-button>
+                <app-button text="Cancelar" (clicked)="onCancelRegister()" variant="danger"></app-button>
+            </div>
+        </app-modal>
+    }
+
+    @if (showEditModal) {
+        <app-modal title="Registrar vacina" size="large">
+            <form [formGroup]=form>
+                <div class="fields">
+                    <app-input invalidMessage="Nome inválido" formControlName="name" label="Nome"/>
+                    <app-dropdown label="Genero" [options]="GENDER_OPTIONS" formControlName="gender"></app-dropdown>
+                    <app-input invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
+                    <app-input invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
+                    <app-input invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
+                    <app-input invalidMessage="É necessário informar idade" formControlName="age" label="Idade"/>
+                </div>
+            </form>
+            <div class="modal-action-buttons">
+                <app-button text="Confirmar" [disabled]="this.form.invalid" (clicked)="onSaveEditRegister()" ></app-button>
+                <app-button text="Cancelar" (clicked)="onCancelEdit()" variant="danger"></app-button>
+            </div>
+        </app-modal>
+    }
 }

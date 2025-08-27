@@ -1,4 +1,4 @@
-export interface UpdatePersonRequest{
+export interface EditPersonRequest{
     personId: string,
     name: string,
     CPF: string,

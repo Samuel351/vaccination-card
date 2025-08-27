@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthenticationService } from '../../../features/authentication/services/authentication-service';
 
 @Component({
   selector: 'app-navbar-component',
@@ -9,15 +10,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar-component.scss'
 })
 export class NavbarComponent {
-  isMenuOpen = false;
+  private authenticationService = inject(AuthenticationService);
 
-  links = [
-    { label: 'Início', url: '/' },
-    { label: 'Sobre', url: '/sobre' },
-    { label: 'Contato', url: '/contato' },
-  ];
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+  onClose(){
+    this.authenticationService.logout();
   }
 }

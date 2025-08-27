@@ -1,28 +1,21 @@
-    <div class="datetime-picker-container">
-      <label *ngIf="label" class="datetime-label">{{ label }}</label>
-      <div class="input-group">
-        <input
-          type="date"
-          [value]="dateValue"
-          [disabled]="disabled"
-          [placeholder]="datePlaceholder || 'Selecione a data'"
-          (input)="onDateInput($event)"
-          (blur)="onBlur()"
-          class="date-input"
-          [class.error]="hasError"
-        />
-        <input
-          type="time"
-          [value]="timeValue"
-          [disabled]="disabled"
-          [placeholder]="timePlaceholder || 'Selecione a hora'"
-          (input)="onTimeInput($event)"
-          (blur)="onBlur()"
-          class="time-input"
-          [class.error]="hasError"
-        />
-      </div>
-      <div *ngIf="hasError && errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
+<div class="datetime-picker-container">
+  <label *ngIf="label" class="datetime-label">{{ label }}</label>
+  <div class="input-group">
+    <input
+      type="date"
+      [value]="dateValue"
+      [disabled]="disabled"
+      [max]="maxDate"
+      [placeholder]="datePlaceholder || 'Selecione a data'"
+      (input)="onDateInput($event)"
+      (blur)="onBlur()"
+      class="date-input"
+      [class.error]="hasError"
+    />
+  </div>
+  @if(hasError && currentErrorMessage){
+    <div class="error-message">
+      {{ currentErrorMessage }}
     </div>
+  }
+</div>

@@ -1,0 +1,29 @@
+.time-picker-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.time-input {
+  padding: 7.5px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  width: 120px;
+  transition: border-color 0.2s;
+
+  &.invalid {
+    border-color: red;
+  }
+
+  &:focus {
+    border-color: #007bff;
+  }
+}
+
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}

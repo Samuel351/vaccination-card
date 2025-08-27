@@ -11,10 +11,15 @@ import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } 
 import { CreatePersonRequest } from '../../models/createPersonRequest';
 import { ApiResponse } from '../../../../shared/models/apiResponse';
 import { Dropdown, Option } from "../../../../shared/components/dropdown/dropdown";
+import { Loader } from '../../../../shared/components/loader/loader';
+import { finalize } from 'rxjs';
+import { NgxMaskPipe } from 'ngx-mask';
+import { handleApiError } from '../../../../shared/utils/apiHandleError';
+import { EditPersonRequest } from '../../models/editPersonRequest';
 
 @Component({
   selector: 'app-consult-persons',
-  imports: [TableComponent, ButtonComponent, Modal, RouterLink, InputComponent, ReactiveFormsModule, Dropdown],
+  imports: [TableComponent, ButtonComponent, Modal, RouterLink, InputComponent, ReactiveFormsModule, Dropdown, Loader, NgxMaskPipe],
   templateUrl: './consult-persons.html',
   styleUrl: './consult-persons.scss'
 })
@@ -24,20 +29,23 @@ export class ConsultPersons implements OnInit{
   private snackBar = inject(MatSnackBar);
 
   protected personResponse?: PersonResponse[];
+  protected isLoading: boolean = false;
 
   protected showConfirmModal: boolean = false;
   protected showRegisterModal: boolean = false;
+  protected showEditModal: boolean = false;
   protected selectedPerson?: PersonResponse;
 
   protected formBuilder = inject(NonNullableFormBuilder);
 
   protected form = this.formBuilder.group({
+    personId: new FormControl<string | null>(''),
     name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
-    cpf: new FormControl<string>('', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
+    cpf: new FormControl<string>('', [Validators.required]),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl<string>('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
-    age: new FormControl<number>(0, [Validators.required])
+    age: new FormControl<number>(0, [Validators.required, Validators.min(0), Validators.max(120)])
   });
 
   ngOnInit(): void {
@@ -45,14 +53,14 @@ export class ConsultPersons implements OnInit{
   }
 
   private getAllPersonsPaginated(){
-    this.personService.getAllPersonsPaginated().subscribe({
+    this.isLoading = true;
+    this.personService.getAllPersonsPaginated().pipe(finalize(() => this.isLoading = false)).subscribe({
       next: res => {
         this.personResponse = res;
       },
       error: error => {
         this.personResponse = [];
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
+        handleApiError(this.snackBar, error)
       }
     })
   }
@@ -75,10 +83,7 @@ export class ConsultPersons implements OnInit{
         this.getAllPersonsPaginated();
         this.snackBar.open(res.message, 'Fechar', {duration: 10});
       },
-      error: error => {
-        var apiResponse = error.error as ApiResponse
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-      }
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -94,11 +99,21 @@ export class ConsultPersons implements OnInit{
 
   onSaveRegister(){
     var request = this.form.value as CreatePersonRequest;
-
-    console.log(request);
-
     this.createPerson(request);
-    this.resetForm();
+  }
+
+  onClickEditPerson(person: PersonResponse){
+    this.form.patchValue(person);
+    this.showEditModal = true;
+  }
+
+  onSaveEditRegister(){
+    var request = this.form.value as EditPersonRequest;
+    this.editPerson(request);
+  }
+
+  onCancelEdit(){
+    this.showEditModal = false;
   }
 
   private resetForm(){
@@ -111,16 +126,21 @@ export class ConsultPersons implements OnInit{
         this.snackBar.open(res.message, 'Fechar', {duration: 1000});
         this.showRegisterModal = false;
         this.getAllPersonsPaginated();
+        this.resetForm();
       },
-      error: (error) => {
-        var apiResponse = error.error as ApiResponse;
+      error: (error)  => handleApiError(this.snackBar, error)
+    })
+  }
 
-        this.snackBar.open(apiResponse.message, 'Fechar', {duration: 2000});
-
-        setTimeout(() => {
-          this.snackBar.open(apiResponse.details.join(','), 'Fechar', {duration: 2000});
-        }, 1000);
-      }
+  private editPerson(editPersonRequest: EditPersonRequest){
+    this.personService.editPerson(editPersonRequest).subscribe({
+      next: res => {
+        this.snackBar.open(res.message, 'Fechar', {duration: 1000});
+        this.showEditModal = false;
+        this.getAllPersonsPaginated();
+        this.resetForm();
+      },
+      error: (error)  => handleApiError(this.snackBar, error)
     })
   }
 
@@ -137,3 +157,6 @@ export class ConsultPersons implements OnInit{
   { name: 'Prefiro não informar', value: 'Não informado', disabled: false }
 ];
 }
+
+
+

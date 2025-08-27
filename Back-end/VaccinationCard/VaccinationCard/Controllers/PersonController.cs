@@ -1,10 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VaccinationCard.Api.Extensions;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
 using VaccinationCard.Application.Persons.Commands.DeletePerson;
 using VaccinationCard.Application.Persons.Commands.UpdatePerson;
-using VaccinationCard.Application.Persons.Queries.GetAllPersonPaginated;
 using VaccinationCard.Application.Persons.Queries.GetAllPersons;
 using VaccinationCard.Application.Persons.Queries.GetPersonById;
 using VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard;
@@ -13,6 +13,7 @@ namespace VaccinationCard.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PersonController(IMediator mediator) : ControllerBase
     {
 

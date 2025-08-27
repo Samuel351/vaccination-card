@@ -12,8 +12,7 @@
     display: block;
     margin-bottom: 6px;
     font-size: 14px;
-    font-weight: 500;
-    color: #374151;
+    font-weight: bold;
 }
 
 .dropdown-trigger {
@@ -21,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 12px;
+    padding: .5rem;
     background: white;
     border: 1px solid #d1d5db;
     border-radius: 6px;
@@ -50,8 +49,7 @@
     flex: 1;
 }
 
-.dropdown-trigger:not(:disabled) .dropdown-value:empty::before {
-    content: attr(data-placeholder);
+.dropdown-value.placeholder {
     color: #9ca3af;
 }
 

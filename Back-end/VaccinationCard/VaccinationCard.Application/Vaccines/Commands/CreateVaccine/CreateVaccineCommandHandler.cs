@@ -1,17 +1,23 @@
 ﻿using Domain.Abstractions;
 using MediatR;
-using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
+using VaccinationCard.Domain.Errors;
+using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
 {
-    internal class CreateVaccineCommandHandler(IBaseRepository<Vaccine> vaccineRepository) : IRequestHandler<CreateVaccineCommand, Result>
+    internal class CreateVaccineCommandHandler(IVaccineRepository vaccineRepository) : IRequestHandler<CreateVaccineCommand, Result>
     {
 
-        private readonly IBaseRepository<Vaccine> _vaccineRepository = vaccineRepository;
+        private readonly IVaccineRepository _vaccineRepository = vaccineRepository;
 
         public async Task<Result> Handle(CreateVaccineCommand request, CancellationToken cancellationToken)
         {
+            if (await _vaccineRepository.NameExists(request.Name))
+            {
+                return Result.Failure(VaccineErrors.VaccineAlreadyRegistered);
+            }
+
             await _vaccineRepository.AddAsync(new Vaccine(request.Name, request.RequiredDoses));
 
             return Result.Success();

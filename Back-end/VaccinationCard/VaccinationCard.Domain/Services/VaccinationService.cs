@@ -62,6 +62,11 @@ namespace VaccinationCard.Domain.Services
                 }
             }
 
+            if(vaccination.ApplicationDate > DateTime.Now)
+            {
+                return Result.Failure(VaccinationErrors.DoseApplicationDateInFuture);
+            }
+
             // Ensure the application date is not before any previously applied dose
             if (vaccinations.Any(x => x.ApplicationDate > vaccination.ApplicationDate))
             {

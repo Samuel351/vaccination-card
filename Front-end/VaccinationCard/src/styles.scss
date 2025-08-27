@@ -36,7 +36,7 @@ body {
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; overflow: hidden; }
 
 
 .clickable{
@@ -45,5 +45,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .action-buttons{
     display: flex;
-    gap: 1rem
+    gap: .5rem
+}
+
+.modal-action-buttons{
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.field-label {
+    font-weight: 500;
+    color: #374151;
+    font-size: 0.875rem;
+}
+
+.fields{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }

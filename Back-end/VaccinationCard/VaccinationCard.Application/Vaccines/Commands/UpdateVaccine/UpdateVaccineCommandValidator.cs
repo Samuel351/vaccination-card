@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VaccinationCard.Domain.Errors;
 
 namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
 {
@@ -12,12 +8,12 @@ namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
         public UpdateVaccineCommandValidator()
         {
             RuleFor(x => x.Name)
-            .NotEmpty()
-            .WithMessage("Nome da vacina é obrigatório");
+                .MaximumLength(50).WithMessage(VaccineErrors.NameIsToLong)
+                .NotEmpty().WithMessage(VaccineErrors.NameIsObligatory);
 
             RuleFor(x => x.RequiredDoses)
                 .GreaterThanOrEqualTo(1)
-                .WithMessage("A vacina precisa pelo menos ter uma dose");
+                .WithMessage(VaccineErrors.InvalidRequiredDoses);
         }
     }
 }
