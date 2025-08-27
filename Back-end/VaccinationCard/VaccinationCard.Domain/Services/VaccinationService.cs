@@ -1,7 +1,7 @@
-﻿using Domain.Abstractions;
-using VaccinationCard.Domain.Entities;
+﻿using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Domain.Services
 {

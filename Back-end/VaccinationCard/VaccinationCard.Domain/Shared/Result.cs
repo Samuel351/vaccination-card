@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Domain.Abstractions;
+namespace VaccinationCard.Domain.Shared;
 
 public class Result
 {

@@ -1,7 +1,7 @@
-﻿using Domain.Abstractions;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using System.Net;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Behaviors
 {

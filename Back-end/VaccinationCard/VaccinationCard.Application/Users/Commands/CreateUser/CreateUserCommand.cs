@@ -1,5 +1,5 @@
-﻿using Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Users.Commands.CreateUser
 {

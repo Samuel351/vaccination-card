@@ -1,9 +1,9 @@
-﻿using Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
 using System.Net;
 using VaccinationCard.Application.DTOs.Responses;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Persons.Queries.GetPersonVaccinationCard
 {

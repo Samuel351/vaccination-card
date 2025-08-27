@@ -1,6 +1,6 @@
-﻿using Domain.Abstractions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using VaccinationCard.Api.Responses;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Api.Extensions
 {

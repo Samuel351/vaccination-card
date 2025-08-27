@@ -1,6 +1,6 @@
-﻿using Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
 using VaccinationCard.Application.DTOs.Responses;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Vaccines.Queries.GetAllVaccines
 {

@@ -1,11 +1,11 @@
-﻿using Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
 using System.Net;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using VaccinationCard.Domain.Services;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Vaccinations.Commands.CreateVaccination
 {

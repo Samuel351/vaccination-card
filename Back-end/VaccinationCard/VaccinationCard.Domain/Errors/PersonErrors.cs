@@ -1,4 +1,4 @@
-﻿using Domain.Abstractions;
+﻿using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Domain.Errors
 {

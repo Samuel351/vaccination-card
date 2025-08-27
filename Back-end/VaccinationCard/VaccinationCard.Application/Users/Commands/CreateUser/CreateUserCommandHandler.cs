@@ -1,9 +1,9 @@
-﻿using Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Domain.Interfaces.Repositories;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Users.Commands.CreateUser
 {

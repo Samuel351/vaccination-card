@@ -1,5 +1,4 @@
-﻿using Domain.Abstractions;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,7 @@ using VaccinationCard.Application.DTOs.Responses;
 using VaccinationCard.Application.Interfaces.Repositories;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
+using VaccinationCard.Domain.Shared;
 
 namespace VaccinationCard.Application.Vaccines.Queries.GetVaccineById
 {

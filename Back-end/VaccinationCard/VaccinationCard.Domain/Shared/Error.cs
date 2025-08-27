@@ -1,4 +1,4 @@
-﻿namespace Domain.Abstractions;
+﻿namespace VaccinationCard.Domain.Shared;
 
 public sealed record Error(string Code, string Description, List<string>? Details = null)
 {
