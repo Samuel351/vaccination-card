@@ -15,6 +15,7 @@ import { Loader } from '../../../../shared/components/loader/loader';
 import { finalize } from 'rxjs';
 import { NgxMaskPipe } from 'ngx-mask';
 import { handleApiError } from '../../../../shared/utils/apiHandleError';
+import { EditPersonRequest } from '../../models/editPersonRequest';
 
 @Component({
   selector: 'app-consult-persons',
@@ -32,11 +33,13 @@ export class ConsultPersons implements OnInit{
 
   protected showConfirmModal: boolean = false;
   protected showRegisterModal: boolean = false;
+  protected showEditModal: boolean = false;
   protected selectedPerson?: PersonResponse;
 
   protected formBuilder = inject(NonNullableFormBuilder);
 
   protected form = this.formBuilder.group({
+    personId: new FormControl<string | null>(''),
     name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
     cpf: new FormControl<string>('', [Validators.required]),
     email: new FormControl<string>('', [Validators.required, Validators.email]),
@@ -99,6 +102,20 @@ export class ConsultPersons implements OnInit{
     this.createPerson(request);
   }
 
+  onClickEditPerson(person: PersonResponse){
+    this.form.patchValue(person);
+    this.showEditModal = true;
+  }
+
+  onSaveEditRegister(){
+    var request = this.form.value as EditPersonRequest;
+    this.editPerson(request);
+  }
+
+  onCancelEdit(){
+    this.showEditModal = false;
+  }
+
   private resetForm(){
     this.form.reset();
   }
@@ -108,6 +125,18 @@ export class ConsultPersons implements OnInit{
       next: res => {
         this.snackBar.open(res.message, 'Fechar', {duration: 1000});
         this.showRegisterModal = false;
+        this.getAllPersonsPaginated();
+        this.resetForm();
+      },
+      error: (error)  => handleApiError(this.snackBar, error)
+    })
+  }
+
+  private editPerson(editPersonRequest: EditPersonRequest){
+    this.personService.editPerson(editPersonRequest).subscribe({
+      next: res => {
+        this.snackBar.open(res.message, 'Fechar', {duration: 1000});
+        this.showEditModal = false;
         this.getAllPersonsPaginated();
         this.resetForm();
       },

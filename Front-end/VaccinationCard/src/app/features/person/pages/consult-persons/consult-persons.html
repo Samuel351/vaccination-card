@@ -25,7 +25,8 @@
                     <td>{{item.gender}}</td>
                     <td style="width: 20%;">
                         <div class="action-buttons">
-                            <app-button text="Ver detalhes" [routerLink]="['/detalhes', item.personId]"></app-button>
+                            <app-button text="Ver detalhes" [routerLink]="['/pessoas/detalhes', item.personId]"></app-button>
+                            <app-button text="Editar usuário" variant="warning" (clicked)="onClickEditPerson(item)"></app-button>
                             <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
                         </div>
                     </td>
@@ -53,7 +54,7 @@
             <form [formGroup]=form>
                 <div class="fields">
                     <app-input invalidMessage="Nome inválido" formControlName="name" label="Nome"/>
-                    <app-dropdown label="Genero" [options]="GENDER_OPTIONS" (valueChange)="onSelectGender($event)"></app-dropdown>
+                    <app-dropdown label="Genero" [options]="GENDER_OPTIONS"></app-dropdown>
                     <app-input invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
                     <app-input invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
                     <app-input invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
@@ -63,6 +64,25 @@
             <div class="modal-action-buttons">
                 <app-button text="Confirmar" [disabled]="this.form.invalid" (clicked)="onSaveRegister()" ></app-button>
                 <app-button text="Cancelar" (clicked)="onCancelRegister()" variant="danger"></app-button>
+            </div>
+        </app-modal>
+    }
+
+    @if (showEditModal) {
+        <app-modal title="Registrar vacina" size="large">
+            <form [formGroup]=form>
+                <div class="fields">
+                    <app-input invalidMessage="Nome inválido" formControlName="name" label="Nome"/>
+                    <app-dropdown label="Genero" [options]="GENDER_OPTIONS" formControlName="gender"></app-dropdown>
+                    <app-input invalidMessage="É necessário informar CPF" formControlName="cpf" label="CPF"/>
+                    <app-input invalidMessage="É necessário informar EMAIL" formControlName="email" label="Email"/>
+                    <app-input invalidMessage="É necessário informar telefone" formControlName="phoneNumber" label="Telefone"/>
+                    <app-input invalidMessage="É necessário informar idade" formControlName="age" label="Idade"/>
+                </div>
+            </form>
+            <div class="modal-action-buttons">
+                <app-button text="Confirmar" [disabled]="this.form.invalid" (clicked)="onSaveEditRegister()" ></app-button>
+                <app-button text="Cancelar" (clicked)="onCancelEdit()" variant="danger"></app-button>
             </div>
         </app-modal>
     }

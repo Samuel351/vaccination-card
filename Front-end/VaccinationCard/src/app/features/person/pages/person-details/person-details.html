@@ -21,7 +21,7 @@
     <h1>Histórico de vacinação</h1>
     <div class="buttons-container">
       <app-button text="Adicionar nova vacinação" (clicked)="onNewVaccinationRegister()"></app-button>
-      <app-button text="Voltar" routerLink="/consultar-pessoas"></app-button>
+      <app-button text="Voltar" routerLink="/pessoas/consultar-pessoas"></app-button>
     </div>
   </div>
 
@@ -87,7 +87,7 @@
 @if (showNewVaccinationModal) {
   <app-modal title="Adicionar nova vacinação" size="large">
     <div class="modal-fields">
-      <app-dropdown (valueChange)="onSelectVaccine($event)" [options]="vaccinesOption" label="Vacinas"></app-dropdown>
+      <app-dropdown [(ngModel)]="vaccineId" [options]="vaccinesOption" label="Vacinas"></app-dropdown>
       <div class="time-picker-container">
         <app-datepicker [blockFutureDates]="true" (seletectedDate)="applicationDate = $event" label="Data da vacinação"></app-datepicker>
         <app-timepicker label="Hora da vacinação" [disabled]="!applicationDate" (seletectedHour)="applicationHour = $event" ></app-timepicker>

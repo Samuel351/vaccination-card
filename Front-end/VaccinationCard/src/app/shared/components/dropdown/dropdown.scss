@@ -49,8 +49,7 @@
     flex: 1;
 }
 
-.dropdown-trigger:not(:disabled) .dropdown-value:empty::before {
-    content: attr(data-placeholder);
+.dropdown-value.placeholder {
     color: #9ca3af;
 }
 
