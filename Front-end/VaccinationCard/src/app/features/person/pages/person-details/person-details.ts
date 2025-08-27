@@ -40,6 +40,7 @@ export class PersonDetails implements OnInit {
   protected showRegisterDateVaccinationModal: boolean = false;
   protected showConfirmDeleteVaccination: boolean = false;
   protected showNewVaccinationModal: boolean = false;
+  protected showEditVaccinationModal: boolean = false;
 
   protected applicationDate?: string = undefined;
   protected applicationHour?: string = undefined;
@@ -189,5 +190,4 @@ export class PersonDetails implements OnInit {
   onSelectVaccine(vaccineId: string){
     this.vaccineId = vaccineId;
   }
-
 }

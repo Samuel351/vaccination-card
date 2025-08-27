@@ -38,6 +38,7 @@
                 <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
               </ul>
 
+              <app-button variant="warning" text="Editar vacinação"></app-button>
               <app-button [disabled]="!$last" size="small" variant="danger" text="Excluir vacinação" (clicked)="onClickDeleteVaccination(dose, vaccination)"></app-button>
               
             </div>      

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { VaccineResponse } from '../models/vaccineResponse';
 import { ApiResponse } from '../../../shared/models/apiResponse';
 import { CreateVaccineRequest } from '../models/createVaccineRequest';
-import { UpdateVaccineRequest } from '../models/updateVaccineRequest';
 import { EditVaccineRequest } from '../models/editVaccineRequest';
 
 @Injectable({
