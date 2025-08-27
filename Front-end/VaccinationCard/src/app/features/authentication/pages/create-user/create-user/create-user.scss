@@ -1,20 +1,7 @@
-// Variáveis de cores
-$primary-blue: #2563eb;
-$light-blue: #3b82f6;
-$dark-blue: #1d4ed8;
-$accent-blue: #60a5fa;
-$white: #ffffff;
-$light-gray: #f8fafc;
-$gray: #64748b;
-$dark-gray: #334155;
-$error-red: #ef4444;
-$success-green: #22c55e;
-
-
 // Container principal
 .login-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, $primary-blue 0%, $light-blue 50%, $accent-blue 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
   position: relative;
   overflow: hidden;
   padding: 1rem;
@@ -25,7 +12,7 @@ $success-green: #22c55e;
 
 // Cartão de login
 .login-card {
-  background: $white;
+  background: #ffffff;
   border-radius: 24px;
   padding: 2.5rem;
   width: 100%;
@@ -55,7 +42,6 @@ $success-green: #22c55e;
   gap: 1.5rem;
 }
 
-
 // Footer do login
 .login-footer {
   display: flex;
@@ -64,4 +50,3 @@ $success-green: #22c55e;
   align-items: center;
   margin-top: 1rem;
 }
-
