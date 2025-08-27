@@ -1,125 +1,461 @@
-# Cartão de Vacinação – Angular + .NET + MySQL
+# Sistema de Cartão de Vacinação
 
-> Sistema para gerenciar o cartão de vacinação de uma pessoa, com cadastro, consulta, atualização e exclusão de registros. Backend em .NET (Clean Architecture + CQRS + MediatR + FluentValidation + Result Pattern + EF Core code‑first + Repository Pattern) e frontend em Angular (micro components).
+> Sistema para gerenciamento de cartões de vacinação pessoais, desenvolvido com Angular 17+ (Standalone Components) no frontend e .NET 8 no backend, utilizando arquitetura limpa e padrões modernos de desenvolvimento.
 
-## Visão Geral
+## 📋 Visão Geral
 
-O objetivo do sistema é permitir que pessoas tenham seus cartões de vacinação gerenciados via uma API REST, com um frontend em Angular para consumo/gestão. O sistema registra vacinas, pessoas, e vacinações (aplicações), garantindo regras como validação de dose e integridade referencial.
+O sistema permite o gerenciamento completo de cartões de vacinação, incluindo cadastro de vacinas, pessoas e registro de vacinações aplicadas. Foi desenvolvido seguindo princípios de Clean Architecture, CQRS e Result Pattern para garantir alta qualidade, testabilidade e manutenibilidade do código.
 
-**Principais funcionalidades:**
+### Funcionalidades Principais
 
-* Cadastrar vacina (nome, quantidade de doses requeridas, identificador único).
-* Cadastrar pessoa (nome, CPF, email, genero, telefone, idade e identificador único).
-* Remover pessoa (remove também seu cartão e registros associados – *cascade* lógico conforme decisão de implementação).
-* Registrar vacinação para uma pessoa (vacina + dose + data de aplicação; validação da dose).
-* Consultar cartão de vacinação (histórico completo por pessoa).
-* Excluir registro de vacinação específico.
-
----
-
-## Arquitetura
-
-**Clean Architecture** com camadas separando domínio, aplicação e infraestrutura.
-
-```
-Frontend (Angular)
-        ↓ HTTP/JSON
-API (Web API)
-├─ Application (CQRS + MediatR + FluentValidation)
-├─ Domain (Entidades + Regras de Negócio)
-└─ Infrastructure (EF Core + MySQL + Repository Pattern)
-```
-
-**Padrões e abordagens:**
-
-* **CQRS**: comandos/consultas separados, handlers específicos.
-* **MediatR**: orquestração de handlers e behaviours (ex.: validação).
-* **FluentValidation**: validações declarativas por request.
-* **Result Pattern**: retorno padronizado (sucesso/erro) entre camadas e handlers.
-* **Repository Pattern**: abstração de acesso a dados.
-* **EF Core (code-first)**: migrações e mapeamentos para MySQL.
-* **Angular micro components**: componentes pequenos, reutilizáveis e focados.
+- ✅ **Gestão de Vacinas**: Cadastro e consulta de vacinas com suas respectivas doses requeridas
+- ✅ **Cadastro de Pessoas**: Registro completo com validação de CPF, email e dados pessoais
+- ✅ **Registro de Vacinações**: Aplicação de doses com validação de sequência e integridade
+- ✅ **Cartão Digital**: Visualização completa do histórico de vacinações por pessoa
+- ✅ **Autenticação**: Sistema básico de login e controle de acesso
+- ✅ **Auditoria**: Trilhas de criação e modificação de registros
 
 ---
 
-## Tecnologias
+## 🏗️ Arquitetura
 
-* **Backend**: .NET 8+, ASP.NET Core Web API, MediatR, FluentValidation, Entity Framework Core, Pomelo.EntityFrameworkCore.MySql.
-* **Frontend**: Angular 17+ (ou compatível), RxJS, HTTPClient.
-* **Banco**: MySQL 8+.
+O projeto segue os princípios da **Clean Architecture**, separando responsabilidades em camadas bem definidas:
+
+```mermaid
+graph TD
+    A[Frontend Angular] -->|HTTP/JSON| B[API Layer]
+    B --> C[Application Layer]
+    C --> D[Domain Layer]
+    C --> E[Infrastructure Layer]
+    E --> F[MySQL Database]
+    
+    C -.->|CQRS| G[Commands & Queries]
+    C -.->|MediatR| H[Handlers]
+    C -.->|FluentValidation| I[Validators]
+```
+
+### Padrões Implementados
+
+#### **Clean Architecture**
+- **Presentation**: Controllers e endpoints da API
+- **Application**: Commands, Queries, Handlers e Validators
+- **Domain**: Entidades, interfaces e regras de negócio
+- **Infrastructure**: Implementações de repositórios, EF Core e acesso a dados
+
+#### **CQRS (Command Query Responsibility Segregation)**
+- **Commands**: Operações que modificam estado (Create, Update, Delete)
+- **Queries**: Operações de consulta otimizadas para leitura
+- Separação clara de responsabilidades entre escrita e leitura
+
+#### **MediatR Pattern**
+- Orquestração de requests através de handlers específicos
+- Pipeline behaviors para validações e cross-cutting concerns
+- Baixo acoplamento entre controllers e lógica de negócio
+
+#### **Result Pattern**
+- Retorno padronizado para operações (Success/Failure)
+- Eliminação de exceptions para controle de fluxo
+- Tratamento consistente de erros em todas as camadas
+
+#### **Repository Pattern**
+- Abstração do acesso a dados
+- Facilita testes unitários com mocks
+- Desacoplamento entre domínio e infraestrutura
+
 ---
 
-## Domínio e Regras
+## 🛠️ Stack Tecnológica
 
-**Entidades**
+### Backend (.NET 8)
+```
+📦 Core Technologies
+├─ ASP.NET Core Web API
+├─ Entity Framework Core 8
+├─ MySQL 
+├─ MediatR
+├─ FluentValidation
+└─ Moq + xUnit (Testes)
 
-* **Vaccine**: `Id`, `Name`, `RequiredDoses`.
-* **Person**: `Id`, `Name`, `CPF`, `Email`, `PhoneNumber`. `Gender`, `Age`.
-* **Vaccination**: `Id`, `PersonId`, `VaccineId`, `DoseNumber`, `AppliedAt`.
+📦 Architecture Patterns
+├─ Clean Architecture
+├─ CQRS
+├─ Repository Pattern
+├─ Result Pattern
+└─ Domain-Driven Design
+```
 
-## Estrutura dos Projetos
+### Frontend (Angular 17+)
+```
+📦 Core Technologies
+├─ Angular 17+ (Standalone Components)
+├─ TypeScript
+└─ RxJS
+
+📦 Architecture Patterns
+├─ Standalone Components
+├─ Micro Components
+└─ Component-based Architecture
+```
+
+### Database
+```
+📦 MySQL 8+
+├─ Code-First Migrations
+├─ Referential Integrity
+├─ Audit Trail Support
+└─ Optimized Queries
+```
+
+---
+
+## 🧪 Testes Automatizados
+
+O projeto implementa uma estratégia abrangente de testes unitários:
+
+### Cobertura de Testes
+- **Handlers**: Todos os Command e Query handlers
+- **Validators**: FluentValidation validators
+- **Domain Services**: Regras de negócio críticas
+- **Repository Pattern**: Mocks para isolamento de testes
+
+### Exemplo de Teste
+```csharp
+[Fact]
+public async Task Handle_ShouldReturnFailure_WhenPersonNotFound()
+{
+    // Arrange
+    var command = new CreateVaccinationCommand(Guid.NewGuid(), Guid.NewGuid(), 1, DateTime.UtcNow);
+    _personRepositoryMock
+        .Setup(r => r.GetByIdAsync(command.PersonId))
+        .ReturnsAsync((Person?)null);
+
+    // Act
+    var result = await _handler.Handle(command, CancellationToken.None);
+
+    // Assert
+    Assert.True(result.IsFailure);
+    Assert.Equal(PersonErrors.NotFound, result.Error);
+}
+```
+
+---
+
+## 📊 Modelo de Dados
+
+### Entidades Principais
+
+#### **Vaccine**
+```csharp
+    public class Vaccine : EntityBase
+    {
+        /// <summary>
+        /// The name of the vaccine.
+        /// </summary>
+        public string Name { private set; get; }
+
+        /// <summary>
+        /// The collection of vaccination records that reference this vaccine.
+        /// </summary>
+        public List<Vaccination> VaccineRecords { private set; get; } = [];
+
+        /// <summary>
+        /// The total number of doses required to complete this vaccine's treatment schedule.
+        /// </summary>
+        public int RequiredDoses { private set; get; }
+    }
+```
+
+#### **Person**
+```csharp
+    public class Person : EntityBase
+    {
+        /// <summary>
+        /// The full name of the person.
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// The CPF (Cadastro de Pessoas Físicas) identifier of the person.
+        /// </summary>
+        public string CPF { get; private set; }
+
+        /// <summary>
+        /// The email address of the person.
+        /// </summary>
+        public string Email { get; private set; }
+
+        /// <summary>
+        /// The phone number of the person.
+        /// </summary>
+        public string PhoneNumber { get; private set; }
+
+        /// <summary>
+        /// The gender of the person.
+        /// </summary>
+        public string Gender { get; private set; }
+
+        /// <summary>
+        /// The age of the person.
+        /// </summary>
+        public int Age { get; private set; }
+
+        /// <summary>
+        /// The list of vaccinations associated with the person.
+        /// </summary>
+        public List<Vaccination> Vaccinations { get; private set; } = [];
+    }
+```
+
+#### **Vaccination**
+```csharp
+   /// <summary>
+   /// Represents a vaccination record associated with a specific person and vaccine.
+   /// </summary>
+    public class Vaccination : EntityBase
+    {
+        /// <summary>
+        /// he date when the vaccine was applied.
+        /// </summary>
+        public DateTime ApplicationDate { get; private set; }
+
+        /// <summary>
+        /// The unique identifier of the vaccine administered.
+        /// </summary>
+        public Guid VaccineId { get; private set; }
+
+        /// <summary>
+        /// The vaccine entity associated with this vaccination record.
+        /// </summary>
+        public Vaccine Vaccine { get; private set; }
+
+        /// <summary>
+        /// The unique identifier of the person who received the vaccination.
+        /// </summary>
+        public Guid PersonId { get; private set; }
+
+        /// <summary>
+        /// The person entity associated with this vaccination record.
+        /// </summary>
+        public Person Person { get; private set; }
+
+        /// <summary>
+        /// The dose number of the vaccine (e.g., 1 for first dose, 2 for second dose).
+        /// </summary>
+        public int DoseNumber { get; private set; }
+    }
+```
+
+---
+
+## 🎨 Frontend - Angular Standalone Components
+
+### Arquitetura de Componentes
+
+O frontend utiliza **Angular Standalone Components**, proporcionando:
+
+- **Modularidade**: Componentes independentes sem necessidade de NgModules
+- **Tree-shaking**: Melhor otimização de bundle
+- **Simplicidade**: Menos boilerplate e configuração
+- **Reutilização**: Componentes totalmente auto-contidos
+
+### Estrutura de Componentes
+```
+src/app/
+├─ shared/
+│  ├─ components/          # Micro componentes reutilizáveis
+│  │  ├─ button/
+│  │  ├─ input/
+│  │  ├─ modal/
+│  │  └─ table/
+│  └─ services/           # Serviços compartilhados
+├─ features/
+│  ├─ vaccines/
+│  │  ├─ components/
+│  │  └─ services/
+│  ├─ persons/
+│  │  ├─ components/
+│  │  └─ services/
+│  └─ vaccinations/
+│     ├─ components/
+│     └─ services/
+└─ pages/                 # Páginas principais
+   ├─ dashboard/
+   ├─ vaccination-card/
+   └─ login/
+```
+
+### Exemplo de Standalone Component
+```typescript
+@Component({
+  selector: 'app-vaccination-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  template: `
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- form content -->
+    </form>
+  `
+})
+export class VaccinationFormComponent {
+  // component logic
+}
+```
+
+---
+
+## 🚀 Estrutura do Projeto
 
 ```
-/ (repo root)
+/
 ├─ backend/
 │  ├─ src/
-│  │  ├─ Api/                  # Controllers/Endpoints, DI, Middlewares
-│  │  ├─ Application/          # CQRS (Commands/Queries), DTOs, Validators, Behaviours
-│  │  ├─ Domain/               # Entidades, Interfaces (Repos), Regras de negócio
-│  └─ Infrastructure/       # EF Core, Migrations, MySQL, Repositories
+│  │  ├─ VaccinationCard.Api/           # Controllers, DI, Middlewares
+│  │  ├─ VaccinationCard.Application/   # CQRS, DTOs, Validators
+│  │  ├─ VaccinationCard.Domain/        # Entidades, Interfaces, Rules
+│  │  └─ VaccinationCard.Infrastructure/ # EF Core, Repositories
+│  └─ tests/
+│     └─ VaccinationCard.Tests.Unit/    # Testes unitários
 └─ frontend/
    ├─ src/
-   │  ├─ app/
-   │  │  ├─ core/
-   │  │  ├─ shared/             # micro components, pipes, directives
-   │  │  ├─ features/
-   │  │  │  ├─ vaccines/
-   │  │  │  ├─ person/
-   │  │  │  └─ vaccinations/
-            └─ pages/
+   ├─ app/                 
+   ├─ shared/                     # Componentes compartilhados
+   └─  features/                   # Features do sistema
 ```
 
 ---
 
-## Validações e Pipeline
+## 🔧 Pipeline de Validação
 
-* **FluentValidation** por *command/query* (ex.: `CreatePersonCommandValidator`, `CreateVaccinationCommandValidator`).
-* **MediatR Pipeline Behavior** executando validações antes do *handler*; se inválido, retorna `Result.Failure(...)` imediatamente.
-* **Result Pattern** padroniza respostas internas e facilita mapeamento para HTTP.
+### FluentValidation + MediatR Pipeline
 
-Exemplos de regras:
+```csharp
+    internal class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
+    {
+        public CreatePersonCommandValidator()
+        {
+            RuleFor(x => x.Name)
+                .MaximumLength(80).WithMessage(PersonErrors.NameIsToLong)
+                .NotEmpty().WithMessage(PersonErrors.NameIsObligatory)
+                .MinimumLength(3).WithMessage(PersonErrors.NameInvalidMinimumLength);
 
-* `Person` ➜ `Name` não vazio, `CPF` com formato válido e único.
-* `Vaccine` ➜ `Name` não vazio/único.
-* `Vaccination` ➜ `DoseNumber` >= 1, `Application` ≤ `DateTime.UtcNow`, combinação única `(PersonId,VaccineId,DoseNumber)`.
+            RuleFor(x => x.Email)
+                .NotEmpty().WithMessage(PersonErrors.EmailIsRequired)
+                .EmailAddress().WithMessage(PersonErrors.EmailIsInvalid);
+
+            RuleFor(x => x.Age)
+                .GreaterThanOrEqualTo(0)
+                .WithMessage(PersonErrors.InvalidAge);
+
+            RuleFor(x => x.CPF)
+                .NotEmpty()
+                .WithMessage(PersonErrors.CPFIsObligatory)
+                .Length(11)
+                .WithMessage(PersonErrors.InvalidCPFLength);
+        }
+    }
+```
+
+### Result Pattern Implementation
+```csharp
+public class Result
+{
+    protected Result(bool isSuccess, Error error, HttpStatusCode statusCode)
+    {
+        IsSuccess = isSuccess;
+        Error = error;
+        StatusCode = statusCode;
+    }
+
+    public bool IsSuccess { get; }
+
+    public bool IsFailure => !IsSuccess;
+
+    public Error Error { get; }
+
+    public HttpStatusCode StatusCode { get; }
+
+    public static Result Success(HttpStatusCode statusCode = HttpStatusCode.OK) => new(true, Error.None, statusCode);
+
+    public static Result Failure(Error error, HttpStatusCode statusCode = HttpStatusCode.BadRequest) => new(false, error, statusCode);
+}
+
+public class Result<T> : Result
+{
+    private Result(T value, HttpStatusCode statusCode) : base(true, Error.None, statusCode)
+    {
+        Value = value;
+    }
+
+    private Result(Error error, HttpStatusCode status) : base(false, error, status)
+    {
+        Value = default;
+    }
+
+    public T? Value { get; }
+
+    public static Result<T> Success(T value, HttpStatusCode statusCode = HttpStatusCode.OK) => new(value, statusCode);
+
+    public static new Result<T> Failure(Error error, HttpStatusCode status = HttpStatusCode.BadRequest) =>new(error, status);
+}
+
+
+```
 
 ---
 
-## Padrões de Commit e Git
+## 📈 Roadmap
 
-* **Commits descritivos** (ex.: *feat: register vaccination command with validator*).
-* **Branches**: `feat/*`, `fix/*`, `chore/*`, `docs/*`, `test/*`.
+### ✅ Implementado
+- [x] Clean Architecture com CQRS
+- [x] Result Pattern
+- [x] Testes unitários automatizados
+- [x] Angular Standalone Components
+- [x] Sistema básico de autenticação
+- [x] Auditoria de registros
 
-Sugestão de *Conventional Commits*:
-
-* `feat:`, `fix:`, `refactor:`, `perf:`, `docs:`, `test:`, `build:`, `ci:`, `chore:`.
-
----
-
-## Roadmap
-
-* [x] trilhas de auditoria (CreatedBy/UpdatedBy).
-* [x] Autenticação básica (Login)
-* [ ] Edição de vacina, pessoa e vacinação no front-end.
-* [ ] Docker Compose (API + MySQL + Frontend).
-* [ ] Documentação repositório e código.
+### 🎯 Próximos Passos
+- [ ] Testes de integração completos
+- [ ] Docker Compose para ambiente completo
+- [ ] CI/CD Pipeline
+- [ ] Documentação técnica detalhada
 
 ---
 
-## Decisões Arquiteturais (Resumo)
+## 🏃‍♂️ Como Executar
 
-* **Clean Architecture** para testabilidade e isolamento de camadas.
-* **CQRS** para clareza de intenção e escalabilidade de queries/commands.
-* **Result Pattern** para padronizar retornos e facilitar *error handling* sem exceções de controle de fluxo.
-* **Repository Pattern** para desacoplar domínio de EF Core (substituível por outro provider).
-* **Micro Components (Angular)** para reuso, mantenabilidade, testabilidade e coesão em UI.
+### Backend
+```bash
+cd backend/src/VaccinationCard.Api
+dotnet restore
+dotnet ef database update
+dotnet run
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+ng serve
+```
+
+### Testes
+```bash
+# Backend
+dotnet test
+
+# Frontend
+ng test
+```
+
+---
+
+### Padrão de Commits
+Utilizamos [Conventional Commits](https://www.conventionalcommits.org/):
+- `feat:` - Nova funcionalidade
+- `fix:` - Correção de bug
+- `docs:` - Documentação
+- `test:` - Testes
+- `refactor:` - Refatoração
+- `chore:` - Manutenção
+
+---
