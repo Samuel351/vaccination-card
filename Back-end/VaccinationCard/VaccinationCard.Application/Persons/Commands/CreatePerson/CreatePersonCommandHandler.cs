@@ -6,7 +6,7 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Persons.Commands.CreatePerson
 {
-    internal class CreatePersonCommandHandler(IPersonRepository personRepository) : IRequestHandler<CreatePersonCommand, Result>
+    public class CreatePersonCommandHandler(IPersonRepository personRepository) : IRequestHandler<CreatePersonCommand, Result>
     {
         private readonly IPersonRepository _personRepository = personRepository;
         public async Task<Result> Handle(CreatePersonCommand request, CancellationToken cancellationToken)

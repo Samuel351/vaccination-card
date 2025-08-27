@@ -6,7 +6,7 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
 {
-    internal class CreateVaccineCommandHandler(IVaccineRepository vaccineRepository) : IRequestHandler<CreateVaccineCommand, Result>
+    public class CreateVaccineCommandHandler(IVaccineRepository vaccineRepository) : IRequestHandler<CreateVaccineCommand, Result>
     {
 
         private readonly IVaccineRepository _vaccineRepository = vaccineRepository;

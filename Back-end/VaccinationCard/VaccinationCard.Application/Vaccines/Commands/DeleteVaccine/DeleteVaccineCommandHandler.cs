@@ -8,7 +8,7 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Vaccines.Commands.DeleteVaccine
 {
-    internal class DeleteVaccineCommandHandler(IBaseRepository<Vaccine> vaccineRepository, IVaccinationRepository vaccinationRepository) : IRequestHandler<DeleteVaccineCommand, Result>
+    public class DeleteVaccineCommandHandler(IBaseRepository<Vaccine> vaccineRepository, IVaccinationRepository vaccinationRepository) : IRequestHandler<DeleteVaccineCommand, Result>
     {
 
         private readonly IBaseRepository<Vaccine> _vaccineRepository = vaccineRepository;

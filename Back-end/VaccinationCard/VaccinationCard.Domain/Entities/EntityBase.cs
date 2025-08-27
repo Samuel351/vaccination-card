@@ -2,7 +2,7 @@
 {
     public class EntityBase
     {
-        public Guid EntityId { get; private set; }
+        public Guid EntityId { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

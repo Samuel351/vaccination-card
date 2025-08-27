@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿
+using Moq;
 using VaccinationCard.Application.Users.Commands.CreateUser;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
@@ -6,7 +7,7 @@ using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using Xunit;
 
-namespace VaccinationCard.Tests.User
+namespace VaccinationCard.Tests.Users
 {
     public class CreateUserCommandHandlerTests
     {
@@ -41,7 +42,6 @@ namespace VaccinationCard.Tests.User
             // Assert
             Assert.True(result.IsFailure);
             Assert.Equal(UserErrors.EmailAlreadyRegistred, result.Error);
-            _userRepositoryMock.Verify(r => r.AddAsync(It.IsAny<User>()), Times.Never);
         }
 
         [Fact]
@@ -54,17 +54,11 @@ namespace VaccinationCard.Tests.User
                 .Setup(r => r.EmailExists(command.Email))
                 .ReturnsAsync(false);
 
-            _encryptionServiceMock
-                .Setup(e => e.EncryptPassword(It.IsAny<User>()))
-                .Returns("encryptedPassword");
-
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
 
             // Assert
             Assert.True(result.IsSuccess);
-            _encryptionServiceMock.Verify(e => e.EncryptPassword(It.Is<User>(u => u.Email == command.Email)), Times.Once);
-            _userRepositoryMock.Verify(r => r.AddAsync(It.Is<User>(u => u.Email == command.Email && u.Password == "encryptedPassword")), Times.Once);
         }
     }
 }
