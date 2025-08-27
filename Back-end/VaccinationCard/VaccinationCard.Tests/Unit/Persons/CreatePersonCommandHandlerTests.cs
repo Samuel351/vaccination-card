@@ -1,11 +1,10 @@
 ﻿using Moq;
 using VaccinationCard.Application.Persons.Commands.CreatePerson;
-using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using Xunit;
 
-namespace VaccinationCard.Tests.Persons
+namespace VaccinationCard.Tests.Unit.Persons
 {
     public class CreatePersonCommandHandlerTests
     {

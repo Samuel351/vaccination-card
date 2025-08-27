@@ -5,7 +5,7 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 using VaccinationCard.Domain.Services;
 using Xunit;
 
-namespace VaccinationCard.Tests.Vaccinations
+namespace VaccinationCard.Tests.Unit.Vaccinations
 {
     public class VaccinationServiceTests
     {

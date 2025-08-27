@@ -50,6 +50,8 @@
             ApplicationDate = applicationDate;
         }
 
+        public Vaccination() { }
+
         /// <summary>
         /// Updates the vaccination details, such as dose number and application date.
         /// </summary>

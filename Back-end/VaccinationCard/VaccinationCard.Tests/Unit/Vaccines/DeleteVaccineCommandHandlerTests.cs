@@ -6,7 +6,7 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 using VaccinationCard.Application.Interfaces.Repositories;
 using Xunit;
 
-namespace VaccinationCard.Tests.Vaccines
+namespace VaccinationCard.Tests.Unit.Vaccines
 {
     public class DeleteVaccineCommandHandlerTests
     {

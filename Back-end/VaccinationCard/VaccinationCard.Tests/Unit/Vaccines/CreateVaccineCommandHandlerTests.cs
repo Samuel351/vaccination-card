@@ -4,7 +4,7 @@ using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using Xunit;
 
-namespace VaccinationCard.Tests.Application.Vaccines.Commands
+namespace VaccinationCard.Tests.Unit.Vaccines
 {
     public class CreateVaccineCommandHandlerTests
     {

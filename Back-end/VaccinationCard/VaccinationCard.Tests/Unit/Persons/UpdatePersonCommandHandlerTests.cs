@@ -1,12 +1,11 @@
-﻿using System.Net;
-using Moq;
+﻿using Moq;
 using VaccinationCard.Application.Persons.Commands.UpdatePerson;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using Xunit;
 
-namespace VaccinationCard.Tests.Persons
+namespace VaccinationCard.Tests.Unit.Persons
 {
     public class UpdatePersonCommandHandlerTests
     {

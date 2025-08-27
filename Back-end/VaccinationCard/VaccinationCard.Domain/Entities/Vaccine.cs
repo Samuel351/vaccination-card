@@ -41,5 +41,7 @@
             Name = name;
             RequiredDoses = requiredDoses;
         }
+
+        public Vaccine() { }
     }
 }

@@ -8,7 +8,7 @@ using VaccinationCard.Domain.Services;
 
 namespace VaccinationCard.Application.Vaccinations.Commands.UpdateVaccination
 {
-    internal class UpdateVaccinationCommandHandler(IBaseRepository<Vaccination> vaccinationRepository, IBaseRepository<Vaccine> vaccineRepository, VaccinationService vaccinationService) : IRequestHandler<UpdateVaccinationCommand, Result>
+    public class UpdateVaccinationCommandHandler(IBaseRepository<Vaccination> vaccinationRepository, IBaseRepository<Vaccine> vaccineRepository, VaccinationService vaccinationService) : IRequestHandler<UpdateVaccinationCommand, Result>
     {
         private readonly IBaseRepository<Vaccination> _vaccinationRepository = vaccinationRepository;
 
