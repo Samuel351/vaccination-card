@@ -111,7 +111,6 @@ Sugestão de *Conventional Commits*:
 * [x] trilhas de auditoria (CreatedBy/UpdatedBy).
 * [x] Autenticação básica (Login)
 * [ ] Edição de vacina, pessoa e vacinação no front-end.
-* [ ] Observabilidade (Serilog, OpenTelemetry).
 * [ ] Docker Compose (API + MySQL + Frontend).
 * [ ] Documentação repositório e código.
 
