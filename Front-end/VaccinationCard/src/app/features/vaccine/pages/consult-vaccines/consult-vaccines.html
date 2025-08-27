@@ -13,6 +13,7 @@
                 <td>{{item.requiredDoses}}</td>
                 <td style="width: 20%;">
                     <div class="action-buttons">
+                        <app-button text="Editar vacina" variant="warning" (clicked)="onEditRegisterClick(item)"></app-button>
                         <app-button text="Excluir" variant="danger" (clicked)="onClickDelete(item)"></app-button>
                     </div>
                 </td>
@@ -44,6 +45,19 @@
         <div class="modal-action-buttons" style="justify-content: flex-end;">
             <app-button text="Confirmar" (clicked)="onSaveRegister()" [disabled]="this.form.invalid"></app-button>
             <app-button text="Cancelar" (clicked)="onCancelRegister()" variant="danger"></app-button>
+        </div>
+    </app-modal>
+}
+
+@if (showEditModal) {
+    <app-modal title="Registrar vacina" size="large">
+        <form [formGroup]=form>
+            <app-input invalidMessage="Nome inválido" formControlName="name" label="Nome da vacina"/>
+            <app-input invalidMessage="É necessário ter 1 dose obrigatória" formControlName="requiredDoses" label="Quantidade de doses obrigatórias"/>
+        </form>
+        <div class="modal-action-buttons" style="justify-content: flex-end;">
+            <app-button text="Confirmar" (clicked)="onEditRegister()" [disabled]="this.form.invalid"></app-button>
+            <app-button text="Cancelar" (clicked)="onCancelEditRegister()" variant="danger"></app-button>
         </div>
     </app-modal>
 }

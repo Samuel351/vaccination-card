@@ -9,6 +9,7 @@ import { InputComponent } from '../../../../shared/components/input-component/in
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateVaccineRequest } from '../../models/createVaccineRequest';
 import { handleApiError } from '../../../../shared/utils/apiHandleError';
+import { EditVaccineRequest } from '../../models/editVaccineRequest';
 
 @Component({
   selector: 'app-consult-vaccines',
@@ -24,11 +25,13 @@ export class ConsultVaccines implements OnInit {
   protected vaccines?: VaccineResponse[];
   protected showConfirmModal: boolean = false;
   protected showRegisterModal: boolean = false;
+  protected showEditModal: boolean = false;
   protected selectedVaccine?: VaccineResponse;
 
   protected formBuilder = inject(NonNullableFormBuilder);
 
   protected form = this.formBuilder.group({
+    vaccineId: new FormControl<string | null>(null),
     name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
     requiredDoses: new FormControl<number>(1, [Validators.required, Validators.min(1)])
   });
@@ -79,13 +82,23 @@ export class ConsultVaccines implements OnInit {
     this.resetForm();
   }
 
+  onEditRegisterClick(vaccine: VaccineResponse){
+    this.showEditModal = true;
+    this.form.patchValue(vaccine);
+  }
+
+  onCancelEditRegister(){
+    this.showEditModal = false;
+  }
+
   onSaveRegister(){
     var request = this.form.value as CreateVaccineRequest;
-
-    console.log(request);
-
     this.createVaccine(request);
-    this.resetForm();
+  }
+
+  onEditRegister(){
+    var request = this.form.value as EditVaccineRequest;
+    this.editVaccine(request);
   }
 
   private resetForm(){
@@ -100,6 +113,19 @@ export class ConsultVaccines implements OnInit {
         this.snackBar.open(res.message, 'Fechar', {duration: 1000});
         this.showRegisterModal = false;
         this.getAllVaccines();
+        this.resetForm();
+      },
+      error: (error)  => handleApiError(this.snackBar, error)
+    })
+  }
+
+  private editVaccine(editVaccineRequest: EditVaccineRequest){
+    this.vaccineService.editVaccine(editVaccineRequest).subscribe({
+      next: res => {
+        this.snackBar.open(res.message, 'Fechar', {duration: 1000});
+        this.showEditModal = false;
+        this.getAllVaccines();
+        this.resetForm();
       },
       error: (error)  => handleApiError(this.snackBar, error)
     })

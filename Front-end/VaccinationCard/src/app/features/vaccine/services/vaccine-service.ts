@@ -6,6 +6,7 @@ import { VaccineResponse } from '../models/vaccineResponse';
 import { ApiResponse } from '../../../shared/models/apiResponse';
 import { CreateVaccineRequest } from '../models/createVaccineRequest';
 import { UpdateVaccineRequest } from '../models/updateVaccineRequest';
+import { EditVaccineRequest } from '../models/editVaccineRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class VaccineService {
     return this.http.post<ApiResponse>(this.apiUrl, vaccine);
   }
 
-  updateVaccine(vaccine: UpdateVaccineRequest) : Observable<ApiResponse>{
-    return this.http.post<ApiResponse>(this.apiUrl, vaccine);
+  editVaccine(vaccine: EditVaccineRequest) : Observable<ApiResponse>{
+    return this.http.put<ApiResponse>(this.apiUrl, vaccine);
   }
 }
