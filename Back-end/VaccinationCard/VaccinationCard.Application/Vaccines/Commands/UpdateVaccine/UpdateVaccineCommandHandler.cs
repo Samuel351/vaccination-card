@@ -8,10 +8,12 @@ using VaccinationCard.Domain.Interfaces.Repositories;
 
 namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
 {
-    internal class UpdateVaccineCommandHandler(IVaccineRepository vaccineRepository) : IRequestHandler<UpdateVaccineCommand, Result>
+    internal class UpdateVaccineCommandHandler(IVaccineRepository vaccineRepository, IVaccinationRepository vaccinationRepository) : IRequestHandler<UpdateVaccineCommand, Result>
     {
 
         private readonly IVaccineRepository _vaccineRepository = vaccineRepository;
+
+        private readonly IVaccinationRepository _vaccinationRepository = vaccinationRepository;
 
         public async Task<Result> Handle(UpdateVaccineCommand request, CancellationToken cancellationToken)
         {
@@ -26,6 +28,11 @@ namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
                 {
                     return Result.Failure(VaccineErrors.VaccineAlreadyRegistered);
                 }
+            }
+
+            if (await _vaccinationRepository.IsVaccineBeingUsed(request.VaccineId))
+            {
+                return Result.Failure(VaccineErrors.VaccineIsBeingUsed, HttpStatusCode.Conflict);
             }
 
             vaccine.Update(request.Name, request.RequiredDoses);
