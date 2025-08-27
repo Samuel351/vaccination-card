@@ -50,7 +50,7 @@ namespace VaccinationCard.Domain.Services
             // Check if the dose exceeds the required number of doses for this vaccine
             if (vaccination.DoseNumber > vaccine.RequiredDoses)
             {
-                return Result.Failure(VaccinationErrors.DoseAlreadySurpassRequired);
+                return Result.Failure(VaccinationErrors.DoseExceedsRequired);
             }
 
             // Ensure all previous doses have been applied
@@ -62,6 +62,7 @@ namespace VaccinationCard.Domain.Services
                 }
             }
 
+            // Ensure that the application date is not in the future
             if(vaccination.ApplicationDate > DateTime.Now)
             {
                 return Result.Failure(VaccinationErrors.DoseApplicationDateInFuture);

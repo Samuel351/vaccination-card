@@ -15,7 +15,7 @@ namespace VaccinationCard.Domain.Errors
             new("Vaccination.DoseAlreadyApplied", 
                 "Dose já foi aplicada");
 
-        public static readonly Error DoseAlreadySurpassRequired =
+        public static readonly Error DoseExceedsRequired =
             new("Vaccination.DoseAlreadySurpassRequired",
                 "Quantidade de dose maximas já foi alcançada");
 
