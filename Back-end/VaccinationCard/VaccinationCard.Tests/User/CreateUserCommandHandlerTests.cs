@@ -6,7 +6,7 @@ using VaccinationCard.Domain.Interfaces;
 using VaccinationCard.Domain.Interfaces.Repositories;
 using Xunit;
 
-namespace VaccinationCard.Tests.Application.Users.Commands
+namespace VaccinationCard.Tests.User
 {
     public class CreateUserCommandHandlerTests
     {
