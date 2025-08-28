@@ -1,6 +1,6 @@
 # Sistema de Cartão de Vacinação
 
-> Sistema para gerenciamento de cartões de vacinação pessoais, desenvolvido com Angular 17+ (Standalone Components) no frontend e .NET 8 no backend, utilizando arquitetura limpa e padrões modernos de desenvolvimento.
+> Sistema para gerenciamento de cartões de vacinação pessoais, desenvolvido com Angular 20 no frontend e .NET 8 no backend, utilizando arquitetura limpa e padrões modernos de desenvolvimento.
 
 ## 📋 Visão Geral
 
