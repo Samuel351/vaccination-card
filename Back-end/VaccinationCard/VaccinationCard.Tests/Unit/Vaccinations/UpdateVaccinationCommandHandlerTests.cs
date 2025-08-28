@@ -1,6 +1,4 @@
-﻿using Domain.Abstractions;
-using Moq;
-using VaccinationCard.Application.Interfaces.Repositories;
+﻿using Moq;
 using VaccinationCard.Application.Vaccinations.Commands.UpdateVaccination;
 using VaccinationCard.Domain.Entities;
 using VaccinationCard.Domain.Errors;

@@ -15,6 +15,7 @@ import { Option, Dropdown } from '../../../../shared/components/dropdown/dropdow
 import { Loader } from '../../../../shared/components/loader/loader';
 import { Timepicker } from '../../../../shared/components/timepicker/timepicker';
 import { handleApiError } from '../../../../shared/utils/apiHandleError';
+import { EditVaccineRequest } from '../../../vaccine/models/editVaccineRequest';
 
 @Component({
   selector: 'app-person-details',
@@ -49,6 +50,7 @@ export class PersonDetails implements OnInit {
   protected personId?: string;
   protected selectedDose?: VaccineDose;
   protected vaccineId?: string = undefined;
+  
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -124,6 +126,7 @@ export class PersonDetails implements OnInit {
     this.vaccinationService.createVaccination(createVaccinationRequest).subscribe({
       next: res => {
         this.applicationDate = undefined;
+        this.applicationHour = undefined;
         this.getPersonVaccinationCard(createVaccinationRequest.personId);
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
         this.showRegisterDateVaccinationModal = false;
@@ -132,6 +135,46 @@ export class PersonDetails implements OnInit {
       },
       error: (error)  => handleApiError(this.snackBar, error)
     })
+  }
+
+  private editVaccination(editVaccinationRequest: VaccineDose){
+    this.vaccinationService.editVaccination(editVaccinationRequest).subscribe({
+      next: res => {
+        this.applicationDate = undefined;
+        this.applicationHour = undefined;
+
+        this.getPersonVaccinationCard(this.personId!);
+
+        this.showEditVaccinationModal = false;
+        
+        this.snackBar.open(res.message, 'Fechar', {duration: 2000});
+      },
+      error: (error) => handleApiError(this.snackBar, error)
+    })
+  }
+
+  onEditVaccination(vaccineDose: VaccineDose, vaccineId: string){
+    this.vaccineId = vaccineId;
+    this.selectedDose = vaccineDose;
+
+    var splitHour = this.selectedDose.applicationDate.split('T');
+
+    this.applicationDate = splitHour[0];
+    this.applicationHour = splitHour[1];
+
+    this.showEditVaccinationModal = true;
+  }
+
+  onSaveEditVaccination(){
+    this.selectedDose!.applicationDate = this.applicationDate+"T"+this.applicationHour;
+    this.editVaccination(this.selectedDose!);
+  }
+
+  onCancelEditVaccination(){
+    this.selectedDose = undefined;
+    this.applicationDate = undefined;
+    this.applicationHour = undefined;
+    this.showEditVaccinationModal = false;
   }
 
   private deleteVaccination(vaccinationId: string){

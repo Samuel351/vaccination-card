@@ -26,9 +26,8 @@ namespace VaccinationCard.Application.Vaccinations.Commands.UpdateVaccination
 
             if (vaccine == null) return Result.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
 
-            // TODO: DATA DOSE NÃO PODE SER NO FUTURO E NEM ANTERIOR A DATA DE OUTRAS DOSE JÁ EXISTENTES
-            if (!request.ApplicationDate.HasValue) vaccination.Update(request.DoseNumber, DateTime.UtcNow);
-            else vaccination.Update(request.DoseNumber, request.ApplicationDate.Value);
+            if (!request.ApplicationDate.HasValue) vaccination.Update(DateTime.UtcNow);
+            else vaccination.Update(request.ApplicationDate.Value);
 
             var result = await _vaccinationService.ValidateNewDose(vaccination, vaccine);
 

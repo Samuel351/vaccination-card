@@ -42,7 +42,7 @@ namespace VaccinationCard.Domain.Services
             var vaccinations = await _vaccinationRepository.GetVaccinations(vaccination.VaccineId, vaccination.PersonId);
 
             // Check if this dose has already been applied
-            if (vaccinations.Any(x => x.DoseNumber == vaccination.DoseNumber))
+            if (vaccinations.Any(x => x.DoseNumber == vaccination.DoseNumber && vaccination.EntityId != x.EntityId))
             {
                 return Result.Failure(VaccinationErrors.DoseAlreadyApplied);
             }

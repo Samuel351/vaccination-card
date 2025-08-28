@@ -53,13 +53,11 @@
         public Vaccination() { }
 
         /// <summary>
-        /// Updates the vaccination details, such as dose number and application date.
+        /// Updates the vaccination application date.
         /// </summary>
-        /// <param name="doseNumber">The new dose number.</param>
         /// <param name="applicationDate">The new application date of the vaccine.</param>
-        public void Update(int doseNumber, DateTime applicationDate)
+        public void Update(DateTime applicationDate)
         {
-            DoseNumber = doseNumber;
             ApplicationDate = applicationDate;
         }
     }

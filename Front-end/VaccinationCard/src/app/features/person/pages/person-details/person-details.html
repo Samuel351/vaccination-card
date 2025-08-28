@@ -38,7 +38,7 @@
                 <li><strong>Dose:</strong> {{dose.doseNumber}}</li>
               </ul>
 
-              <app-button variant="warning" text="Editar vacinação"></app-button>
+              <app-button variant="warning" size="small" text="Editar vacinação" (clicked)="onEditVaccination(dose, vaccination.vaccineId)"></app-button>
               <app-button [disabled]="!$last" size="small" variant="danger" text="Excluir vacinação" (clicked)="onClickDeleteVaccination(dose, vaccination)"></app-button>
               
             </div>      
@@ -94,8 +94,24 @@
         <app-timepicker label="Hora da vacinação" [disabled]="!applicationDate" (seletectedHour)="applicationHour = $event" ></app-timepicker>
       </div>
       <div class="modal-action-buttons" style="margin-top: 1rem;">
-        <app-button text="Continuar" [disabled]="!applicationDate || !applicationHour || !vaccineId" (clicked)="onSaveNewVaccinationRegister()"></app-button>
+        <app-button text="Salvar" [disabled]="!applicationDate || !applicationHour || !vaccineId" (clicked)="onSaveNewVaccinationRegister()"></app-button>
         <app-button text="Cancelar" variant="danger" (clicked)="onCloseNewVaccinationRegister()"></app-button>
+      </div>
+    </div>
+  </app-modal>
+}
+
+@if (showEditVaccinationModal) {
+  <app-modal title="Adicionar nova vacinação" size="large">
+    <div class="modal-fields">
+      <app-dropdown [disabled]="true" [(ngModel)]="vaccineId" [options]="vaccinesOption" label="Vacinas"></app-dropdown>
+      <div class="time-picker-container">
+        <app-datepicker [blockFutureDates]="true" [(ngModel)]="applicationDate" (seletectedDate)="applicationDate = $event" label="Data da vacinação"></app-datepicker>
+        <app-timepicker label="Hora da vacinação" [(ngModel)]="applicationHour" [disabled]="!applicationDate" (seletectedHour)="applicationHour = $event" ></app-timepicker>
+      </div>
+      <div class="modal-action-buttons" style="margin-top: 1rem;">
+        <app-button text="Salvar" [disabled]="!applicationDate || !applicationHour || !vaccineId" (clicked)="onSaveEditVaccination()"></app-button>
+        <app-button text="Cancelar" variant="danger" (clicked)="onCancelEditVaccination()"></app-button>
       </div>
     </div>
   </app-modal>
