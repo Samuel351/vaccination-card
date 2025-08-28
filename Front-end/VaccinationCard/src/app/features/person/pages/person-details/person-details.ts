@@ -142,6 +142,9 @@ export class PersonDetails implements OnInit {
       next: res => {
         this.applicationDate = undefined;
         this.applicationHour = undefined;
+        this.vaccineId = undefined;
+
+        console.log(res);
 
         this.getPersonVaccinationCard(this.personId!);
 
@@ -149,7 +152,7 @@ export class PersonDetails implements OnInit {
         
         this.snackBar.open(res.message, 'Fechar', {duration: 2000});
       },
-      error: (error) => handleApiError(this.snackBar, error)
+      error: (error) => {handleApiError(this.snackBar, error)}
     })
   }
 
@@ -166,8 +169,8 @@ export class PersonDetails implements OnInit {
   }
 
   onSaveEditVaccination(){
-    this.selectedDose!.applicationDate = this.applicationDate+"T"+this.applicationHour;
-    this.editVaccination(this.selectedDose!);
+    var applicationDate = this.applicationDate+"T"+this.applicationHour;
+    this.editVaccination({applicationDate: applicationDate, doseNumber: this.selectedDose!.doseNumber, vaccinationId: this.selectedDose!.vaccinationId});
   }
 
   onCancelEditVaccination(){
@@ -175,6 +178,7 @@ export class PersonDetails implements OnInit {
     this.applicationDate = undefined;
     this.applicationHour = undefined;
     this.showEditVaccinationModal = false;
+    this.vaccineId = undefined;
   }
 
   private deleteVaccination(vaccinationId: string){
