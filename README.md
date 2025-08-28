@@ -308,20 +308,17 @@ export class VaccinationFormComponent {
 ```
 /
 ├─ backend/
-│  ├─ src/
-│  │  ├─ VaccinationCard.Api/           # Controllers, DI, Middlewares
-│  │  ├─ VaccinationCard.Application/   # CQRS, DTOs, Validators
-│  │  ├─ VaccinationCard.Domain/        # Entidades, Interfaces, Rules
-│  │  └─ VaccinationCard.Infrastructure/ # EF Core, Repositories
-│  └─ tests/
-│     └─ VaccinationCard.Tests.Unit/    # Testes unitários
+│  ├─ VaccinationCard.Api/           # Controllers, DI, Middlewares
+│  ├─ VaccinationCard.Application/   # CQRS, DTOs, Validators
+│  ├─ VaccinationCard.Domain/        # Entidades, Interfaces, Rules
+│  ├─ VaccinationCard.Infrastructure/ # EF Core, Repositories
+│  └─ VaccinationCard.Tests/    # Testes automatizados
 └─ frontend/
-   ├─ src/
-   ├─ app/                 
-   ├─ shared/                     # Componentes compartilhados
-   └─  features/                   # Features do sistema
+   └─ src/
+       └─app/                 
+         ├─ shared/                     # Componentes compartilhados
+         └─ features/                   # Features do sistema
 ```
-
 ---
 
 ## 🔧 Pipeline de Validação
