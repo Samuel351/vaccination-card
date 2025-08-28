@@ -30,6 +30,37 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
 
             var vaccination = new Vaccination(VaccineId, PersonId, 1, DateTime.Now);
 
+            vaccination.EntityId = Guid.NewGuid();
+
+            var savedVaccinations = new List<Vaccination>()
+            {
+                new(Guid.NewGuid(), PersonId, 1, DateTime.Now.AddDays(-90)),
+                new(Guid.NewGuid(), PersonId, 2, DateTime.Now.AddDays(-60)),
+                new(Guid.NewGuid(), PersonId, 3, DateTime.Now.AddDays(-30))
+            };
+
+            savedVaccinations.ForEach(x => x.EntityId = Guid.Empty);
+
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+                .ReturnsAsync(savedVaccinations);
+
+            // Act
+            var result = await _vaccinationService.ValidateNewDose(vaccination, vaccine);
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal(VaccinationErrors.DoseAlreadyApplied, result.Error);
+
+        }
+
+        [Fact]
+        public async Task ValidateNewDose_ShouldReturnSucess_WhenVaccinationHasSameId()
+        {
+            // Arrange
+            var vaccine = new Vaccine("COVID-19", 3);
+
+            var vaccination = new Vaccination(VaccineId, PersonId, 1, DateTime.Now);
+
             var savedVaccinations = new List<Vaccination>()
             {
                 new(VaccineId, PersonId, 1, DateTime.Now.AddDays(-90)),
@@ -44,9 +75,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
             var result = await _vaccinationService.ValidateNewDose(vaccination, vaccine);
 
             // Assert
-            Assert.True(result.IsFailure);
-            Assert.Equal(VaccinationErrors.DoseAlreadyApplied, result.Error);
-
+            Assert.True(result.IsSuccess);
         }
 
         [Fact]
