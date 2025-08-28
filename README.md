@@ -9,7 +9,7 @@ O sistema permite o gerenciamento completo de cartões de vacinação, incluindo
 ### Funcionalidades Principais
 
 - ✅ **Gestão de Vacinas**: Cadastro e consulta de vacinas com suas respectivas doses requeridas
-- ✅ **Cadastro de Pessoas**: Registro completo com validação de9 email e dados pessoais
+- ✅ **Cadastro de Pessoas**: Registro completo com validação de email e dados pessoais
 - ✅ **Registro de Vacinações**: Aplicação de doses com validação de sequência e integridade
 - ✅ **Cartão Digital**: Visualização completa do histórico de vacinações por pessoa
 - ✅ **Autenticação**: Sistema básico de login e controle de acesso
