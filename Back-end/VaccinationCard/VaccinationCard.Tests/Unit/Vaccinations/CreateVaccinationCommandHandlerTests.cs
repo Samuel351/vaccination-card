@@ -39,7 +39,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
             var command = new CreateVaccinationCommand(Guid.NewGuid(), Guid.NewGuid(), 1, DateTime.UtcNow);
 
             _personRepositoryMock
-                .Setup(r => r.GetByIdAsync(command.PersonId))
+                .Setup(r => r.GetByIdAsync(command.PersonId, CancellationToken.None))
                 .ReturnsAsync((Person?)null);
 
             // Act
@@ -61,10 +61,10 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
             var command = new CreateVaccinationCommand(person.EntityId, Guid.NewGuid(), 1, DateTime.UtcNow);
 
             _personRepositoryMock
-                .Setup(r => r.GetByIdAsync(command.PersonId))
+                .Setup(r => r.GetByIdAsync(command.PersonId, CancellationToken.None))
                 .ReturnsAsync(person);
             _vaccineRepositoryMock
-                .Setup(r => r.GetByIdAsync(command.VaccineId))
+                .Setup(r => r.GetByIdAsync(command.VaccineId, CancellationToken.None))
                 .ReturnsAsync((Vaccine?)null);
 
             // Act
@@ -82,14 +82,14 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
             var command = new CreateVaccinationCommand(Guid.NewGuid(), Guid.NewGuid(), 1, DateTime.UtcNow);
 
             _personRepositoryMock
-                .Setup(r => r.GetByIdAsync(command.PersonId))
+                .Setup(r => r.GetByIdAsync(command.PersonId, CancellationToken.None))
                 .ReturnsAsync((Person?)null);
 
             // Act
             await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            _vaccinationRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Vaccination>()), Times.Never);
+            _vaccinationRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Vaccination>(), CancellationToken.None), Times.Never);
         }
 
         [Fact]
@@ -103,17 +103,17 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
             var command = new CreateVaccinationCommand(person.EntityId, Guid.NewGuid(), 1, DateTime.UtcNow);
 
             _personRepositoryMock
-                .Setup(r => r.GetByIdAsync(command.PersonId))
+                .Setup(r => r.GetByIdAsync(command.PersonId, CancellationToken.None))
                 .ReturnsAsync(person);
             _vaccineRepositoryMock
-                .Setup(r => r.GetByIdAsync(command.VaccineId))
+                .Setup(r => r.GetByIdAsync(command.VaccineId, CancellationToken.None))
                 .ReturnsAsync((Vaccine?)null);
 
             // Act
             await _handler.Handle(command, CancellationToken.None);
 
             // Assert
-            _vaccinationRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Vaccination>()), Times.Never);
+            _vaccinationRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Vaccination>(), CancellationToken.None), Times.Never);
         }
     }
 }

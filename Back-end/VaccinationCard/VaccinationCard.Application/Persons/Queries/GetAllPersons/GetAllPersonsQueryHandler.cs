@@ -14,7 +14,7 @@ namespace VaccinationCard.Application.Persons.Queries.GetAllPersonPaginated
 
         public async Task<Result<List<PersonResponse>>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
-            var paginatedPersons = await _personRepository.GetAllAsync();
+            var paginatedPersons = await _personRepository.GetAllAsync(cancellationToken);
 
             if (paginatedPersons.Count == 0) return Result<List<PersonResponse>>.Failure(PersonErrors.NoContent);
 

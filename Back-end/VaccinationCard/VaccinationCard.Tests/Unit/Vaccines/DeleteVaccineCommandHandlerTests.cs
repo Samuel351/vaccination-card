@@ -26,7 +26,7 @@ namespace VaccinationCard.Tests.Unit.Vaccines
         {
             // Arrange
             var command = new DeleteVaccineCommand(Guid.NewGuid());
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(command.VaccineId))
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(command.VaccineId, CancellationToken.None))
                 .ReturnsAsync((Vaccine)null);
 
             // Act
@@ -47,8 +47,8 @@ namespace VaccinationCard.Tests.Unit.Vaccines
 
             var command = new DeleteVaccineCommand(vaccineId);
 
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId)).ReturnsAsync(existingVaccine);
-            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId)).ReturnsAsync(true);
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId, CancellationToken.None)).ReturnsAsync(existingVaccine);
+            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId, CancellationToken.None)).ReturnsAsync(true);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -68,8 +68,8 @@ namespace VaccinationCard.Tests.Unit.Vaccines
 
             var command = new DeleteVaccineCommand(vaccineId);
 
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId)).ReturnsAsync(existingVaccine);
-            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId)).ReturnsAsync(false);
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId, CancellationToken.None)).ReturnsAsync(existingVaccine);
+            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId, CancellationToken.None)).ReturnsAsync(false);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);

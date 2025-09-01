@@ -26,7 +26,7 @@ namespace VaccinationCard.Tests.Unit.Vaccines
             // Arrange
             var command = new UpdateVaccineCommand(Guid.NewGuid(), "COVID-19", 2);
 
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(command.VaccineId)).ReturnsAsync((Vaccine)null);
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(command.VaccineId, CancellationToken.None)).ReturnsAsync((Vaccine)null);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -46,8 +46,8 @@ namespace VaccinationCard.Tests.Unit.Vaccines
 
             var command = new UpdateVaccineCommand(vaccineId, "NewName", 3);
 
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId)).ReturnsAsync(existingVaccine);
-            _vaccineRepositoryMock.Setup(r => r.NameExists(command.Name)).ReturnsAsync(true);
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId, CancellationToken.None)).ReturnsAsync(existingVaccine);
+            _vaccineRepositoryMock.Setup(r => r.NameExists(command.Name, CancellationToken.None)).ReturnsAsync(true);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -67,8 +67,8 @@ namespace VaccinationCard.Tests.Unit.Vaccines
 
             var command = new UpdateVaccineCommand(vaccineId, "SameName", 3);
 
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId)).ReturnsAsync(existingVaccine);
-            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId)).ReturnsAsync(true);
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId, CancellationToken.None)).ReturnsAsync(existingVaccine);
+            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId, CancellationToken.None)).ReturnsAsync(true);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -88,9 +88,9 @@ namespace VaccinationCard.Tests.Unit.Vaccines
 
             var command = new UpdateVaccineCommand(vaccineId, "NewName", 3);
 
-            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId)).ReturnsAsync(existingVaccine);
-            _vaccineRepositoryMock.Setup(r => r.NameExists(command.Name)).ReturnsAsync(false);
-            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId)).ReturnsAsync(false);
+            _vaccineRepositoryMock.Setup(r => r.GetByIdAsync(vaccineId, CancellationToken.None)).ReturnsAsync(existingVaccine);
+            _vaccineRepositoryMock.Setup(r => r.NameExists(command.Name, CancellationToken.None)).ReturnsAsync(false);
+            _vaccinationRepositoryMock.Setup(r => r.IsVaccineBeingUsed(vaccineId, CancellationToken.None)).ReturnsAsync(false);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);

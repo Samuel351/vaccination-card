@@ -24,7 +24,7 @@ namespace VaccinationCard.Tests.Unit.Vaccines
             var command = new CreateVaccineCommand("COVID-19", 2);
 
             _vaccineRepositoryMock
-                .Setup(r => r.NameExists(command.Name))
+                .Setup(r => r.NameExists(command.Name, CancellationToken.None))
                 .ReturnsAsync(true);
 
             // Act
@@ -42,7 +42,7 @@ namespace VaccinationCard.Tests.Unit.Vaccines
             var command = new CreateVaccineCommand("COVID-19", 2);
 
             _vaccineRepositoryMock
-                .Setup(r => r.NameExists(command.Name))
+                .Setup(r => r.NameExists(command.Name, CancellationToken.None))
                 .ReturnsAsync(false);
 
             // Act

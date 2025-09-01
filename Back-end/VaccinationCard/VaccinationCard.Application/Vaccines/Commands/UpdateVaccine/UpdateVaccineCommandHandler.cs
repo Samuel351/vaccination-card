@@ -15,27 +15,27 @@ namespace VaccinationCard.Application.Vaccines.Commands.UpdateVaccine
 
         public async Task<Result> Handle(UpdateVaccineCommand request, CancellationToken cancellationToken)
         {
-            var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId);
+            var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId, cancellationToken);
 
             if (vaccine == null) return Result.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
 
             // Se o nome da vacina mudar, ele verifica já tem um nome desse.
             if(request.Name != vaccine.Name)
             {
-                if (await _vaccineRepository.NameExists(request.Name))
+                if (await _vaccineRepository.NameExists(request.Name, cancellationToken))
                 {
                     return Result.Failure(VaccineErrors.VaccineAlreadyRegistered);
                 }
             }
 
-            if (await _vaccinationRepository.IsVaccineBeingUsed(request.VaccineId))
+            if (await _vaccinationRepository.IsVaccineBeingUsed(request.VaccineId, cancellationToken))
             {
                 return Result.Failure(VaccineErrors.VaccineIsBeingUsed, HttpStatusCode.Conflict);
             }
 
             vaccine.Update(request.Name, request.RequiredDoses);
 
-            await _vaccineRepository.UpdateAsync(vaccine);
+            await _vaccineRepository.UpdateAsync(vaccine, cancellationToken);
 
             return Result.Success();
         }

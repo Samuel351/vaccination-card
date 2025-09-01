@@ -18,7 +18,7 @@ namespace VaccinationCard.Application.Authentication.Commands.Login
 
         public async Task<Result<TokenResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByEmail(request.Email);
+            var user = await _userRepository.GetUserByEmail(request.Email, cancellationToken);
 
             if(user == null)
             {

@@ -41,7 +41,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
 
             savedVaccinations.ForEach(x => x.EntityId = Guid.Empty);
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act
@@ -68,7 +68,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
                 new(VaccineId, PersonId, 3, DateTime.Now.AddDays(-30))
             };
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act
@@ -92,7 +92,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
                 new(VaccineId, PersonId, 1, DateTime.Now.AddDays(-90)),
             };
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act
@@ -119,7 +119,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
                 new(VaccineId, PersonId, 2, DateTime.Now.AddDays(-60)),
             };
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act
@@ -146,7 +146,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
                 new(VaccineId, PersonId, 2, DateTime.Now.AddDays(-60)),
             };
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act
@@ -173,7 +173,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
                 new(VaccineId, PersonId, 2, DateTime.Now.AddDays(-60)),
             };
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act
@@ -199,7 +199,7 @@ namespace VaccinationCard.Tests.Unit.Vaccinations
                 new(VaccineId, PersonId, 2, DateTime.Now.AddDays(-60)),
             };
 
-            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId))
+            _vaccinationRepositoryMock.Setup(repo => repo.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, CancellationToken.None))
                 .ReturnsAsync(savedVaccinations);
 
             // Act

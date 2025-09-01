@@ -20,7 +20,7 @@ namespace VaccinationCard.Application.Vaccines.Queries.GetVaccineById
 
         public async Task<Result<VaccineResponse>> Handle(GetVaccineByIdQuery request, CancellationToken cancellationToken)
         {
-            var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId);
+            var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId, cancellationToken);
 
             if (vaccine == null) return Result<VaccineResponse>.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
 

@@ -32,7 +32,7 @@ namespace VaccinationCard.Tests.Unit.Users
             var command = new CreateUserCommand("test@email.com", "password123");
 
             _userRepositoryMock
-                .Setup(r => r.EmailExists(command.Email))
+                .Setup(r => r.EmailExists(command.Email, CancellationToken.None))
                 .ReturnsAsync(true);
 
             // Act
@@ -50,7 +50,7 @@ namespace VaccinationCard.Tests.Unit.Users
             var command = new CreateUserCommand("new@email.com", "password123");
 
             _userRepositoryMock
-                .Setup(r => r.EmailExists(command.Email))
+                .Setup(r => r.EmailExists(command.Email, CancellationToken.None))
                 .ReturnsAsync(false);
 
             // Act

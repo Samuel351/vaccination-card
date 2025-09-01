@@ -15,7 +15,7 @@ namespace VaccinationCard.Application.Persons.Queries.GetPersonById
 
         public async Task<Result<PersonResponse>> Handle(GetPersonByIdQuery request, CancellationToken cancellationToken)
         {
-            var person = await _personRepository.GetByIdAsync(request.personId);
+            var person = await _personRepository.GetByIdAsync(request.personId, cancellationToken);
             if (person == null) return Result<PersonResponse>.Failure(PersonErrors.NotFound, HttpStatusCode.NotFound);
 
             return Result<PersonResponse>.Success(new PersonResponse(person.EntityId, person.Name, person.CPF, person.Email, person.PhoneNumber, person.Gender, person.Age));

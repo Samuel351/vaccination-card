@@ -10,14 +10,14 @@ namespace VaccinationCard.Infrastructure.Repositories
 
         private readonly AppDbContext _appDbContext = appDbContext;
 
-        public async Task<List<Vaccination>> GetVaccinations(Guid vaccineId, Guid personId)
+        public async Task<List<Vaccination>> GetVaccinations(Guid vaccineId, Guid personId, CancellationToken cancellationToken = default)
         {
-            return await _appDbContext.Vaccination.Where(x => x.VaccineId == vaccineId && x.PersonId == personId).ToListAsync();
+            return await _appDbContext.Vaccination.Where(x => x.VaccineId == vaccineId && x.PersonId == personId).ToListAsync(cancellationToken);
         }
 
-        public async Task<bool> IsVaccineBeingUsed(Guid vaccineId)
+        public async Task<bool> IsVaccineBeingUsed(Guid vaccineId, CancellationToken cancellationToken = default)
         {
-            return await _appDbContext.Vaccination.AnyAsync(x => x.VaccineId == vaccineId);
+            return await _appDbContext.Vaccination.AnyAsync(x => x.VaccineId == vaccineId, cancellationToken);
         }
     }
 }

@@ -37,9 +37,9 @@ namespace VaccinationCard.Domain.Services
         /// <item>Whether the application date is valid compared to previous doses.</item>
         /// </list>
         /// </remarks>
-        public async Task<Result> ValidateNewDose(Vaccination vaccination, Vaccine vaccine)
+        public async Task<Result> ValidateNewDose(Vaccination vaccination, Vaccine vaccine, CancellationToken cancellationToken = default)
         {
-            var vaccinations = await _vaccinationRepository.GetVaccinations(vaccination.VaccineId, vaccination.PersonId);
+            var vaccinations = await _vaccinationRepository.GetVaccinations(vaccination.VaccineId, vaccination.PersonId, cancellationToken);
 
             // Check if this dose has already been applied
             if (vaccinations.Any(x => x.DoseNumber == vaccination.DoseNumber && vaccination.EntityId != x.EntityId))

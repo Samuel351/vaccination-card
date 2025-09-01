@@ -24,7 +24,7 @@ namespace VaccinationCard.Tests.Unit.Persons
             var command = new CreatePersonCommand(
                 "John Doe", "12345678900", "john@email.com", "11999999999", "M", 30);
 
-            _personRepositoryMock.Setup(r => r.CPFExists(command.CPF)).ReturnsAsync(true);
+            _personRepositoryMock.Setup(r => r.CPFExists(command.CPF, CancellationToken.None)).ReturnsAsync(true);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -41,8 +41,8 @@ namespace VaccinationCard.Tests.Unit.Persons
             var command = new CreatePersonCommand(
                 "John Doe", "12345678900", "john@email.com", "11999999999", "M", 30);
 
-            _personRepositoryMock.Setup(r => r.CPFExists(command.CPF)).ReturnsAsync(false);
-            _personRepositoryMock.Setup(r => r.EmailExists(command.Email)).ReturnsAsync(true);
+            _personRepositoryMock.Setup(r => r.CPFExists(command.CPF, CancellationToken.None)).ReturnsAsync(false);
+            _personRepositoryMock.Setup(r => r.EmailExists(command.Email, CancellationToken.None)).ReturnsAsync(true);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -59,8 +59,8 @@ namespace VaccinationCard.Tests.Unit.Persons
             var command = new CreatePersonCommand(
                 "John Doe", "12345678900", "john@email.com", "11999999999", "M", 30);
 
-            _personRepositoryMock.Setup(r => r.CPFExists(command.CPF)).ReturnsAsync(false);
-            _personRepositoryMock.Setup(r => r.EmailExists(command.Email)).ReturnsAsync(false);
+            _personRepositoryMock.Setup(r => r.CPFExists(command.CPF, CancellationToken.None)).ReturnsAsync(false);
+            _personRepositoryMock.Setup(r => r.EmailExists(command.Email, CancellationToken.None)).ReturnsAsync(false);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);

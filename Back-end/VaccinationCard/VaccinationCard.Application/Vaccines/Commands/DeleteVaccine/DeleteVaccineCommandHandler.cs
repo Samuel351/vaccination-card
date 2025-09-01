@@ -17,16 +17,16 @@ namespace VaccinationCard.Application.Vaccines.Commands.DeleteVaccine
 
         public async Task<Result> Handle(DeleteVaccineCommand request, CancellationToken cancellationToken)
         {
-            var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId);
+            var vaccine = await _vaccineRepository.GetByIdAsync(request.VaccineId, cancellationToken);
 
             if (vaccine == null) return Result.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
 
-            if(await _vaccinationRepository.IsVaccineBeingUsed(request.VaccineId))
+            if(await _vaccinationRepository.IsVaccineBeingUsed(request.VaccineId, cancellationToken))
             {
                 return Result.Failure(VaccineErrors.VaccineIsBeingUsed, HttpStatusCode.Conflict);
             }
 
-            await _vaccineRepository.DeleteAsync(request.VaccineId);
+            await _vaccineRepository.DeleteAsync(request.VaccineId, cancellationToken);
 
             return Result.Success();
         }

@@ -10,6 +10,6 @@ namespace VaccinationCard.Domain.Interfaces.Repositories
         /// </summary>
         /// <param name="VaccineName"></param>
         /// <returns></returns>
-        Task<bool> NameExists(string VaccineName);
+        Task<bool> NameExists(string VaccineName, CancellationToken cancellationToken = default);
     }
 }

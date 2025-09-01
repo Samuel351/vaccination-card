@@ -12,17 +12,17 @@ namespace VaccinationCard.Application.Persons.Commands.CreatePerson
         public async Task<Result> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
 
-            if(await _personRepository.CPFExists(request.CPF))
+            if(await _personRepository.CPFExists(request.CPF, cancellationToken))
             {
                 return Result.Failure(PersonErrors.CPFAlreadyExists);
             }
 
-            if(await _personRepository.EmailExists(request.Email))
+            if(await _personRepository.EmailExists(request.Email, cancellationToken))
             {
                 return Result.Failure(PersonErrors.EmailAlreadyExists);
             }
 
-            await _personRepository.AddAsync(new Person(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.Age));
+            await _personRepository.AddAsync(new Person(request.Name, request.CPF, request.Email, request.PhoneNumber, request.Gender, request.Age), cancellationToken);
 
             return Result.Success();
         }

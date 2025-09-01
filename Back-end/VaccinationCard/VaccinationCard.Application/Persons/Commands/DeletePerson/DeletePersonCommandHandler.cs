@@ -14,11 +14,11 @@ namespace VaccinationCard.Application.Persons.Commands.DeletePerson
 
         public async Task<Result> Handle(DeletePersonCommand request, CancellationToken cancellationToken)
         {
-            var person = await _personRepository.GetByIdAsync(request.personId);
+            var person = await _personRepository.GetByIdAsync(request.personId, cancellationToken);
 
             if (person == null) return Result.Failure(PersonErrors.NotFound, HttpStatusCode.NotFound);
 
-            await _personRepository.DeleteAsync(request.personId);
+            await _personRepository.DeleteAsync(request.personId, cancellationToken);
 
             return Result.Success();
         }

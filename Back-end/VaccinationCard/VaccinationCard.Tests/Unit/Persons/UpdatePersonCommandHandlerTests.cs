@@ -26,7 +26,7 @@ namespace VaccinationCard.Tests.Unit.Persons
                 Guid.NewGuid(), "John Doe", "12345678900",
                 "john@email.com", "11999999999", "M", 30);
 
-            _personRepositoryMock.Setup(r => r.GetByIdAsync(command.PersonId))
+            _personRepositoryMock.Setup(r => r.GetByIdAsync(command.PersonId, CancellationToken.None))
                 .ReturnsAsync((Person)null);
 
             // Act
@@ -52,8 +52,8 @@ namespace VaccinationCard.Tests.Unit.Persons
             var cpfOwner = new Person("Another Person", "12345678900", "another@email.com", "11777777777", "F", 25);
             cpfOwner.EntityId = Guid.NewGuid();
 
-            _personRepositoryMock.Setup(r => r.GetByIdAsync(personId)).ReturnsAsync(existingPerson);
-            _personRepositoryMock.Setup(r => r.GetPersonByCPF(command.CPF)).ReturnsAsync(cpfOwner);
+            _personRepositoryMock.Setup(r => r.GetByIdAsync(personId, CancellationToken.None)).ReturnsAsync(existingPerson);
+            _personRepositoryMock.Setup(r => r.GetPersonByCPF(command.CPF, CancellationToken.None)).ReturnsAsync(cpfOwner);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -78,9 +78,9 @@ namespace VaccinationCard.Tests.Unit.Persons
             var emailOwner = new Person("Another Person", "11122233344", "john@email.com", "11777777777", "F", 25);
             emailOwner.EntityId = Guid.NewGuid();
 
-            _personRepositoryMock.Setup(r => r.GetByIdAsync(personId)).ReturnsAsync(existingPerson);
-            _personRepositoryMock.Setup(r => r.GetPersonByCPF(command.CPF)).ReturnsAsync((Person)null);
-            _personRepositoryMock.Setup(r => r.GetPersonByEmail(command.Email)).ReturnsAsync(emailOwner);
+            _personRepositoryMock.Setup(r => r.GetByIdAsync(personId, CancellationToken.None)).ReturnsAsync(existingPerson);
+            _personRepositoryMock.Setup(r => r.GetPersonByCPF(command.CPF, CancellationToken.None)).ReturnsAsync((Person)null);
+            _personRepositoryMock.Setup(r => r.GetPersonByEmail(command.Email, CancellationToken.None)).ReturnsAsync(emailOwner);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -102,9 +102,9 @@ namespace VaccinationCard.Tests.Unit.Persons
             var existingPerson = new Person("Old Name", "98765432100", "old@email.com", "11888888888", "M", 40);
             existingPerson.EntityId = personId;
 
-            _personRepositoryMock.Setup(r => r.GetByIdAsync(personId)).ReturnsAsync(existingPerson);
-            _personRepositoryMock.Setup(r => r.GetPersonByCPF(command.CPF)).ReturnsAsync((Person)null);
-            _personRepositoryMock.Setup(r => r.GetPersonByEmail(command.Email)).ReturnsAsync((Person)null);
+            _personRepositoryMock.Setup(r => r.GetByIdAsync(personId, CancellationToken.None)).ReturnsAsync(existingPerson);
+            _personRepositoryMock.Setup(r => r.GetPersonByCPF(command.CPF, CancellationToken.None)).ReturnsAsync((Person)null);
+            _personRepositoryMock.Setup(r => r.GetPersonByEmail(command.Email, CancellationToken.None)).ReturnsAsync((Person)null);
 
             // Act
             var result = await _handler.Handle(command, CancellationToken.None);

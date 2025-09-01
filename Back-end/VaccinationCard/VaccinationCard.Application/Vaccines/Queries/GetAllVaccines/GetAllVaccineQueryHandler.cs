@@ -15,7 +15,7 @@ namespace VaccinationCard.Application.Vaccines.Queries.GetAllVaccines
 
         public async Task<Result<List<VaccineResponse>>> Handle(GetAllVaccineQuery request, CancellationToken cancellationToken)
         {
-            var vaccines = await _vaccineRepository.GetAllAsync();
+            var vaccines = await _vaccineRepository.GetAllAsync(cancellationToken);
 
             if (vaccines.Count == 0) return Result<List<VaccineResponse>>.Failure(VaccineErrors.NotFound, HttpStatusCode.NoContent);
 

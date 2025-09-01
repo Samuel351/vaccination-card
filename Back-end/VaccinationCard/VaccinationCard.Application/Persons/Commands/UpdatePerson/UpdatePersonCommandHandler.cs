@@ -13,20 +13,20 @@ namespace VaccinationCard.Application.Persons.Commands.UpdatePerson
 
         public async Task<Result> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
-            var person = await _personRepository.GetByIdAsync(request.PersonId);
+            var person = await _personRepository.GetByIdAsync(request.PersonId, cancellationToken);
             if (person == null)
             {
                 return Result.Failure(PersonErrors.NotFound, HttpStatusCode.NotFound);
             }
 
-            var cpfOwner = await _personRepository.GetPersonByCPF(request.CPF);
+            var cpfOwner = await _personRepository.GetPersonByCPF(request.CPF, cancellationToken);
             if (cpfOwner != null && cpfOwner.EntityId != request.PersonId)
             {
                 return Result.Failure(PersonErrors.CPFAlreadyExists);
             }
                 
 
-            var emailOwner = await _personRepository.GetPersonByEmail(request.Email);
+            var emailOwner = await _personRepository.GetPersonByEmail(request.Email, cancellationToken);
             if (emailOwner != null && emailOwner.EntityId != request.PersonId)
             {
                 return Result.Failure(PersonErrors.EmailAlreadyExists);
@@ -41,7 +41,7 @@ namespace VaccinationCard.Application.Persons.Commands.UpdatePerson
                 request.Age
             );
 
-            await _personRepository.UpdateAsync(person);
+            await _personRepository.UpdateAsync(person, cancellationToken);
             return Result.Success();
         }
     }

@@ -13,12 +13,12 @@ namespace VaccinationCard.Application.Vaccines.Commands.CreateVaccine
 
         public async Task<Result> Handle(CreateVaccineCommand request, CancellationToken cancellationToken)
         {
-            if (await _vaccineRepository.NameExists(request.Name))
+            if (await _vaccineRepository.NameExists(request.Name, cancellationToken))
             {
                 return Result.Failure(VaccineErrors.VaccineAlreadyRegistered);
             }
 
-            await _vaccineRepository.AddAsync(new Vaccine(request.Name, request.RequiredDoses));
+            await _vaccineRepository.AddAsync(new Vaccine(request.Name, request.RequiredDoses), cancellationToken);
 
             return Result.Success();
         }

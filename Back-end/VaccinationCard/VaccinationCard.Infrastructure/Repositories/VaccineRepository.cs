@@ -9,9 +9,9 @@ namespace VaccinationCard.Infrastructure.Repositories
     {
         private readonly AppDbContext _appDbContext = appDbContext;
 
-        public async Task<bool> NameExists(string VaccineName)
+        public async Task<bool> NameExists(string VaccineName, CancellationToken cancellationToken = default)
         {
-            return await _appDbContext.Vaccines.AnyAsync(x => x.Name == VaccineName);
+            return await _appDbContext.Vaccines.AnyAsync(x => x.Name == VaccineName, cancellationToken);
         }
     }
 }

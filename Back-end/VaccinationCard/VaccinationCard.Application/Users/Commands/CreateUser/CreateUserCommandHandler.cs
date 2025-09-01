@@ -16,7 +16,7 @@ namespace VaccinationCard.Application.Users.Commands.CreateUser
 
         public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            if(await _userRepository.EmailExists(request.Email))
+            if(await _userRepository.EmailExists(request.Email, cancellationToken))
             {
                 return Result.Failure(UserErrors.EmailAlreadyRegistred);
             }
@@ -25,7 +25,7 @@ namespace VaccinationCard.Application.Users.Commands.CreateUser
 
             user.UpdatePassword(_encryptionService.EncryptPassword(user));
 
-            await _userRepository.AddAsync(user);
+            await _userRepository.AddAsync(user, cancellationToken);
 
             return Result.Success();    
         }

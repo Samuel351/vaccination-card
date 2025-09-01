@@ -18,25 +18,25 @@ namespace VaccinationCard.Application.Vaccinations.Commands.UpdateVaccination
 
         public async Task<Result> Handle(UpdateVaccinationCommand request, CancellationToken cancellationToken)
         {
-            var vaccination = await _vaccinationRepository.GetByIdAsync(request.VaccinationId);
+            var vaccination = await _vaccinationRepository.GetByIdAsync(request.VaccinationId, cancellationToken);
 
             if (vaccination == null) return Result.Failure(VaccinationErrors.NotFound, HttpStatusCode.NotFound);
 
-            var vaccine = await _vaccineRepository.GetByIdAsync(vaccination.VaccineId);
+            var vaccine = await _vaccineRepository.GetByIdAsync(vaccination.VaccineId, cancellationToken);
 
             if (vaccine == null) return Result.Failure(VaccineErrors.NotFound, HttpStatusCode.NotFound);
 
             if (!request.ApplicationDate.HasValue) vaccination.Update(DateTime.UtcNow);
             else vaccination.Update(request.ApplicationDate.Value);
 
-            var result = await _vaccinationService.ValidateNewDose(vaccination, vaccine);
+            var result = await _vaccinationService.ValidateNewDose(vaccination, vaccine, cancellationToken);
 
             if (!result.IsSuccess)
             {
                 return result;
             }
 
-            await _vaccinationRepository.UpdateAsync(vaccination);
+            await _vaccinationRepository.UpdateAsync(vaccination, cancellationToken);
 
             return Result.Success();
         }

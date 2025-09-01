@@ -13,11 +13,11 @@ namespace VaccinationCard.Application.Vaccinations.Commands.DeleteVaccination
 
         public async Task<Result> Handle(DeleteVaccinationCommand request, CancellationToken cancellationToken)
         {
-            var vaccination = await _vaccinationRepository.GetByIdAsync(request.VaccinationId);
+            var vaccination = await _vaccinationRepository.GetByIdAsync(request.VaccinationId, cancellationToken);
 
             if (vaccination == null) return Result.Failure(VaccinationErrors.NotFound);
 
-            await _vaccinationRepository.DeleteAsync(request.VaccinationId);
+            await _vaccinationRepository.DeleteAsync(request.VaccinationId, cancellationToken);
 
             return Result.Success();
         }

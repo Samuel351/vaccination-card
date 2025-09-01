@@ -5,7 +5,7 @@ namespace VaccinationCard.Domain.Interfaces.Repositories
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        Task<bool> EmailExists(string email);
-        Task<User?> GetUserByEmail(string email);
+        Task<bool> EmailExists(string email, CancellationToken cancellationToken = default);
+        Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken = default);
     }
 }
